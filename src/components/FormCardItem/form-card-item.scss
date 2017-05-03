@@ -1,0 +1,179 @@
+form-card-item {
+	ion-item-sliding {
+		position: relative;
+
+		.content-md & {
+			margin: 10px 10px 10px 10px;
+			width: calc(100% - 20px);
+			border-radius: 2px;
+			font-size: 1.4rem;
+			background: #fff;
+			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+		}
+
+		.content-ios & {
+			margin: 12px 12px 12px 12px;
+		    width: calc(100% - 24px);
+		    border-radius: 2px;
+		    font-size: 1.4rem;
+		    background: #fff;
+		    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		}
+		
+		.item-block {
+			padding: 16px 0;
+			height: 100%;
+			
+			&.item-md,&.item-ios {
+				.item-inner {
+					padding: 0;
+					border: none;
+					.input-wrapper > .label {
+						margin: 0;
+						align-self: flex-start;
+
+						.details-wrapper {
+							display: flex;
+
+							item-details {
+								flex: 1;
+								overflow: hidden;
+								padding: 0 16px;
+							}
+
+							text-form-display {
+								padding: 0 16px;
+							}
+
+							.collapse-button {
+								flex: 0 0 45px;
+							}
+						}
+
+						.subform {
+							// flex: 1;
+							padding: 0 16px;
+						}
+					}
+				}
+			}
+		}
+
+		.collapse-button {
+			background: inherit;
+			height: 80px;
+			border-right: solid 1px lightgray;
+			line-height: 80px;
+			align-self: flex-start;
+			text-align: center;
+
+			.collapse-icon {
+				font-size: 1.4em;
+				color: #7e7e7e;
+			}
+
+			ion-spinner {
+			    width: 17px;
+			    height: 17px;
+			    color: #7e7e7e;
+			}
+		}
+		
+		.item-title {
+			padding: 0 16px;
+			margin-bottom: 4px;	
+		}
+
+		// ion-item-options {
+		// 	button[ion-button] {
+		// 		color: white;
+		// 	}
+		// 	ion-icon {
+		// 		color: white;
+		// 	}
+		// }
+
+		// max-height: 100px;
+		// transition: max-height 0.75s ease-out;
+		
+
+		&.collapsed {
+			height: 100px;
+		}
+
+		// &.expanded {
+		// 	max-height: 600px;
+		// 	transition: max-height 0.75s ease-in;
+		// }
+		// 
+		.title,.subform-title {
+			color: #7e7e7e;
+			font-size: 13px;
+			line-height: 13px;
+			margin-bottom: 2px;
+		}
+
+		.value {
+			color: black;
+		}
+
+		.subform {
+			.subform-inner {
+				border-top: solid 1px lightgray;
+			}
+
+			&:first-of-type {
+			 	margin-top: 10px;
+			}
+
+			&:last-of-type {
+				ion-item.item-block {
+					border-bottom: solid 1px lightgray;
+				}
+			} 
+
+			.subform-title {
+				padding: 5px 0;
+				margin: 0;
+			}
+
+			ion-item.item-block {
+				padding: 0;
+				border-top: solid 1px lightgray;
+			}
+
+			ion-icon[name="ios-arrow-forward"] {
+				margin: 0;
+			    transform: rotate(180deg);
+			    color: #7e7e7e;
+			    font-size: 24px;
+			    min-height: initial;
+			}
+
+			.rows-count {
+				color: #7e7e7e;
+			    border: 1px solid #7e7e7e;
+			    border-radius: 50%;
+			    width: 24px;
+			    height: 24px;
+			    font-size: 13px;
+			    text-align: center;
+			    margin: 0 16px;
+			    vertical-align: middle;
+    			line-height: 24px;
+    			font-style: normal;
+			}
+		}
+
+		.text {
+			padding: 5px 0;
+			p {
+				font-size: 12px;
+				margin: 0;
+				color: black;
+			}
+		}
+	
+	}
+
+}

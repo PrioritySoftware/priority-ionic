@@ -1,0 +1,40 @@
+<ion-item-sliding #slidingItem dir="{{dirByLang}}">
+
+	<ion-item
+		(click)="selectItem()"
+		[ngClass]="setItemClass(item)">
+		
+		<item-details
+			[Form]="form"
+			[Item]="item"
+			[ColumnsOptions]="columnsOptions"
+			inline>
+		</item-details>
+
+	</ion-item>
+
+	<ion-item-options side="right" dir="ltr" *ngIf="rightButtons.length != 0">
+	  <button
+	  	ion-button
+	  	*ngFor="let button of rightButtons"
+	  	[color]="button.color"
+	  	[style.background]="button.color"
+	  	(click)="buttonClicked(slidingItem,button,item)">
+	    <ion-icon *ngIf="button.icon" name="{{button.icon}}"></ion-icon>
+	    {{button.text}}
+	  </button>
+	</ion-item-options>
+
+	<ion-item-options side="left" dir="ltr" *ngIf="leftButtons.length != 0">
+	  <button
+	  	ion-button
+	  	*ngFor="let button of leftButtons"
+	  	[color]="button.color"
+	  	[style.background]="button.color"
+	  	(click)="buttonClicked(slidingItem,button,item)">
+	    <ion-icon name="{{button.icon}}"></ion-icon>
+	    {{button.text}}
+	  </button>
+	</ion-item-options>
+	
+</ion-item-sliding>

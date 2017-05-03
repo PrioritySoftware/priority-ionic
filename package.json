@@ -1,0 +1,45 @@
+{
+  "name": "priority-ionic",
+  "author": "Priority Software",
+  "version": "0.0.1",
+  "license": "ISC",
+  "homepage": "",
+  "scripts": {
+    "watch": "tsc -p src -w",
+    "build": "gulp js:build && rimraf lib && tsc -p dist"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "ionic-angular": "2.1.0",
+    "ionic-native": "2.4.1",
+    "ionicons": "3.0.0",
+    "moment": "^2.17.1",
+    "ng-click-outside": "^2.0.2",
+    "numeral": "^2.0.4",
+    "rimraf": "^2.6.1",
+    "rxjs": "5.0.0-beta.12",
+    "sw-toolbox": "3.4.0",
+    "typings": "^2.1.0",
+    "vanilla-masker": "^1.1.1",
+    "zone.js": "0.6.26"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-angular-embed-templates": "2.3.0",
+    "gulp-flatten": "0.3.1",
+    "gulp-inline-ng2-styles": "0.0.1",
+    "gulp-inline-ng2-template": "^4.0.0",
+    "node-sass": "^4.5.0",
+    "typescript": "2.0.9"
+  },
+  "description": "priority-ionic: Ionic2 package for the Priority Mobile api"
+}

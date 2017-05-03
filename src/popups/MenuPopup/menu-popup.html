@@ -1,0 +1,26 @@
+<div id="menuPopUpList" class={{cssClass}}>
+  <ion-list-header  *ngIf= "title !== undefined"
+                    dir="{{dirByLang}}" >
+	   <ion-title>{{title}}</ion-title>
+  </ion-list-header>
+  <!-- show menu item as list -->
+  <ion-list *ngIf="items !== undefined"
+            dir="{{dirByLang}}">
+    <ion-item *ngFor="let item of items"
+              (click)="item.onClick()">
+      <ion-label>{{item.text}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <!-- show menu item as buttons + icon -->
+  <ion-buttons *ngIf="buttons !== undefined">
+     <button ion-button *ngFor="let button of buttons" 
+             (click)="button.onClick()" 
+             outline color="dark" dir="{{dirByLang}}">
+          <div>
+             <ion-icon name="{{button.iconName}}" ></ion-icon>
+             <br>
+  		       <label>{{button.text}}</label>
+          </div>
+     </button>
+  </ion-buttons>
+</div>

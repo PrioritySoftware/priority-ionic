@@ -1,0 +1,48 @@
+// @import "../../variables";
+
+.datetime {
+  position: relative;
+
+  input {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    background: transparent;
+    color: transparent;
+  }
+  ion-label {
+    margin: 0;
+    direction: ltr;
+    height: 18px;
+    &.disabled {
+      color: rgba(82, 87, 88, 0.67);
+    }
+  }
+  ion-icon {
+    position: absolute;
+    top: -2px;
+    right: 0px;
+    // color: color($colors,gray);
+    color: #5f5f5f;
+  }
+
+  &[dir="rtl"] {
+    ion-label {
+      text-align: right;
+    }
+
+    ion-icon {
+      left: 0px;
+      right: auto;
+    }
+  }
+
+}
+
+input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button {
+    display: none;
+}
+
+//****************************************************************************

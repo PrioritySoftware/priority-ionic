@@ -1,0 +1,22 @@
+
+<ion-list dir="{{dirByLang}}" class="{{ form.name }}">
+	<div *ngIf="_type == 'default'">
+		<form-item
+			*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
+			[Form]="form"
+			[Item]="item"
+			[ItemOptions]="itemOptions"
+			[ColumnsOptions]="columnsOptions">
+		</form-item>
+	</div>
+	<div *ngIf="_type == 'card'">
+		<form-card-item
+			*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
+			[Form]="form"
+			[Item]="item"
+			[ItemOptions]="itemOptions"
+			[ColumnsOptions]="columnsOptions"
+			(subformClick)="subformClick($event)">
+		</form-card-item>
+	</div>
+</ion-list>

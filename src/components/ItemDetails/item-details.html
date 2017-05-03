@@ -1,0 +1,38 @@
+
+<div *ngFor="let column of form.columns | objToIterable | Filter:isShowColumn | Sort:sortColumns"
+     (click)="columnClicked(item,column)"
+	 class="{{'column ' + column.key}}"
+	 [ngClass]="{'avatar': getColumnOptionValue(column.key, 'avatar')}"
+	 dir="{{dirByLang}}">
+	 
+      	<img
+		  *ngIf="getColumnOptionValue(column.key, 'avatar') && getUrl(column).length" 
+		  [src]="getUrl(column)"/>
+
+		<ion-icon
+			*ngIf="getColumnOptionValue(column.key, 'avatar') && !getUrl(column).length"
+			name="person">
+		</ion-icon>
+
+		<span class="{{'icon '+column.key}}"
+				*ngIf="getColumnOptionValue(column.key, 'icon') && !getColumnOptionValue(column.key, 'avatar')">
+			<ion-icon
+				name="{{ getColumnOptionValue(column.key, 'icon') }}">
+			</ion-icon>
+		</span>
+
+		<ion-label
+			class="{{'title ' + column.key}}"
+			*ngIf="getColumnOptionValue(column.key, 'isShowTitle') && !getColumnOptionValue(column.key, 'avatar')">
+			{{column.title}}
+		</ion-label>
+
+		<ion-label
+			class="{{'value ' + column.key}}"
+			[ngClass]="{ 'linkColumn': isLink(column)}"
+			*ngIf="!getColumnOptionValue(column.key, 'avatar')"
+			dir="{{ columnDirection(column) }}">
+			{{displayValue(column)}}
+		</ion-label>
+</div>
+

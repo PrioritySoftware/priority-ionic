@@ -1,0 +1,10 @@
+
+.html-container {
+	height: 100%;
+	max-height: 200px;
+	overflow-y: scroll;
+
+	p {
+		white-space: initial;
+	}
+}

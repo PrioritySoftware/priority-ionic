@@ -1,0 +1,35 @@
+/**************************************************************************************************************************************************/
+#progressbarContainer .scroll-content {
+    height: 100%;
+}
+#progressbarContainer button{
+    width: 100%;
+    margin-top: 10px;
+}
+#progressbarContainer h6
+{
+  text-align: center;
+    margin-bottom: 20px;
+}
+
+#progressbarContainer .progressbar
+{
+    width: 150px;
+    height: 25px;
+    position: relative;
+    margin: 25px 25px 0;
+    border: 1px solid #cccaca;
+}
+#progressbarContainer .progressbar div
+{
+    background-color: #59ea81;
+    height: 23px;
+}
+#progressbarContainer .progressbar p {
+    position: absolute;
+    top: 5px;
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+}

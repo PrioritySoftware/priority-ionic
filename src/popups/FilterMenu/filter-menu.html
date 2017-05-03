@@ -1,0 +1,43 @@
+<div dir="{{translations.dirByLang}}">
+	<div *ngFor="let column of filterColumns">
+		<ion-label>{{translations.filterBy + form.columns[column].title}}</ion-label>
+		<ion-select
+			multiple="true"
+			cancelText="{{translations.cancel}}"
+			okText="{{translations.ok}}"
+			[(ngModel)]="filter[column]"
+			[selectOptions]="{cssClass: translations.dirByLang,
+							  subTitle: form.columns[column].title}" 
+			>
+			<ion-option
+				value="">
+				{{translations.all}}
+			</ion-option>
+			<ion-option
+				*ngFor="let option of options[column]"
+				value="{{ optionValue(option) }}">
+				{{ displayValue(option) }}
+			</ion-option>
+		</ion-select>
+	</div>
+	<ion-label>{{translations.sortBy}}</ion-label>
+	<ion-segment mode="ios" [(ngModel)]="sort"  dir="ltr">
+		<ion-segment-button *ngFor="let column of sortColumns" value="{{ column }}" dir="{{translations.dirByLang}}">
+			{{ form.columns[column].title }}
+		</ion-segment-button>
+	</ion-segment>
+	<ion-row>
+		<ion-col>
+			<button ion-button clear (click)="selectAndClose()">
+				{{translations.ok}}
+			</button>
+		</ion-col>
+		<ion-col>
+			<button ion-button clear (click)="close()">
+				{{translations.cancel}}
+			</button>
+		</ion-col>
+	</ion-row>
+</div>
+
+

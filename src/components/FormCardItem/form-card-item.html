@@ -1,0 +1,106 @@
+
+<ion-item-sliding #slidingItem
+	[@cardHeightTrigger]="collapseState"
+	[ngClass]="collapseState"
+	(clickOutside)="collapse($event)"
+	[attachOutsideOnClick]="collapseState == 'expanded'"
+	[exclude]="':not(.collapse-icon)'">
+
+	<ion-item
+		(click)="selectItem($event)"
+		[ngClass]="setItemClass(item)">
+		
+		<div *ngIf="itemTitle" class="item-title">
+			{{itemTitle}}
+		</div>
+		
+		<div class="details-wrapper">
+		
+			<item-details
+			    *ngIf="!isTextForm(form)"
+				[Form]="form"
+				[Item]="item"
+				[ColumnsOptions]="columnsOptions">
+			</item-details>
+
+		    <text-form-display
+			   *ngIf="isTextForm(form)"
+			   [Form]="form">	
+		    </text-form-display>
+
+			<div class="collapse-button" *ngIf="subformNames">
+				<ion-spinner *ngIf="isLoadingSubforms"></ion-spinner>
+				<ion-icon
+					name="{{collapseState == 'expanded' ? 'ios-arrow-up' : 'ios-arrow-down' }}"
+					class="collapse-icon"
+					*ngIf="!isLoadingSubforms"
+					(click)="toggleCollapse($event)">
+				</ion-icon>
+			</div>
+
+		</div>
+
+		<div class="subforms-wrapper">
+		
+			<div *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
+			     class="{{'subform ' + subform.key}}">
+			     <ion-item
+			     	(click)="subformClicked(subform)"
+			     	*ngIf="!isTextForm(subform) && !isOneLine(subform)">
+			     	<ion-label
+			     		*ngIf="!subform.title2"
+				     	class="{{'subform-title ' + subform.key}}">
+				     	{{subform.title}}
+				     </ion-label>
+				     <ion-label
+				     	*ngIf="subform.title2"
+				     	class="{{'subform-title ' + subform.key}}">
+				     	{{subform.title2}}
+				     </ion-label>
+			     	<i item-right class="rows-count">{{getRowsCount(subform)}}</i>
+			     	<ion-icon item-right name="ios-arrow-forward"></ion-icon>
+			     </ion-item>
+			     <div class="subform-inner" *ngIf="isTextForm(subform) || isOneLine(subform)">
+				     <ion-label
+				     	class="{{'subform-title ' + subform.key}}">
+				     	{{subform.title}}
+				     </ion-label>
+				     <text-form-display
+				     	*ngIf="isTextForm(subform)"
+				     	[Form]="subform">	
+				     </text-form-display>
+				     <item-details
+				     	*ngIf="!isTextForm(subform) && isOneLine(subform)"
+						[Form]="subform"
+						[Item]="subformItem(subform)">
+					</item-details>
+				</div>
+			</div>
+
+		</div>
+
+	</ion-item>
+
+	<ion-item-options side="right" dir="ltr" *ngIf="rightButtons.length != 0">
+	  <button
+	  	ion-button
+	  	*ngFor="let button of rightButtons"
+	  	[style.background]="button.color"
+	  	(click)="buttonClicked(slidingItem,button,item)">
+	    <ion-icon name="{{button.icon}}"></ion-icon>
+	    {{button.text}}
+	  </button>
+	</ion-item-options>
+
+	<ion-item-options side="left" dir="ltr"  *ngIf="leftButtons.length != 0">
+	  <button
+	  	ion-button
+	  	*ngFor="let button of leftButtons"
+	  	[style.background]="button.color"
+	  	(click)="buttonClicked(slidingItem,button,item)">
+	    <ion-icon name="{{button.icon}}"></ion-icon>
+	    {{button.text}}
+	  </button>
+	</ion-item-options>
+	
+</ion-item-sliding>

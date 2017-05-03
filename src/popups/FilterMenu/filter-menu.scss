@@ -1,0 +1,31 @@
+
+ion-select {
+	max-width: 100%;
+	width: 100%;
+	border: 1px solid lightgray;
+    border-radius: 5px;
+
+    &.select-md {
+    	padding: 4px 8px;
+    }
+
+    &.select-ios {
+        padding: 6px 8px;
+    }
+}
+button {
+	width: 100%;
+	text-align: center;
+
+	&.button-md {
+		height: 20px;
+	}
+	&.button-ios {
+		height: 20px;
+	}
+}
+ion-row {
+	margin-top: 16px;
+}
+
+

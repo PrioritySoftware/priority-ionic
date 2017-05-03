@@ -1,0 +1,10 @@
+<ion-content id="progressbarContainer">
+	<h6 dir="{{dirByLang}}">{{progressText}}</h6>
+	<div class="progressbar">
+		<p>{{progVal+"%"}}</p>
+		<div [ngStyle]="{'width.%': progVal}"></div>
+	</div>
+	
+<button ion-button clear color="uploadFile"  (click)="cancel()" >{{cancelBtnText}}</button>
+	
+</ion-content>
