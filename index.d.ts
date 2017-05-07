@@ -1,4 +1,4 @@
-export { Constants } from './lib/constants.config';
+
 // **** Entities *****
 export { ButtonOptions } from './lib/entities/buttonOptions.class';
 export { Column } from './lib/entities/column.class';
@@ -42,6 +42,7 @@ export { BooleanDirective } from './lib/directives/boolean.directive';
 export { InnerHTML } from './lib/directives/innerHtml.directive';
 export { UpdateFieldDirective } from './lib/directives/updateField.directive';
 export { ValidationDirective } from './lib/directives/validation.directive';
+export { ClickOutsideDirective } from "./lib/directives/clickOutside.directive";
 
 // **** Pipes ****
 
@@ -50,7 +51,7 @@ export { ObjToIterable } from './lib/pipes/objToIterable.pipe';
 
 // **** Translations ****
 
-export { Translations } from './lib/translations.config';
+export { Constants } from './lib/constants.config';
 
 // **** Modules ****
 

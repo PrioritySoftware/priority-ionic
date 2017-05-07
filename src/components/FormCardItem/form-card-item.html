@@ -4,7 +4,8 @@
 	[ngClass]="collapseState"
 	(clickOutside)="collapse($event)"
 	[attachOutsideOnClick]="collapseState == 'expanded'"
-	[exclude]="':not(.collapse-icon)'">
+	[exclude]="':not(.collapse-icon)'"
+	>
 
 	<ion-item
 		(click)="selectItem($event)"

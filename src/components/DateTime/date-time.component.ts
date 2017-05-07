@@ -61,7 +61,7 @@ export class DateTimeField
     updateField(value) {
         let event = new CustomEvent('updatefield', { detail: {value: value,
                                                               prevVal: this.strValue,
-                                                              field: this.column.name},
+                                                              field: this.column.key},
                                                      bubbles: true});
         this.elRef.nativeElement.dispatchEvent(event);
     }

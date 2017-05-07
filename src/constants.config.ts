@@ -113,14 +113,14 @@ export class Constants
     public static setLtrTranslations()
     {
         Constants.wait = "Please wait...";
-        Constants.errors = 'Errors Report';
-        Constants.fatalErrorMsg = "Error happend.Please try again.";
+        Constants.errors = "Error report";
+        Constants.fatalErrorMsg = "An error Occurred. Please contact your system administrator: \n";
         Constants.warningTitle = "Warning";
         Constants.errorTitle = "Error";
-        Constants.changesSavedText = "Your change were successfuly saved!";
+        Constants.changesSavedText = "Your changes were successfully saved!";
         Constants.changesNotSavedText = "Some changes were not saved. Continue?";
-        Constants.cannotGoToSubForm = "The operation could not be executed.Please enter data first.";
-        Constants.saveBeforeAttach = "Some changes were not saved.Please save the report before adding an attachment.";
+        Constants.cannotGoToSubForm = "The operation could not be executed. Please enter data first.";
+        Constants.saveBeforeAttach = "Some changes were not saved. Please save the report before adding an attachment.";
         Constants.loadData = "Loading data...";
         Constants.isDelete = "Delete?";
         Constants.isExitApp = "Are you sure you want to exit the application?";
@@ -132,16 +132,15 @@ export class Constants
         Constants.cameraError = "Failed to open camera";
         Constants.filterBy = "Filter ";
         Constants.sortBy = "Sort by";
-        Constants.all = "all";
-         Constants.loadingData="loading data...";
+        Constants.all = "All";
+        Constants.loadingData="Loading data...";
 
-        Constants.btnTitle = "OK";
-        Constants.ok = "Ok";
+        Constants.ok = "OK";
         Constants.cancel = "Cancel";
         Constants.defaultMsgTitle = "Message";
         Constants.editBtnText = "Edit";
         Constants.deleteBtnText = "Delete";
-        Constants.addNewBtnText = "Add New";
+        Constants.addNewBtnText = "Add new";
         Constants.saveBtnText = "Save";
         Constants.saveAndCont = "Save and continue";
         Constants.cancelAndCont = "Continue without saving";
@@ -150,7 +149,7 @@ export class Constants
         Constants.changeBtnText = "Change";
         Constants.camera = "Camera";
         Constants.files = "Files";
-        Constants.photoGalery = "Photo galery";
+        Constants.photoGalery = "Photo Galery";
 
         Constants.textPlaceholder = "Enter text";
         Constants.approveReadOnly = "Read only";
@@ -158,9 +157,9 @@ export class Constants
         Constants.dirByLang = "ltr";
         Constants.dirOpposite = "rtl";
 
-        Constants.decimalValidErr = "wrong decimal precision";
-        Constants.numberValidErr = "digits only";
-        Constants.lengthValidErr = 'max length for field: ';
+        Constants.decimalValidErr = "Wrong decimal precision";
+        Constants.numberValidErr = "Digits only";
+        Constants.lengthValidErr = "Maximum length for field is: ";
     }
 }
 

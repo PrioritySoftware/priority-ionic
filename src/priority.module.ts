@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule  } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
-import { ClickOutsideModule } from 'ng-click-outside';
 import { FormService } from './services/form.service';
 import { ProcService } from './services/proc.service';
 import { ConfigurationService } from './services/configuration.service';
@@ -29,6 +28,7 @@ import { BooleanDirective } from './directives/boolean.directive';
 import { ValidationDirective } from './directives/validation.directive';
 import { UpdateFieldDirective } from './directives/updateField.directive';
 import { InnerHTML } from "./directives/innerHTML.directive";
+import { ClickOutsideDirective } from "./directives/clickOutside.directive";
 
 
 @NgModule({
@@ -40,6 +40,7 @@ import { InnerHTML } from "./directives/innerHTML.directive";
     ValidationDirective,
     UpdateFieldDirective,
     InnerHTML,
+    ClickOutsideDirective,
     ObjToIterable,
     FilterPipe,
     SortPipe,
@@ -59,6 +60,7 @@ import { InnerHTML } from "./directives/innerHTML.directive";
     ValidationDirective,
     UpdateFieldDirective,
     InnerHTML,
+    ClickOutsideDirective,
     ObjToIterable,
     FilterPipe,
     SortPipe,
@@ -71,8 +73,7 @@ import { InnerHTML } from "./directives/innerHTML.directive";
   ],
   imports: [
     // CommonModule,
-    IonicModule,
-    ClickOutsideModule
+    IonicModule
   ],
   providers: [
     ConfigurationService,

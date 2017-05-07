@@ -5,8 +5,8 @@
   "license": "ISC",
   "homepage": "",
   "scripts": {
-    "watch": "tsc -p src -w",
-    "build": "gulp js:build && rimraf lib && tsc -p dist"
+    "watch": "ngc -p src -w",
+    "build": "gulp js:build && rimraf lib && rimraf dist/compiled && ngc -p dist"
   },
   "main": "index.js",
   "dependencies": {
@@ -23,7 +23,6 @@
     "ionic-native": "2.4.1",
     "ionicons": "3.0.0",
     "moment": "^2.17.1",
-    "ng-click-outside": "^2.0.2",
     "numeral": "^2.0.4",
     "rimraf": "^2.6.1",
     "rxjs": "5.0.0-beta.12",
@@ -33,6 +32,9 @@
     "zone.js": "0.6.26"
   },
   "devDependencies": {
+    "@angular/compiler": "^2.2.1",
+    "@angular/compiler-cli": "^2.2.1",
+    "@angular/platform-server": "^2.2.1",
     "gulp": "3.9.1",
     "gulp-angular-embed-templates": "2.3.0",
     "gulp-flatten": "0.3.1",

@@ -17,7 +17,7 @@ export class UpdateFieldDirective
     updateField(value) {
         let event = new CustomEvent('updatefield', { detail: {value: value,
                                                               prevVal: this.prevVal,
-                                                              field: this.column.name},
+                                                              field: this.column.key},
                                                      bubbles: true});
         this.elRef.nativeElement.dispatchEvent(event);
     }

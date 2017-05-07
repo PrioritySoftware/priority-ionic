@@ -2,6 +2,7 @@ import { Directive, ElementRef, Renderer, OnInit, Input } from '@angular/core';
 import { DefaultValueAccessor, NgControl } from '@angular/forms';
 import { DecimalPipe } from "@angular/common";
 import { Constants } from '../constants.config';
+import { ColumnOptions } from "../entities/columnOptions.class";
 import * as VMasker from "vanilla-masker";
 import * as numeral from "numeral";
 
@@ -20,7 +21,7 @@ export class ValidationDirective implements OnInit
     private elementRef: ElementRef, private model: NgControl) { }
 
   @Input('validation') column;
-
+  @Input('validation-options') columnoptions: ColumnOptions;
   numberDecimal()
   {
     return '.' + 0 + '-' + this.column.decimal;
@@ -94,10 +95,10 @@ export class ValidationDirective implements OnInit
       let val = value.substring(0, this.column.maxLength);
 
       //show err message for a second
-      if (value.length > this.column.maxLength)
+      if (value.length > this.column.maxLength && this.columnoptions)
       {
-        this.column.errMsg = Constants.lengthValidErr + this.column.maxLength;
-        setTimeout(() => { this.column.errMsg = "" }, 1000);
+        this.columnoptions.errorMsg = Constants.lengthValidErr + this.column.maxLength;
+        setTimeout(() => { this.columnoptions.errorMsg = "" }, 3000);
       }
 
       this.model.valueAccessor.writeValue(val);

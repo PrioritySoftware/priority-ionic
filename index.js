@@ -1,4 +1,3 @@
-export { Constants } from './lib/constants.config';
 
 // **** Entities *****
 export { MessageHandler } from './lib/popups/Message/message.handler';
@@ -44,6 +43,7 @@ export { BooleanDirective } from './lib/directives/boolean.directive';
 export { InnerHTML } from './lib/directives/innerHtml.directive';
 export { UpdateFieldDirective } from './lib/directives/updateField.directive';
 export { ValidationDirective } from './lib/directives/validation.directive';
+export { ClickOutsideDirective } from "./lib/directives/clickOutside.directive";
 
 // **** Pipes ****
 
@@ -52,7 +52,7 @@ export { ObjToIterable } from './lib/pipes/objToIterable.pipe';
 
 // **** Translations ****
 
-export { Translations } from './lib/translations.config';
+export { Constants } from './lib/constants.config';
 
 // **** Modules ****
 

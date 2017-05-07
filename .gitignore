@@ -83,7 +83,9 @@ www/
 $RECYCLE.BIN/
 resources/
 src/assets/gwt-unitCache/
-
+lib/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+*.tgz
