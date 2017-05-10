@@ -35,14 +35,10 @@ export interface ColumnOptions
      * @memberOf ColumnOptions
      */
     avatar?;
-    iconName?: string;
-    subtype?: string;
-
     /**
-     * Validation errors. See validation.directive.
-     * 
-     * @type {string}
+     * icon name - one of ionicons
      * @memberOf ColumnOptions
      */
-    errorMsg?:string;
+    icon?: string;
+    subtype?: string;
 }

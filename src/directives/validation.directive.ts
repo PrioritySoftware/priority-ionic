@@ -1,8 +1,7 @@
-import { Directive, ElementRef, Renderer, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DefaultValueAccessor, NgControl } from '@angular/forms';
 import { DecimalPipe } from "@angular/common";
 import { Constants } from '../constants.config';
-import { ColumnOptions } from "../entities/columnOptions.class";
 import * as VMasker from "vanilla-masker";
 import * as numeral from "numeral";
 
@@ -16,12 +15,13 @@ const Mask: string = '999:99';
 //This directive is for handling validation for text fields
 export class ValidationDirective implements OnInit
 {
-  constructor(
-    private renderer: Renderer,
-    private elementRef: ElementRef, private model: NgControl) { }
+  constructor(private renderer: Renderer,
+              private elementRef: ElementRef,
+              private model: NgControl) { }
 
   @Input('validation') column;
-  @Input('validation-options') columnoptions: ColumnOptions;
+  @Output() validationMessage = new EventEmitter<String>();
+
   numberDecimal()
   {
     return '.' + 0 + '-' + this.column.decimal;
@@ -94,11 +94,11 @@ export class ValidationDirective implements OnInit
       //limit user input to column's max length
       let val = value.substring(0, this.column.maxLength);
 
-      //show err message for a second
-      if (value.length > this.column.maxLength && this.columnoptions)
+      //show err message for 2 seconds
+      if (value.length > this.column.maxLength)
       {
-        this.columnoptions.errorMsg = Constants.lengthValidErr + this.column.maxLength;
-        setTimeout(() => { this.columnoptions.errorMsg = "" }, 3000);
+        this.validationMessage.emit(Constants.lengthValidErr + this.column.maxLength);
+        setTimeout(() => { this.validationMessage.emit(""); }, 2000);
       }
 
       this.model.valueAccessor.writeValue(val);
