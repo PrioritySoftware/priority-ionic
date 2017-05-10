@@ -1,0 +1,60 @@
+<ion-list>
+    <ion-item *ngFor="let column of form.columns | objToIterable | Filter:isShowColumn | Sort:sort"
+        class="details-input"
+        dir="{{dirByLang}}" >
+
+        <ion-label stacked>
+            {{column.title}}
+            <!--Validation error text-->
+            <span class="error-label">{{validationMessages[column.key]}}</span>
+        </ion-label>
+
+        <!-- Input Field -->
+        javascript<ion-input 
+           [(ngModel)]="item[column.key]"
+           type="text"
+           [readonly]="isReadOnly(column)"
+           [update-field]="column"
+           [validation]="column"
+           (validationMessage)="displayValidationMessage($event,column)"
+           [disabled]="isReadOnly(column)"
+           dir="{{columnDirection(column)}}"
+           class="{{dirByLang}}"
+           *ngIf="!isDateOrTimeColumn(column) && !isBoolColumn(column)"
+        ></ion-input>
+
+        <!-- Boolean Field -->
+        <ion-toggle
+            [(ngModel)]="item[column.key]"
+            boolean
+            [update-field]="column"
+            [disabled]="isReadOnly(column)"
+            dir="{{dirByLang}}"
+            *ngIf="isBoolColumn(column)"
+        ></ion-toggle>
+
+        <!-- Date field-->
+        <ion-label
+            class="datetime-label"
+            *ngIf="isDateOrTimeColumn(column)">
+            <date-time
+              [value]="getValue(column)"
+              [column]="column"
+            ></date-time>
+        </ion-label>
+
+        <!--column action icons-->
+        <button
+            clear
+            ion-button
+            item-right
+            dir="{{dirByLang}}"
+            *ngIf="getColumnOptions(column).icon"
+            (click)="iconClicked($event,column)">
+            <ion-icon name="{{getColumnOptions(column).icon}}">
+            </ion-icon>
+        </button>
+      
+    </ion-item>
+
+</ion-list>

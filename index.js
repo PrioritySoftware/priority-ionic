@@ -25,6 +25,8 @@ export { FormList } from './lib/components/FormList/form-list.component';
 export { FormItem } from './lib/components/FormItem/form-item.component';
 export { FormCardItem } from './lib/components/FormCardItem/form-card-item.component';
 export { ItemDetails } from './lib/components/ItemDetails/item-details.component';
+export { ItemInput } from './lib/components/ItemInput/item-input.component';
+export { ItemInputOpts } from './lib/components/ItemInputOpts/item-input-opts.component';
 export { TextFormDisplay } from './lib/components/TextFormDisplay/text-form-display.component';
 export { MenuPopup } from './lib/popups/MenuPopup/menu-popup.handler';
 export { ProgressBarHandler } from './lib/popups/ProgressBar/progress-bar.handler';

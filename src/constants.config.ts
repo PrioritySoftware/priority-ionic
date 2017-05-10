@@ -21,6 +21,7 @@ export class Constants
     public static searchError: string;
     public static scrollLoadingText: string;
     public static cameraError: string;
+    public static scanError: string;
     public static filterBy: string;
     public static sortBy: string;
     public static all: string;
@@ -73,6 +74,7 @@ export class Constants
         Constants.search = "חפש";
         Constants.scrollLoadingText = "טוען רשומות...";
         Constants.cameraError = "פתיחת מצלמה נכשלה";
+        Constants.scanError = "סריקת ברקוד נכשלה";
         Constants.filterBy = "הצג ";
         Constants.sortBy = "מיין לפי";
         Constants.all = "הכל";
@@ -130,6 +132,7 @@ export class Constants
         Constants.searchError = "No search fields defined"
         Constants.scrollLoadingText = "Loading more data...";
         Constants.cameraError = "Failed to open camera";
+        Constants.scanError = "Scanning failed";
         Constants.filterBy = "Filter ";
         Constants.sortBy = "Sort by";
         Constants.all = "All";

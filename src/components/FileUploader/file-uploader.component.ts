@@ -25,10 +25,10 @@ export class FileUploader
     @ViewChild('fileInput') fileInput;
 
     constructor(private formService: FormService,
-        private actionSheetCtrl: ActionSheetController,
-        private messageHandler: MessageHandler,
-        private progressBarHandler: ProgressBarHandler,
-        private permissions: PermissionsService)
+                private actionSheetCtrl: ActionSheetController,
+                private messageHandler: MessageHandler,
+                private progressBarHandler: ProgressBarHandler,
+                private permissions: PermissionsService)
     {
         this.uploadingFile = Constants.loadingFile;
     }

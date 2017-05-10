@@ -16,6 +16,8 @@ import { FormList } from './components/FormList/form-list.component';
 import { FormCardItem } from './components/FormCardItem/form-card-item.component';
 import { FormItem } from './components/FormItem/form-item.component';
 import { ItemDetails } from './components/ItemDetails/item-details.component';
+import { ItemInput } from './components/ItemInput/item-input.component';
+import { ItemInputOpts } from './components/ItemInputOpts/item-input-opts.component';
 import { TextFormDisplay } from './components/TextFormDisplay/text-form-display.component';
 
 import { ProgressBarHandler } from './popups/ProgressBar/progress-bar.handler';
@@ -48,6 +50,8 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     FormItem,
     FormCardItem,
     ItemDetails,
+    ItemInput,
+    ItemInputOpts,
     TextFormDisplay,
     FilterMenu,
     ProgressBar
@@ -68,6 +72,8 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     FormItem,
     FormCardItem,
     ItemDetails,
+    ItemInput,
+    ItemInputOpts,
     TextFormDisplay,
     FilterMenu
   ],
