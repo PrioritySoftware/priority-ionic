@@ -8,7 +8,7 @@ export class PermissionsService
     permissions;
     permissionTypes;
 
-    constructor(private platform: Platform)
+    constructor(private platform: Platform, private diagnostic: Diagnostic)
     {
         if (window.cordova && this.platform.is("android"))
         {

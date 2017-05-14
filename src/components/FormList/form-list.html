@@ -1,21 +1,11 @@
 
 <ion-list dir="{{dirByLang}}" class="{{ form.name }}">
-	<div *ngIf="_type == 'default'">
-		<form-item
-			*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
-			[Form]="form"
-			[Item]="item"
-			[ItemOptions]="itemOptions"
-			[ColumnsOptions]="columnsOptions">
-		</form-item>
-	</div>
-	<div *ngIf="_type == 'card'">
-		<form-card-item
-			*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
-			[Form]="form"
-			[Item]="item"
-			[ItemOptions]="itemOptions"
-			[ColumnsOptions]="columnsOptions">
-		</form-card-item>
-	</div>
+	<form-item
+		*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
+		[type]="_type"
+		[Form]="form"
+		[Item]="item"
+		[ItemOptions]="itemOptions"
+		[ColumnsOptions]="columnsOptions">
+	</form-item>
 </ion-list>

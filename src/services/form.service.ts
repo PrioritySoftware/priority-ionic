@@ -10,6 +10,7 @@ import { MessageOptions } from "../entities/messageOptions.class";
 import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { ProcService } from "./proc.service";
+//import * as priority from 'priority-web-sdk';
 /** formStart(formName,dname, onSuccess, onError,onShowMessge, onUpdateFields,autoRetrieveFirstRows) */
 declare var formStart;
 

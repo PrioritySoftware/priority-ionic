@@ -37,17 +37,27 @@ export class ItemDetails
      */
 
     dirByLang = Constants.dirByLang;
-    // _inline;
+    cssClass = '';
 
     @Input('Form') form : Form;
     @Input('Item') item;
-    @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
-    // @Input() inline(val)
-    // {
-    //   this._inline = true;
-    // };
-
+    @Input('ColumnsOptions') columnsOptions: ColumnsOptions;
+    @Input() set inline(value)
+    {
+        if(!value === false)
+        {
+            this.cssClass = 'inline';
+        }
+    }
+ 
     constructor(private formService: FormService) { }
+
+    // ******************** Css *********************
+
+    setCssClass(className)
+    {
+        this.cssClass = this.cssClass + ' ' + className;
+    }
 
     displayValue(column)
     {
@@ -64,6 +74,7 @@ export class ItemDetails
         }
         return this.item[column.key];
     }
+
     getColumnOption(columnName): ColumnOptions
     {
         if (this.columnsOptions && this.columnsOptions[columnName])
@@ -87,6 +98,7 @@ export class ItemDetails
             columnOptions.click(item, column);
         }
     }
+
     columnDirection(column)
     {
         let columnOptions = this.getColumnOption(column.key);
@@ -100,7 +112,7 @@ export class ItemDetails
     isShowColumn = (column) =>
     {
         let columnOptions = this.getColumnOption(column.key);
-        return columnOptions && columnOptions.isShow && (this.displayValue(column) != '' || columnOptions.avatar);
+        return columnOptions && columnOptions.isShow;
     }
     /**
      * Indicates whether the column has an 'onclick' option.
@@ -121,20 +133,5 @@ export class ItemDetails
         if (!columnOptions1 || !columnOptions2)
             return 0;
         return columnOptions1.pos - columnOptions2.pos;
-    }
-    getUrl(column)
-    {
-        let urlRelative: string = this.item[column.key];
-        let columnOptions = this.getColumnOption(column.key);
-        if (urlRelative)
-        {
-            return this.formService.getFileUrl(this.form, urlRelative);
-        }
-        if(columnOptions &&  typeof columnOptions.avatar === 'string' && columnOptions.avatar.length > 0)
-        {
-            return columnOptions.avatar;
-        }
-        return '';
-
     }
 }

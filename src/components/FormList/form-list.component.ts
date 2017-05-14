@@ -61,7 +61,7 @@ export class FormList {
 
     @Input() set type(val)
     {
-        this._type = val? val : 'default';
+        this._type = val ? val : 'default';
     }
 
 

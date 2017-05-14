@@ -11,6 +11,7 @@ import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { ProgressOptions } from "../entities/progressOptions.class";
 import { ProgressBarHandler } from "../popups/ProgressBar/progress-bar.handler";
+//import * as priority from 'priority-web-sdk';
 declare var procStart;
 
 @Injectable()

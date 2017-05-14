@@ -1,5 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule  } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule }  from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { FormService } from './services/form.service';
 import { ProcService } from './services/proc.service';
@@ -13,7 +15,6 @@ import { SortPipe } from "./pipes/sort.pipe";
 import { FileUploader } from './components/FileUploader/file-uploader.component';
 import { DateTimeField } from './components/DateTime/date-time.component';
 import { FormList } from './components/FormList/form-list.component';
-import { FormCardItem } from './components/FormCardItem/form-card-item.component';
 import { FormItem } from './components/FormItem/form-item.component';
 import { ItemDetails } from './components/ItemDetails/item-details.component';
 import { ItemInput } from './components/ItemInput/item-input.component';
@@ -48,7 +49,6 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     SortPipe,
     FormList,
     FormItem,
-    FormCardItem,
     ItemDetails,
     ItemInput,
     ItemInputOpts,
@@ -70,7 +70,6 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     SortPipe,
     FormList,
     FormItem,
-    FormCardItem,
     ItemDetails,
     ItemInput,
     ItemInputOpts,
@@ -78,7 +77,8 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     FilterMenu
   ],
   imports: [
-    // CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     IonicModule
   ],
   providers: [

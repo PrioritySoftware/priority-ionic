@@ -2,15 +2,14 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "mapRoot": "",
     "rootDir": ".",
     "target": "es5",
     "lib": ["es6", "es2015", "dom"],
-    "inlineSources": true,
+    "inlineSources": false,
     "stripInternal": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "../lib",
     "declaration": true
   },
@@ -18,6 +17,8 @@
     "node_modules"
   ],
   "angularCompilerOptions": {
-     "genDir": "compiled"
+     "genDir": "compiled",
+     "entryModule": "/priority.module#PriorityIonicModule",
+     "skipMetadataEmit" : true
   }
 }

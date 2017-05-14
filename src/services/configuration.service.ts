@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Device } from 'ionic-native';
 import { Constants } from "../constants.config";
 import { Configuration } from "../entities/configuration.class";
 import { ServerResponse } from "../entities/srvResponse.class";
+// import * as priority from 'priority-web-sdk';
 declare var login;
 
 @Injectable()

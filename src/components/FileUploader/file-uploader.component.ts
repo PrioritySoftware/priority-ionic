@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ActionSheetController } from 'ionic-angular';
-import { Camera } from "ionic-native";
+import { Camera } from "@ionic-native/camera";
 import { FormService } from "../../services/form.service";
 import { PermissionsService } from "../../services/permissions.service";
 import { Constants } from '../../constants.config';
@@ -28,7 +28,8 @@ export class FileUploader
                 private actionSheetCtrl: ActionSheetController,
                 private messageHandler: MessageHandler,
                 private progressBarHandler: ProgressBarHandler,
-                private permissions: PermissionsService)
+                private permissions: PermissionsService,
+                private camera: Camera)
     {
         this.uploadingFile = Constants.loadingFile;
     }
@@ -155,9 +156,9 @@ export class FileUploader
         this.permissions.requestPermission("camera").then(
             () =>
             {
-                Camera.getPicture(
+                this.camera.getPicture(
                     {
-                        destinationType: Camera.DestinationType.DATA_URL,
+                        destinationType: this.camera.DestinationType.DATA_URL,
                         sourceType: sourceType,
                         correctOrientation: true
                     }).then(
@@ -197,7 +198,7 @@ export class FileUploader
                 handler: () =>
                 {
                     actions.dismiss();
-                    this.openCamera(Camera.PictureSourceType.CAMERA)
+                    this.openCamera(this.camera.PictureSourceType.CAMERA)
                 },
                 text: Constants.camera,
                 icon: "camera",
@@ -206,7 +207,7 @@ export class FileUploader
                 handler: () =>
                 {
                     actions.dismiss();
-                    this.openCamera(Camera.PictureSourceType.PHOTOLIBRARY)
+                    this.openCamera(this.camera.PictureSourceType.PHOTOLIBRARY)
                 },
                 text: Constants.photoGalery,
                 icon: "images"

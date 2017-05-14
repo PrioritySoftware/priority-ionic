@@ -1,18 +1,19 @@
 item-details {
 	position: relative;
-	&[inline] {
+	.column.inline {
 		.title {
 			vertical-align: middle;
 			display: inline;
 			color: #ababab;
 			font-size: 14px;
+			line-height: 14px;
 		}
 
 		.title:after {
 			content: ':';
 		}
 
-		.column[dir="rtl"] {
+		&[dir="rtl"] {
 			.title {
 				margin-left: 4px;
 			}
@@ -21,7 +22,7 @@ item-details {
 			}
 		}
 
-		.column[dir="ltr"] {
+		&[dir="ltr"] {
 			.title {
 				margin-right: 4px;
 			}
@@ -35,21 +36,34 @@ item-details {
 			display: inline;
 			color: #ababab;
 			font-size: 14px;
+			line-height: 14px;
+		}
 
-			&:first-of-type {
+		&:first-of-type {
+			.value {
 				font-size: 16px;
+				line-height: 16px;
 				color: #565656;
 			}
 		}
 	}
+
+	.column {
+		margin-bottom: 2px;
+	}
+
 	.title {
 		font-size: 12px;
+		line-height: 12px;
 		color: #7e7e7e;
 	}
+
 	.value {
 		color: #ababab;
 		font-size: 14px;
+		line-height: 14px;
 	}
+
 	.column[dir="rtl"] .value[dir="ltr"] {
 		text-align: right;
 	}
@@ -58,44 +72,15 @@ item-details {
         margin: 0 !important;
     }
 
-
-	.icon {
+	.icon-wrapper {
 		vertical-align: middle;
-		width: 23px;
-		height: 100%;
+		width: 20px;
+    	display: inline-block;
 
 		+ ion-label {
 			display: inline-block;
 			vertical-align: middle;
 		}
-	}
-
-	.avatar {
-		width: 60px;
-		height: 100%;
-		
-		[dir="rtl"] & {
-			float: right;
-			margin-left: 15px;
-		}
-
-		[dir="ltr"] & {
-			float: left;
-			margin-right: 15px;
-		}
-
-		img {
-			width: 100%;
-			height: 60px;
-			border-radius: 50%;
-			// line-height: normal;
-		}
-
-		ion-icon {
-			font-size: 38px;
-			// line-height: normal;
-		}
-
 	}
 
 }
