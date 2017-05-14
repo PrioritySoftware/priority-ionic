@@ -32,9 +32,9 @@
     "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "@angular/compiler": "^2.2.1",
-    "@angular/compiler-cli": "^2.2.1",
-    "@angular/platform-server": "^2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/platform-server": "2.2.1",
     "gulp": "3.9.1",
     "gulp-angular-embed-templates": "2.3.0",
     "gulp-flatten": "0.3.1",
