@@ -1,0 +1,11 @@
+collections:
+        app:
+                output: true
+
+theme: jekyll-theme-slate
+title: "Priority Mobile"
+permalinks: pretty
+markdown_ext:  markdown,mkdown,mkdn,mkd,md
+redcarpet:
+  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "no_intra_emphasis", "fenced_code_blocks", "lax_spacing", "smart"]
+repository: mobile/neomib.github.io

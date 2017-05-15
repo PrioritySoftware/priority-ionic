@@ -1,0 +1,86 @@
+<div id="header_wrap" class="outer">
+  <header>
+
+    <nav class="left-nav">
+
+      <div>
+        <a class="logo" href="{{'/'| relative_url}}">
+          <img src="https://www.eshbelsaas.co.il/eshbel/primail/library/Priority_Logo_White.png" class="logo-image"/>
+        </a>
+      </div>
+
+      <div>
+        <a href="{{'/app'| relative_url}}" role="button" class="btn">Ionic Package</a>
+      </div>
+      
+    </nav>
+          
+  </header>
+</div>
+
+<script>
+
+     $('body').click(function(event){
+
+        var dropdowns = $('[dropdown]');
+        if(dropdowns.hasClass('open'))
+        {
+          dropdowns.removeClass('open');
+        }
+     });
+  
+
+    //dropdown
+        
+    var openDropdown = function(event,btn)
+    {
+      event.stopPropagation();
+      console.log(btn.id);
+      var dropdown = $('[dropdown*=' + btn.id + ']');
+      console.log(dropdown);
+      if(dropdown.hasClass('open'))
+      {
+        dropdown.removeClass('open');
+      }
+      else
+      {
+        dropdown.addClass('open');
+      }
+      
+    };
+
+    function locationHashChanged() {
+        $(".nav-link").each(function() {
+          if (this.href === window.location.href) {
+              $(this).addClass("active");
+          }
+          else {
+            $(this).removeClass("active");
+          }
+        });
+    }
+
+    window.onhashchange = locationHashChanged;
+
+    $(document).ready(function() {
+      locationHashChanged();
+
+      $(document).scroll(function () {
+      currentHash = window.location.hash;
+        $(".anchor-link").each(function () {
+            var top = window.pageYOffset;
+            var distance = top - $(this).offset().top;
+            var hash = $(this).attr('name');
+            // 30 is an arbitrary padding choice, 
+            // if you want a precise check then use distance===0
+            if (distance < 50 && distance > -50 && currentHash != hash) {
+                window.location.hash = encodeURI((hash));
+                currentHash = hash;
+            }
+        });
+    });
+    });
+
+
+
+</script>
