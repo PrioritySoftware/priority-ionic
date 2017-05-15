@@ -200,10 +200,10 @@ export class ProcService
     {
          return new Promise((resolve, reject) =>
         {
-            // data.proc.documentOptions(1,1,2)
-            //     .then(data => this.procSuccess(data))
-            //     .then(() => resolve())
-            //     .catch(reason => reject(reason));
+            data.proc.documentOptions(1,1,2)
+                .then(data => this.procSuccess(data))
+                .then(() => resolve())
+                .catch(reason => reject(reason));
         });
     }
 }
