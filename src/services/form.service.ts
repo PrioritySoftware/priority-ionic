@@ -103,12 +103,16 @@ export class FormService
     }
 
     /** Global callback for all forms,rows,fileds updates returned from api - passed to api with formStart*/
-    updateFormsData = (result) =>
+    updateFormsData = (result, parentForm: Form) =>
     {
         //loop on all formname in the result object
         for (var formName in result)
         {
-            let form = this.getForm(formName);
+            let form = this.getForm(formName, parentForm);
+            if (form == undefined)
+            {
+                form = this.getForm(formName);
+            }
             if (form !== undefined)
             {
                 //loop on rows for form in result object
@@ -135,31 +139,54 @@ export class FormService
 
     // ******** Form **********
 
-    public getForm(formName: string): Form
+    public getForm(formName: string, parentFrom: Form = null): Form
     {
-        return this.forms[formName];
-    }
-    /** Sets a form returned from formStart in the forms object by it's mame*/
-    private mergeForm(form: Form)
-    {
-        let localform = this.forms[form.name];
-        if (localform == undefined)// first time no need to merge
+        if(parentFrom)
         {
-            form.rows = {};
-            this.forms[form.name] = form;
+            return parentFrom.subForms[formName];
         }
         else
         {
+            return this.forms[formName];
+        }
+    }
+    /** Sets a form returned from formStart in the forms object by it's mame*/
+    private mergeForm(form: Form, parentFrom: Form = null)
+    {
+        let localform;
+        let forms;
+        if(parentFrom)
+        {
+            localform = parentFrom.subForms[form.name];
+            forms = parentFrom.subForms;
+        }
+        else
+        {
+            localform = this.forms[form.name];
+            forms = this.forms;
+        }
+
+        if (localform == undefined)// first time no need to merge
+        {
+            form.rows = {};
+            forms[form.name] = form;
+        }
+        else
+        {
+            if(localform.rows == undefined)
+            {
+                form.rows = {};
+            }
             //merge columns in form with the columns in the local form
-            // for (var column in localform.columns)
-            // {
-            //     form.columns[column] = Object.assign(localform.columns[column], form.columns[column]);
-            // }
+            for (var subform in localform.subForms)
+            {
+                form.subForms[subform] = Object.assign(localform.subForms[subform], form.subForms[subform]);
+            }
 
             //no need to merge subforms. The wanted subforms are set in 'initForms'.
 
             //merge form with local form
-            this.forms[form.name] = Object.assign(localform, form);
+            forms[form.name] = Object.assign(localform, form);
         }
     }
     /** Starts parent form. */
@@ -233,22 +260,22 @@ export class FormService
 
     public getLocalRows(form: Form)
     {
-        return this.forms[form.name].rows;
+        return form.rows;
     }
     private setLocalRows(form: Form, rows: any, isMerge: boolean)
     {
         if (isMerge)
         {
-            this.forms[form.name].rows = Object.assign(this.forms[form.name].rows, rows);
+            form.rows = Object.assign(form.rows, rows);
         }
         else
         {
-            this.forms[form.name].rows = rows;
+            form.rows = rows;
         }
     }
     private clearLocalRows(form)
     {
-        this.forms[form.name].rows = {};
+        form.rows = {};
     }
 
     /** Returns items of selected entity, starting from a wanted row according to a filter */
@@ -327,40 +354,40 @@ export class FormService
 
     public getFormRow(form: Form, rowInd)
     {
-        return this.forms[form.name].rows[rowInd];
+        return form.rows[rowInd];
     }
     public setIsRowChangesSaved(form: Form, rowInd, isSaved: boolean)
     {
-        this.forms[form.name].rows[rowInd].isChangesSaved = isSaved;
+        form.rows[rowInd].isChangesSaved = isSaved;
     }
     public getIsRowChangesSaved(form: Form, rowInd)
     {
-        if (this.forms[form.name].rows[rowInd] === undefined)
+        if (form.rows[rowInd] === undefined)
         {
             return true;
         }
-        return this.forms[form.name].rows[rowInd].isChangesSaved;
+        return form.rows[rowInd].isChangesSaved;
     }
     private addFormRow(form, newRowInd)
     {
-        this.forms[form.name].rows[newRowInd] = { isNewRow: true };
+        form.rows[newRowInd] = { isNewRow: true };
     }
     public getIsNewRow(form: Form, rowInd)
     {
-        return this.forms[form.name].rows[rowInd].isNewRow;
+        return form.rows[rowInd].isNewRow;
     }
     private setNotNewRow(form: Form, rowInd)
     {
-        delete this.forms[form.name].rows[rowInd].isNewRow;
+        delete form.rows[rowInd].isNewRow;
     }
     public deleteLastFormRow(form: Form)
     {
-        let lastInd = Object.keys(this.forms[form.name].rows).length;
+        let lastInd = Object.keys(form.rows).length;
         this.deleteLocalRow(form, lastInd);
     }
     private deleteLocalRow(form: Form, rowInd)
     {
-        delete this.forms[form.name].rows[rowInd];
+        delete form.rows[rowInd];
     }
 
     /** Sets the selected items row */
@@ -538,13 +565,14 @@ export class FormService
             {
                 onErrorOrWarning = onWarnings;
             }
+            let updateFormsData = (result) => {this.updateFormsData(result,parentForm)};
             parentForm.startSubForm(subformName,
                 onErrorOrWarning,
-                null,
+                updateFormsData,
                 (subform: Form) =>
                 {
-                    this.mergeForm(subform);
-                    resolve(this.getForm(subform.name));
+                    this.mergeForm(subform,parentForm);
+                    resolve(this.getForm(subform.name,parentForm));
                 },
                 (reason: ServerResponse) =>
                 {
@@ -721,21 +749,24 @@ export class FormService
         return new Promise((resolve, reject) =>
         {
 
-            this.startSubform(parentForm, subformName)
-                .then(subform =>
+            this.startSubform(parentForm, subformName).then(
+                subform =>
                 {
-                    return this.deleteListRow(subform, rowInd);
-                })
-                .then(res =>
-                {
-                    return this.endForm(this.getForm(subformName));
-                })
-                .then(()=>resolve())
-                .catch((reason: ServerResponse) =>
-                {
-                    this.endForm(this.getForm(subformName));
-                    reject(reason);
-                });
+                    this.deleteListRow(subform, rowInd).then(
+                        res =>
+                        {
+                            this.endForm(subform).then(
+                                () =>
+                                {
+                                    resolve();
+                                }, reason => {reject(reason);})
+                        },
+                        reason =>
+                        {
+                            this.endForm(subform);
+                            reject(reason);
+                        });
+                },reason => {reject(reason);});
         });
     }
 

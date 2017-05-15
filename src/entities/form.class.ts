@@ -16,7 +16,7 @@ export declare class Form
 
 	rows: Object;
 
-	subForms:{[key:string]: {title: string}};
+	subForms:{[key:string]: Form};
 
 	title: string;
 
