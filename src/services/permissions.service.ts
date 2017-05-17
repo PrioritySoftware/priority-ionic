@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Platform } from "ionic-angular";
-import {Diagnostic} from 'ionic-native';
 declare var window;
 
 @Injectable()
@@ -11,7 +10,7 @@ export class PermissionsService
 
     constructor(private platform: Platform)
     {
-        if (window.cordova)
+        if (window.cordova && this.platform.is("android"))
         {
             this.permissions = window.cordova.plugins.permissions;
             this.permissionTypes = {};
@@ -43,9 +42,9 @@ export class PermissionsService
                         {
                             //if there is no permission - request the permission
                             this.permissions.requestPermission(permissionType,
-                                status =>
+                                requestStatus =>
                                 {
-                                    if (status.hasPermission)
+                                    if (requestStatus.hasPermission)
                                     {
                                         resolve();
                                     }
@@ -59,54 +58,11 @@ export class PermissionsService
                     },
                     error => { reject(error); });
             }
-            else if (this.platform.is("ios"))
-            {
-                if (permission == "camera")
-                    this.checkIosCameraPermissions()
-                        .then(() => resolve())
-                        .catch(() => reject());
-            }
             else
             {
                 resolve();
             }
         })
-    }
-    /**
-     * Checks whether 'Photo-Galery' permissions are granted in IOS. These permissions are required for the Camera to work.
-     * 
-     * @returns {Promise<any>} 
-     * 
-     * @memberof PermissionsService
-     */
-    checkIosCameraPermissions(): Promise<any>
-    {
-        return new Promise((resolve, reject) =>
-        {
-            Diagnostic.getCameraAuthorizationStatus()
-                .then((status) => 
-                {
-                    if (status == Diagnostic.permissionStatus.NOT_REQUESTED)
-                    {
-                        return Diagnostic.requestCameraAuthorization();
-                    }
-                    else
-                    {
-                        resolve();
-                    }
-                })
-                .then(status =>
-                {
-                    if (status == Diagnostic.permissionStatus.GRANTED)
-                        resolve();
-                    else
-                        reject();
-                })
-                .catch((err) =>  
-                {
-                    reject();
-                });
-        });
     }
 }//end of permissionService
 
