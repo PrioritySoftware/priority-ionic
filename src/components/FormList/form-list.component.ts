@@ -1,5 +1,7 @@
 import { Component, Input, ContentChild, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Form } from '../../entities/form.class';
+import { ItemOptions } from '../../entities/itemOptions.class';
+import { ColumnsOptions } from '../../entities/columnOptions.class';
 import { Constants } from '../../constants.config';
 import * as numeral from 'numeral';
 
@@ -24,26 +26,25 @@ export class FormList {
      * }
      * filters customers whose name or number contains '333'.
      * 'Sort' - A 'Priority Column' name for sorting the list.
-     * The sort direction could be defined with the 'sortDirection' property defined in the column in form.columns. (value: 1 or -1)
-     * (If you're using 'FormService' you could init your column's properties with 'initForm' and these will automatically be passed to this component)
+     * The sort direction could be defined with the 'sortDirection' property defined in the column in columnsOptions. (value: 1 or -1)
      * 'Subforms' - An array of 'Priority Subform' names that will be displayed in each item - when it is expanded. see 'form-card-item'.
      */
 
     dirByLang;
     _type = 'default';
 
-    @Input('Form') form;
+    @Input('Form') form : Form;
     @Input('Items') items: any[];
     @Input('Filter') filter;
     @Input('Sort') sortColumn;
    
-    itemOptions = {} as any;
-    @Input() set ItemOptions(itemOptions)
+    itemOptions: ItemOptions = {};
+    @Input() set ItemOptions(itemOptions: ItemOptions)
     {
         this.itemOptions = itemOptions;
     }
-    columnsOptions:any;
-    @Input() set ColumnsOptions(columnsOptions)
+    columnsOptions: ColumnsOptions = {};
+    @Input() set ColumnsOptions(columnsOptions: ColumnsOptions)
     {
         this.columnsOptions = columnsOptions;
     }
@@ -132,8 +133,15 @@ export class FormList {
         {
             return 0;
         }
-        let sortDirection = this.form.columns[sortColumn].sortDirection;
-        sortDirection = sortDirection ? sortDirection : 1;
+        let sortDirection;
+        if(this.columnsOptions[sortColumn] && this.columnsOptions[sortColumn].sortDirection)
+        {
+            sortDirection = this.columnsOptions[sortColumn].sortDirection;
+        }
+        else
+        {
+            sortDirection = 1;
+        }
         let val1 = item1[sortColumn];
         let val2 = item2[sortColumn];
         if(this.form.columns[sortColumn].type == 'number')
@@ -150,14 +158,6 @@ export class FormList {
             return -1 * sortDirection;
         }
         return 0;
-    }
-
-    subformClick(subform)
-    {
-        if(this.itemOptions.subformClick)
-        {
-            this.itemOptions.subformClick(subform);
-        }
     }
           
 }

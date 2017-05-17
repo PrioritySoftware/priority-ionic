@@ -1,7 +1,8 @@
 export interface ButtonOptions
 {
-    text:string;
-     onClick;
-    iconName?:string;
-    color?:string;
+    text?: string;
+    click: Function;
+    icon?: string;
+    color?: string;
+    side?: string;
 }

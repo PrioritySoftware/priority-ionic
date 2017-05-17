@@ -7,17 +7,17 @@
   <ion-list *ngIf="items !== undefined"
             dir="{{dirByLang}}">
     <ion-item *ngFor="let item of items"
-              (click)="item.onClick()">
+              (click)="item.click()">
       <ion-label>{{item.text}}</ion-label>
     </ion-item>
   </ion-list>
   <!-- show menu item as buttons + icon -->
   <ion-buttons *ngIf="buttons !== undefined">
      <button ion-button *ngFor="let button of buttons" 
-             (click)="button.onClick()" 
+             (click)="button.click()" 
              outline color="dark" dir="{{dirByLang}}">
           <div>
-             <ion-icon name="{{button.iconName}}" ></ion-icon>
+             <ion-icon name="{{button.icon}}" ></ion-icon>
              <br>
   		       <label>{{button.text}}</label>
           </div>

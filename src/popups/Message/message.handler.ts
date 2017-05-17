@@ -110,7 +110,7 @@ export class MessageHandler
         let cancelButton: ButtonOptions =
             {
                 text: cancelText,
-                onClick: () =>
+                click: () =>
                 {
                     onCancel();
                 }
@@ -119,7 +119,7 @@ export class MessageHandler
         let okButton: ButtonOptions =
             {
                 text: approveText,
-                onClick: () =>
+                click: () =>
                 {
                     if (!isError)
                         onApprove();
@@ -142,18 +142,18 @@ export class MessageHandler
 
         let cancel: ButtonOptions = {
             text: Constants.cancel,
-            onClick: () => { }
+            click: () => { }
         };
         let saveAndCont: ButtonOptions = {
             text: Constants.saveAndCont,
-            onClick: () =>
+            click: () =>
             {
                 onSaveAndContinue();
             }
         };
         let undoAndCond: ButtonOptions = {
             text: Constants.cancelAndCont,
-            onClick: () =>
+            click: () =>
             {
                 onUndoAndContinue();
             }
@@ -189,7 +189,7 @@ export class MessageHandler
                     text: button.text,
                     handler: () =>
                     {
-                        button.onClick();
+                        button.click();
                     }
                 });
         });

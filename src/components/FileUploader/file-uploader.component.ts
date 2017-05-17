@@ -6,6 +6,7 @@ import { PermissionsService } from "../../services/permissions.service";
 import { Constants } from '../../constants.config';
 import { MessageHandler } from "../../popups/Message/message.handler";
 import { ProgressBarHandler } from "../../popups/ProgressBar/progress-bar.handler";
+import { Form } from '../../entities/form.class';
 declare var window;
 
 @Component({
@@ -19,7 +20,7 @@ export class FileUploader
     fileChosen: Function;
     photoTaken: Function;
 
-    @Input('Form') form;
+    @Input('Form') form : Form;
 
     @ViewChild('fileInput') fileInput;
 

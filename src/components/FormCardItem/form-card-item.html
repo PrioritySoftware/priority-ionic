@@ -48,21 +48,32 @@
 			     <ion-item
 			     	(click)="subformClicked(subform)"
 			     	*ngIf="!isTextForm(subform) && !isOneLine(subform)">
-			     	<ion-label
-			     		*ngIf="!subform.title2"
+			     	 <!-- subform title could be ovverided in subform options -->
+			     	 <ion-label
+			     		*ngIf="getSubformOption(subform,'title')"
 				     	class="{{'subform-title ' + subform.key}}">
-				     	{{subform.title}}
+				     	{{getSubformOption(subform,'title')}}
 				     </ion-label>
 				     <ion-label
-				     	*ngIf="subform.title2"
+				     	*ngIf="!getSubformOption(subform,'title')"
 				     	class="{{'subform-title ' + subform.key}}">
-				     	{{subform.title2}}
+				     	{{subform.title}}
 				     </ion-label>
 			     	<i item-right class="rows-count">{{getRowsCount(subform)}}</i>
 			     	<ion-icon item-right name="ios-arrow-forward"></ion-icon>
 			     </ion-item>
-			     <div class="subform-inner" *ngIf="isTextForm(subform) || isOneLine(subform)">
+			     <div class="subform-inner"
+			     	(click)="subformClicked(subform)"
+			     	*ngIf="isTextForm(subform) || isOneLine(subform)">
+
+				     <!-- subform title could be ovverided in subform options -->
+			     	 <ion-label
+			     		*ngIf="getSubformOption(subform,'title')"
+				     	class="{{'subform-title ' + subform.key}}">
+				     	{{getSubformOption(subform,'title')}}
+				     </ion-label>
 				     <ion-label
+				     	*ngIf="!getSubformOption(subform,'title')"
 				     	class="{{'subform-title ' + subform.key}}">
 				     	{{subform.title}}
 				     </ion-label>

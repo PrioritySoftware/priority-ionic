@@ -1,4 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Form } from '../../entities/form.class';
 
 @Component({
   selector: 'text-form-display',
@@ -8,7 +9,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class TextFormDisplay {
 
-  @Input('Form') form;
+  @Input('Form') form : Form;
 
   constructor() { }
 

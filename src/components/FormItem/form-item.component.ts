@@ -1,6 +1,9 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormService } from '../../services/form.service';
 import { Constants } from '../../constants.config';
+import { Form } from '../../entities/form.class';
+import { ColumnsOptions } from '../../entities/columnOptions.class';
+
 
 @Component({
     selector: 'form-item',
@@ -16,8 +19,8 @@ export class FormItem
     rightButtons = [];
     leftButtons = [];
 
-    @Input('Form') form;
-    @Input('ColumnsOptions') columnsOptions;
+    @Input('Form') form : Form;
+    @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
     @Input('Item') item;
     @Input() set ItemOptions(itemOptions)
     {

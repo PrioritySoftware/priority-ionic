@@ -1,3 +1,5 @@
+export interface ColumnsOptions {[key: string] : ColumnOptions}
+
 export interface ColumnOptions
 {
     /**

@@ -1,5 +1,10 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, trigger, state, style, transition, animate } from '@angular/core';
 import { FormService } from '../../services/form.service';
+import { Form } from '../../entities/form.class';
+import { ColumnsOptions } from '../../entities/columnOptions.class';
+import { FormsOptions } from '../../entities/formOptions.class';
+import { ButtonOptions } from '../../entities/buttonOptions.class';
+import { ItemOptions } from '../../entities/itemOptions.class';
 
 @Component({
     selector: 'form-card-item',
@@ -18,28 +23,30 @@ import { FormService } from '../../services/form.service';
 
 export class FormCardItem
 {
-    itemSelect;
-    subformNames;
-    itemTitle;
-    itemClass;
+    itemSelect: Function;
+    subformNames: Array<string>;
+    subformsOptions: FormsOptions;
+    itemTitle: string;
+    itemClass: Function;
 
-    rightButtons = [];
-    leftButtons = [];
+    rightButtons: Array<ButtonOptions> = [];
+    leftButtons: Array<ButtonOptions> = [];
 
-    subforms = {} as any;
+    subforms: {[key: string]: Form} = {};
 
-    collapseState = 'collapsed';
-    isLoadingSubforms = false;
+    collapseState: string = 'collapsed';
+    isLoadingSubforms: boolean = false;
 
-    @Input('Form') form;
-    @Input('ColumnsOptions') columnsOptions;
+    @Input('Form') form : Form;
+    @Input('ColumnsOptions') columnsOptions: ColumnsOptions;
     @Input('Item') item;
-    @Input() set ItemOptions(itemOptions)
+    @Input() set ItemOptions(itemOptions : ItemOptions)
     {
         this.itemSelect = itemOptions.itemSelect;
         this.subformNames = itemOptions.subforms;
-        this.itemTitle=itemOptions.itemTitle;
-        this.itemClass=itemOptions.itemClass;
+        this.subformsOptions = itemOptions.subformsOptions ? itemOptions.subformsOptions : {};
+        this.itemTitle = itemOptions.itemTitle;
+        this.itemClass = itemOptions.itemClass;
         let buttons = itemOptions.slidingButtons;
         if (buttons !== undefined)
         {
@@ -57,8 +64,6 @@ export class FormCardItem
                 });
         }
     }
-
-    @Output() subformClick = new EventEmitter<Function>();
 
     constructor(private formService: FormService) { }
 
@@ -143,8 +148,17 @@ export class FormCardItem
 
     subformClicked(subform)
     {
-        event.preventDefault();
-        this.subformClick.emit(subform);
+        let subformClick = this.getSubformOption(subform,'click');
+        if(subformClick)
+        {
+            event.preventDefault();
+            subformClick();
+        }
+    }
+
+    getSubformOption(subform,option)
+    {
+        return this.subformsOptions[subform.key] && this.subformsOptions[subform.key][option];
     }
 
     // **************** Buttons **************************

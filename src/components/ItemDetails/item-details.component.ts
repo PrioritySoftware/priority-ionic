@@ -1,7 +1,9 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Constants } from '../../constants.config';
-import {ColumnOptions} from'../../entities/columnOptions.class';
 import { FormService } from '../../services/form.service';
+import { Form } from '../../entities/form.class';
+import { ColumnsOptions, ColumnOptions } from '../../entities/columnOptions.class';
+
 import * as moment from 'moment';
 
 @Component({
@@ -37,15 +39,15 @@ export class ItemDetails
     dirByLang = Constants.dirByLang;
     // _inline;
 
-    @Input('Form') form;
+    @Input('Form') form : Form;
     @Input('Item') item;
-    @Input('ColumnsOptions') columnsOptions;
+    @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
     // @Input() inline(val)
     // {
     //   this._inline = true;
     // };
 
-     constructor(private formService: FormService) { }
+    constructor(private formService: FormService) { }
 
     displayValue(column)
     {
@@ -62,7 +64,7 @@ export class ItemDetails
         }
         return this.item[column.key];
     }
-    getColumnOption(columnName):ColumnOptions
+    getColumnOption(columnName): ColumnOptions
     {
         if (this.columnsOptions && this.columnsOptions[columnName])
             return this.columnsOptions[columnName];

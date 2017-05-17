@@ -24,22 +24,6 @@ export class FormService
         this.forms = {};
     }
 
-    initForm(formname: string, form: Form)
-    {
-        form.rows = {};
-        this.forms[formname] = form;
-    }
-
-    initForms(forms: Object)
-    {
-        for (var formname in forms)
-        {
-            let form = forms[formname];
-            form.rows = {};
-            this.forms[formname] = form;
-        }
-    }
-
     // *************** General functions **************
     /**Handles API rejections. If the rejection reason is a fatal error, calls 'onFatalError' else calls 'reject'. */
     rejectionHandler(reason: ServerResponse, reject)
@@ -113,7 +97,7 @@ export class FormService
             {
                 form = this.getForm(formName);
             }
-            if (form !== undefined)
+            if (form !== undefined && form.rows !== undefined)
             {
                 //loop on rows for form in result object
                 for (var rowInd in result[formName])
@@ -155,9 +139,14 @@ export class FormService
     {
         let localform;
         let forms;
+        // assign localform and forms
         if(parentFrom)
         {
             localform = parentFrom.subForms[form.name];
+            if(localform && localform.rows == undefined)
+            {
+                localform.rows = {};
+            }
             forms = parentFrom.subForms;
         }
         else
@@ -166,29 +155,20 @@ export class FormService
             forms = this.forms;
         }
 
-        if (localform == undefined)// first time no need to merge
+        // set form in forms - first time no need to merge
+        if (localform == undefined)
         {
             form.rows = {};
             forms[form.name] = form;
         }
+        // merge local form and form and set in forms
         else
         {
-            if(localform.rows == undefined)
-            {
-                form.rows = {};
-            }
-            //merge columns in form with the columns in the local form
-            for (var subform in localform.subForms)
-            {
-                form.subForms[subform] = Object.assign(localform.subForms[subform], form.subForms[subform]);
-            }
-
-            //no need to merge subforms. The wanted subforms are set in 'initForms'.
-
             //merge form with local form
             forms[form.name] = Object.assign(localform, form);
         }
     }
+
     /** Starts parent form. */
     startParentForm(formName: string, company: string, autoRetriveFirstRows?: number): Promise<any>
     {
@@ -368,7 +348,7 @@ export class FormService
         }
         return form.rows[rowInd].isChangesSaved;
     }
-    private addFormRow(form, newRowInd)
+    private addFormRow(form: Form, newRowInd)
     {
         form.rows[newRowInd] = { isNewRow: true };
     }

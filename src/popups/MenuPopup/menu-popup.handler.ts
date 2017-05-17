@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NavParams } from 'ionic-angular';
 import { Constants } from '../../constants.config';
+import { ButtonOptions } from "../../entities/buttonOptions.class";
 
 @Component({
     templateUrl: './menu-popup.html',
@@ -13,8 +14,8 @@ export class MenuPopup
 
     title: string;
     cssClass: string;
-    buttons: any[];
-    items: any[];
+    buttons: Array<ButtonOptions>;
+    items: Array<ButtonOptions>; // items should be merged with buttons
 
     constructor(private navParams: NavParams)
     {
