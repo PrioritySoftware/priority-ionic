@@ -31,7 +31,6 @@ export class FormList {
      */
 
     dirByLang;
-    _type = 'default';
 
     @Input('Form') form : Form;
     @Input('Items') items: any[];
@@ -59,11 +58,17 @@ export class FormList {
         this._type = 'default';
     }
 
+    _type = 'default';
     @Input() set type(val)
     {
         this._type = val ? val : 'default';
     }
 
+     _inline = true;
+    @Input() set inline(val)
+    {
+        this._inline = val;
+    }
 
     constructor()
     {

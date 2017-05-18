@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormService } from '../../services/form.service';
 import { Form } from '../../entities/form.class';
 import { ColumnsOptions } from '../../entities/columnOptions.class';
@@ -12,14 +13,18 @@ import { ItemOptions } from '../../entities/itemOptions.class';
     templateUrl: 'form-item.html',
     styleUrls: ['./form-item.scss'],
     encapsulation: ViewEncapsulation.None,
-    // animations: [
-    //     trigger('cardHeightTrigger', [
-    //         state('expanded', style({ height: '*' })),
-    //         state('collapsed', style({ height: '*' })),
-    //         transition('collapsed => expanded', animate('250ms 100ms ease-in')),
-    //         transition('expanded => collapsed', animate('250ms 200ms ease-out'))
-    //     ]),
-    // ]
+    animations: [
+        trigger('subformsInOut', [
+            state('in', style({height: '*'})),
+            transition(':enter', [
+                style({height: '0px'}),
+                animate('200ms ease-out')
+            ]),
+            transition(':leave', [
+                animate('200ms ease-in', style({height: '0px'}))
+            ])
+        ]),
+    ]
 })
 
 export class FormItem
@@ -35,6 +40,7 @@ export class FormItem
 
     subforms: {[key: string]: Form} = {};
 
+    cssClass: string = '';
     collapseState: string = '';
     isLoadingSubforms: boolean = false;
 
@@ -94,6 +100,11 @@ export class FormItem
     {
         this._type = type;
         this.setCssClass(type);
+    }
+    _inline = true;
+    @Input() set inline(val)
+    {
+        this._inline = val;
     }
     // @Input() set card(card)
     // {

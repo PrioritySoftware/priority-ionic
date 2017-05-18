@@ -38,6 +38,11 @@ export interface ColumnOptions
      */
     avatar?;
     /**
+     * Thumbnail image src - in case the column's value should be displayed as a thumbnail.
+     * @memberOf ColumnOptions
+     */
+    thumbnail?;
+    /**
      * icon name - one of ionicons
      * @memberOf ColumnOptions
      */

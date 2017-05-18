@@ -9,55 +9,59 @@
 	<ion-item
 		(click)="selectItem($event)"
 		[ngClass]="setItemClass(item)">
+
 		
-		<div *ngIf="itemTitle" class="item-title">
-			{{itemTitle}}
-		</div>
-
-		<ion-avatar item-start *ngIf="avatar">
-      		<img
-			  *ngIf="getUrl(avatar).length" 
-			  [src]="getUrl(avatar)"/>
-		</ion-avatar>
-
-		<ion-thumbnail item-start *ngIf="thumbnail">
-      		<img
-			  *ngIf="getUrl(thumbnail).length"
-			  [src]="getUrl(thumbnail)"/>
-		</ion-thumbnail>
 		
-		<div class="details-wrapper">
-		
-			<item-details
-			    *ngIf="!isTextForm(form)"
-				[Form]="form"
-				[Item]="item"
-				[ColumnsOptions]="columnsOptions"
-				[inline]="_type == 'default'">
-			</item-details>
-
-		    <text-form-display
-			   *ngIf="isTextForm(form)"
-			   [Form]="form">	
-		    </text-form-display>
-
-			<div class="collapse-button" *ngIf="subformNames">
-				<ion-spinner *ngIf="isLoadingSubforms"></ion-spinner>
-				<ion-icon
-					name="{{collapseState == 'expanded' ? 'ios-arrow-up' : 'ios-arrow-down' }}"
-					class="collapse-icon"
-					*ngIf="!isLoadingSubforms"
-					(click)="toggleCollapse($event)">
-				</ion-icon>
+			<div *ngIf="itemTitle" class="item-title">
+				{{itemTitle}}
 			</div>
 
-		</div>
+			<ion-avatar item-start *ngIf="avatar">
+	      		<img
+				  *ngIf="getUrl(avatar).length" 
+				  [src]="getUrl(avatar)"/>
+			</ion-avatar>
 
-		<div class="subforms-wrapper" *ngIf="collapseState == 'expanded'">
-		
-			<div *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
-			     class="{{'subform ' + subform.key}}">
-			     <ion-item
+			<ion-thumbnail item-start *ngIf="thumbnail">
+	      		<img
+				  *ngIf="getUrl(thumbnail).length"
+				  [src]="getUrl(thumbnail)"/>
+			</ion-thumbnail>
+
+			<ion-label>
+
+			<div class="details-wrapper">
+			
+				<item-details
+				    *ngIf="!isTextForm(form)"
+					[Form]="form"
+					[Item]="item"
+					[ColumnsOptions]="columnsOptions"
+					[inline]="_inline">
+				</item-details>
+
+			    <text-form-display
+				   *ngIf="isTextForm(form)"
+				   [Form]="form">	
+			    </text-form-display>
+
+				<div class="collapse-button" *ngIf="subformNames">
+					<ion-spinner *ngIf="isLoadingSubforms"></ion-spinner>
+					<ion-icon
+						name="{{collapseState == 'expanded' ? 'ios-arrow-up' : 'ios-arrow-down' }}"
+						class="collapse-icon"
+						*ngIf="!isLoadingSubforms"
+						(click)="toggleCollapse($event)">
+					</ion-icon>
+				</div>
+
+			</div>
+
+			<div class="subforms-wrapper" *ngIf="collapseState == 'expanded'" [@subformsInOut]="'in'">
+			
+				<div *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
+				     class="{{'subform ' + subform.key}}">
+				     <ion-item
 			     	(click)="subformClicked(subform)"
 			     	*ngIf="!isTextForm(subform) && !isOneLine(subform)">
 			     	
@@ -99,10 +103,12 @@
 						[Form]="subform"
 						[Item]="subformItem(subform)">
 					</item-details>
+					</div>
 				</div>
+
 			</div>
 
-		</div>
+		</ion-label>
 
 	</ion-item>
 

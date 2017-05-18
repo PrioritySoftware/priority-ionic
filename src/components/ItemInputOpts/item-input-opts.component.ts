@@ -10,7 +10,7 @@ import { MessageHandler } from '../../popups/Message/message.handler';
 import { Constants } from '../../constants.config';
 import { FileUploader } from '../FileUploader/file-uploader.component';
 import { MenuPopup } from '../../popups/MenuPopup/menu-popup.handler';
-import { BarcodeScanner } from 'ionic-native';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 declare var window;
 
 @Component({
@@ -33,7 +33,8 @@ export class ItemInputOpts implements OnInit {
                 private permissions: PermissionsService,
                 private popoverCtrl: PopoverController,
                 private messageHandler: MessageHandler,
-                private platform: Platform) {}
+                private platform: Platform,
+                private barcodeScanner: BarcodeScanner) {}
 
     ngOnInit()
     {
@@ -179,7 +180,7 @@ export class ItemInputOpts implements OnInit {
                     // so when it is pressed during scanning
                     // we will prevent the default handler
                     let deregisterBackButtonAction = this.platform.registerBackButtonAction(() => { },600); 
-                    BarcodeScanner.scan(
+                    this.barcodeScanner.scan(
                         {
                             showFlipCameraButton: true,
                             showTorchButton: true,

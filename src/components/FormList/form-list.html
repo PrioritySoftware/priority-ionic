@@ -3,6 +3,7 @@
 	<form-item
 		*ngFor="let item of items | Filter:filterItems:filter | Sort:sortItems:sortColumn"
 		[type]="_type"
+		[inline]="_inline"
 		[Form]="form"
 		[Item]="item"
 		[ItemOptions]="itemOptions"
