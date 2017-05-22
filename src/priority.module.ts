@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule }  from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { FormService } from './services/form.service';
 import { ProcService } from './services/proc.service';
@@ -32,7 +31,6 @@ import { ValidationDirective } from './directives/validation.directive';
 import { UpdateFieldDirective } from './directives/updateField.directive';
 import { InnerHTML } from "./directives/innerHTML.directive";
 import { ClickOutsideDirective } from "./directives/clickOutside.directive";
-
 
 @NgModule({
   declarations: [
@@ -74,7 +72,8 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     ItemInput,
     ItemInputOpts,
     TextFormDisplay,
-    FilterMenu
+    FilterMenu,
+    ProgressBar
   ],
   imports: [
     BrowserModule,
@@ -99,4 +98,4 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     ProgressBar
   ]
 })
-export class PriorityIonicModule { }
+export class PriorityIonicModule {}

@@ -1,6 +1,4 @@
 var gulp = require('gulp');
-var embedTemplates = require('gulp-angular-embed-templates');
-//var inlineNg2Styles = require('gulp-inline-ng2-styles');
 var sass = require('node-sass');
 var inlineNg2Styles = require('gulp-inline-ng2-template');
 var flatten = require('gulp-flatten');
@@ -21,7 +19,6 @@ function sassToCss(path, ext, file, callback) {
 
 gulp.task('js:build', function () {
     gulp.src('src/**/*.ts')
-        //.pipe(embedTemplates({ sourceType: 'ts'}))
         .pipe(inlineNg2Styles({ base: '/src' , useRelativePaths: true, styleProcessor: sassToCss }))
         .pipe(gulp.dest('./dist'));
 });

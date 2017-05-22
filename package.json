@@ -6,9 +6,10 @@
   "homepage": "",
   "scripts": {
     "watch": "ngc -p src -w",
-    "build": "gulp js:build && rimraf lib && rimraf dist/compiled && ngc -p dist"
+    "build": "rimraf dist && rimraf lib && gulp js:build  && ngc -p tsconfig.json"
   },
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "dependencies": {
     "@angular/animations": "4.1.0",
     "@angular/common": "4.1.0",
@@ -19,6 +20,7 @@
     "@angular/http": "4.1.0",
     "@angular/platform-browser": "4.1.0",
     "@angular/platform-browser-dynamic": "4.1.0",
+    "@ionic-native/barcode-scanner": "^3.10.2",
     "@ionic-native/camera": "^3.7.0",
     "@ionic-native/core": "^3.7.0",
     "ionic-angular": "3.2.0",
@@ -28,12 +30,12 @@
     "rimraf": "^2.6.1",
     "rxjs": "5.1.1",
     "sw-toolbox": "3.6.0",
+    "typescript": "^2.2.1",
     "vanilla-masker": "^1.1.1",
     "zone.js": "0.8.10"
   },
   "devDependencies": {
     "gulp": "3.9.1",
-    "gulp-angular-embed-templates": "2.3.0",
     "gulp-flatten": "0.3.1",
     "gulp-inline-ng2-template": "^4.0.0",
     "node-sass": "^4.5.0",

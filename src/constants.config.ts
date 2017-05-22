@@ -1,60 +1,60 @@
 export class Constants
 {
-    public static lang: string;
+    public static lang: string = '';
 
     /** Text */
-    public static wait: string;
-    public static errors: string;
-    public static fatalErrorMsg: string;
-    public static warningTitle: string;
-    public static errorTitle: string;
-    public static changesSavedText: string;
-    public static changesNotSavedText: string;
-    public static cannotGoToSubForm: string;
-    public static saveBeforeAttach: string;
-    public static loadData: string;
-    public static isDelete: string;
-    public static isExitApp: string;
-    public static loadingFile: string;
-    public static maxLengthForField: string;
-    public static search: string;
-    public static searchError: string;
-    public static scrollLoadingText: string;
-    public static cameraError: string;
-    public static scanError: string;
-    public static filterBy: string;
-    public static sortBy: string;
-    public static all: string;
-    public static loadingData: string;
+    public static wait: string = '';
+    public static errors: string = '';
+    public static fatalErrorMsg: string = '';
+    public static warningTitle: string = '';
+    public static errorTitle: string = '';
+    public static changesSavedText: string = '';
+    public static changesNotSavedText: string = '';
+    public static cannotGoToSubForm: string = '';
+    public static saveBeforeAttach: string = '';
+    public static loadData: string = '';
+    public static isDelete: string = '';
+    public static isExitApp: string = '';
+    public static loadingFile: string = '';
+    public static maxLengthForField: string = '';
+    public static search: string = '';
+    public static searchError: string = '';
+    public static scrollLoadingText: string = '';
+    public static cameraError: string = '';
+    public static scanError: string = '';
+    public static filterBy: string = '';
+    public static sortBy: string = '';
+    public static all: string = '';
+    public static loadingData: string = '';
 
     /**Buttons text */
-    public static btnTitle: string;
-    public static ok: string;
-    public static cancel: string;
-    public static defaultMsgTitle: string;
-    public static editBtnText: string;
-    public static deleteBtnText: string;
-    public static addNewBtnText: string;
-    public static saveBtnText: string;
-    public static saveAndCont: string;
-    public static cancelAndCont: string;
-    public static addAttach: string;
-    public static openBtnText: string;
-    public static changeBtnText: string;
-    public static textPlaceholder: string;
-    public static approveReadOnly: string;
-    public static approveEditText: string;
-    public static camera: string;
-    public static files: string;
-    public static photoGalery: string;
+    public static btnTitle: string = '';
+    public static ok: string = '';
+    public static cancel: string = '';
+    public static defaultMsgTitle: string = '';
+    public static editBtnText: string = '';
+    public static deleteBtnText: string = '';
+    public static addNewBtnText: string = '';
+    public static saveBtnText: string = '';
+    public static saveAndCont: string = '';
+    public static cancelAndCont: string = '';
+    public static addAttach: string = '';
+    public static openBtnText: string = '';
+    public static changeBtnText: string = '';
+    public static textPlaceholder: string = '';
+    public static approveReadOnly: string = '';
+    public static approveEditText: string = '';
+    public static camera: string = '';
+    public static files: string = '';
+    public static photoGalery: string = '';
     /**Style  */
-    public static dirByLang: string;
-    public static dirOpposite: string;
+    public static dirByLang: string = '';
+    public static dirOpposite: string = '';
 
     /** Validation errors */
-    public static decimalValidErr: string;
-    public static numberValidErr: string;
-    public static lengthValidErr: string;
+    public static decimalValidErr: string = '';
+    public static numberValidErr: string = '';
+    public static lengthValidErr: string = '';
 
     public static setRtlTranslations() 
     {
