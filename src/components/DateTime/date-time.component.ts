@@ -25,9 +25,20 @@ export class DateTimeField
     dirByLang = Constants.dirByLang;
 
     @Input('column') column;
-    @Input() set value(value) {
+    @Input() set value(value)
+    {
         //we could add here default date (of today) for empty fields
         //but needs to have a flag if set default date or not
+        this.setValue(value);
+    }
+    constructor(private elRef:ElementRef)
+    {
+        this.formatedValue = "";
+        this.strValue = "";
+    }
+
+    setValue(value)
+    {
         if(value == "") {
             this.strValue = value;
             this.formatedValue = value;
@@ -41,43 +52,49 @@ export class DateTimeField
                 this.formatedValue = moment(value,"HH:mm").format(this.column.format);
             }
         }
-
-    }
-    constructor(private elRef:ElementRef) {
-        this.formatedValue = "";
-        this.strValue = "";
     }
 
-    dateToISO(date : Date) {
+    dateToISO(date : Date)
+    {
         return date.toISOString();
     }
 
-    isoToString(ios) {
+    isoToString(ios)
+    {
         if(this.column.maxLength == 14)
             return ios.substring(0,16);
         return ios.substring(0,10);
     }
 
-    updateField(value) {
+    updateField(prevVal,value)
+    {
         let event = new CustomEvent('updatefield', { detail: {value: value,
-                                                              prevVal: this.strValue,
+                                                              prevVal: prevVal,
                                                               field: this.column.key},
                                                      bubbles: true});
         this.elRef.nativeElement.dispatchEvent(event);
     }
 
-    dateChanged(event) {
+    dateChanged(event)
+    {
         let value = event.target.value;
-        if(this.column.type == "date" && value != "") {
-            var date = new Date(value);
-            this.updateField(this.dateToISO(date));
+        let prevVal = this.strValue;
+        if(this.column.type == "date" && value != "")
+        {
+            let date = new Date(value);
+            let dateValue = this.dateToISO(date);
+            this.setValue(dateValue);
+            this.updateField(prevVal,dateValue);
         }
-        else {
-            this.updateField(value);
+        else
+        {
+            this.setValue(value);
+            this.updateField(prevVal,value);
         }    
     }
 
-    getDateType() {
+    getDateType()
+    {
         if(this.column.type == "date") {
             if(this.column.maxLength == 14) 
                 return "datetime-local";
@@ -88,13 +105,15 @@ export class DateTimeField
         }
     }
 
-    getIconName() {
+    getIconName()
+    {
         if(this.column.type == "date")
             return "calendar";
         return "time";
     }
 
-    getIsReadOnly() {
+    getIsReadOnly()
+    {
         return this.column.readonly == 1;
     }
 }
