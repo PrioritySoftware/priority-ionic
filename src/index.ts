@@ -2,12 +2,16 @@
 // **** Entities *****
 export { ButtonOptions } from './entities/buttonOptions.class';
 export { Column } from './entities/column.class';
-export { ColumnOptions } from './entities/columnOptions.class';
+export { ColumnOptions, ColumnsOptions } from './entities/columnOptions.class';
 export { Configuration } from './entities/configuration.class';
 export { Filter } from './entities/filter.class';
 export { Form } from './entities/form.class';
+export { FormOptions, FormsOptions } from './entities/formOptions.class';
+export { ItemOptions } from './entities/itemOptions.class';
 export { MessageOptions } from './entities/messageOptions.class';
 export { Proc } from './entities/proc.class';
+export { ProcStepType } from './entities/procStepType.class';
+export { ProgressOptions } from './entities/progressOptions.class'
 export { QueryValue } from './entities/queryValue.class';
 export { Search } from './entities/search.class';
 export { SearchResult } from './entities/searchResult.class';
