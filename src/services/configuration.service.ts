@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { Constants } from "../constants.config";
 import { Configuration } from "../entities/configuration.class";
 import { ServerResponse } from "../entities/srvResponse.class";
@@ -10,20 +11,22 @@ export class ConfigurationService
 {
     configuration: Configuration;
 
-    constructor() { }
+    constructor(private platform: Platform) { }
 
 
     /* Initialization.*/
     config(config: Configuration)
         {
             this.configuration = config;
-        if (config.language == 1)
+            if (config.language == 1)
             {
                 Constants.setRtlTranslations();
+                this.platform.setDir('rtl',false);
             }
             else
             {
                 Constants.setLtrTranslations();
+                this.platform.setDir('ltr',false);
             }
     }
 

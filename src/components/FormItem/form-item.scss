@@ -32,6 +32,7 @@ form-item {
 
 						[dir="rtl"] & {
 							padding-left: 16px;
+							padding-right: 0;
 						}
 
 					}
@@ -40,22 +41,6 @@ form-item {
 		}
 		
 		.item-block {
-
-			[dir="rtl"] & {
-		        padding-right: 16px;
-		        padding-left: 0;
-
-		        &.item-ios,&.item-md {
-		        	ion-avatar[item-left], ion-thumbnail[item-left],  ion-avatar[item-start],  ion-thumbnail[item-start] {
-					    margin: 8px 0px 8px 16px;
-					}
-				}
-
-		        .item-inner {
-		        	padding-left: 8px;
-		        	padding-right: 0;
-		        }
-		    }
 
 			&.item-md,&.item-ios {
 
@@ -168,7 +153,6 @@ form-item {
 				    min-height: initial;
 
 				    [dir="rtl"] & {
-						transform: rotate(180deg);
 						margin-left: 0;
 						margin-right: 16px;
 					}
