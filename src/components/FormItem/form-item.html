@@ -1,17 +1,14 @@
 
 <ion-item-sliding #slidingItem
-	[ngClass]="cssClass + ' ' + collapseState"
+	[class]="cssClass + ' ' + collapseState"
 	(clickOutside)="collapse($event)"
 	[attachOutsideOnClick]="collapseState == 'expanded'"
 	[exclude]="':not(.collapse-icon)'"
-	>
+	(click)="selectItem($event)"
+	[ngClass]="setItemClass(item)">
 
-	<ion-item
-		(click)="selectItem($event)"
-		[ngClass]="setItemClass(item)">
+	<ion-item>
 
-		
-		
 			<div *ngIf="itemTitle" class="item-title">
 				{{itemTitle}}
 			</div>
@@ -57,56 +54,40 @@
 
 			</div>
 
-			<div class="subforms-wrapper" *ngIf="collapseState == 'expanded'" [@subformsInOut]="'in'">
-			
-				<div *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
-				     class="{{'subform ' + subform.key}}">
-				     <ion-item
-			     	(click)="subformClicked(subform)"
-			     	*ngIf="!isTextForm(subform) && !isOneLine(subform)">
-			     	
-			     	 <!-- subform title could be ovverided in subform options -->
-			     	 <ion-label
-			     		*ngIf="getSubformOption(subform,'title')"
-				     	class="{{'subform-title ' + subform.key}}">
-				     	{{getSubformOption(subform,'title')}}
-				     </ion-label>
-				     <ion-label
-				     	*ngIf="!getSubformOption(subform,'title')"
-				     	class="{{'subform-title ' + subform.key}}">
-				     	{{subform.title}}
-				     </ion-label>
-			     	<i item-right class="rows-count">{{getRowsCount(subform)}}</i>
-			     	<ion-icon item-right name="ios-arrow-forward"></ion-icon>
-			     </ion-item>
-			     <div class="subform-inner"
-			     	(click)="subformClicked(subform)"
-			     	*ngIf="isTextForm(subform) || isOneLine(subform)">
+			<ion-list class="subforms-wrapper" *ngIf="collapseState == 'expanded'" [@subformsInOut]="'in'">
+				
+				<ion-item *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
+					class="{{subformCssClass(subform)}}"
+					(click)="subformClicked(subform)">
 
-				     <!-- subform title could be ovverided in subform options -->
-			     	 <ion-label
-			     		*ngIf="getSubformOption(subform,'title')"
-				     	class="{{'subform-title ' + subform.key}}">
-				     	{{getSubformOption(subform,'title')}}
-				     </ion-label>
-				     <ion-label
-				     	*ngIf="!getSubformOption(subform,'title')"
-				     	class="{{'subform-title ' + subform.key}}">
-				     	{{subform.title}}
-				     </ion-label>
-				     <text-form-display
+				    <div class="{{'subform-title ' + subform.key}}">
+				     	{{subformsOptions[subform.key]?.title || subform.title}}
+				    </div>
+
+				    <i item-right class="rows-count"
+				    	*ngIf="!isTextForm(subform) && !isOneLine(subform)">
+				    	{{getRowsCount(subform)}}
+				   	</i>
+
+			     	<ion-icon item-right name="ios-arrow-forward"
+			     		*ngIf="subformsOptions[subform.key]?.click">
+			     	</ion-icon>
+
+			     	<text-form-display
 				     	*ngIf="isTextForm(subform)"
 				     	[Form]="subform">	
-				     </text-form-display>
-				     <item-details
+				    </text-form-display>
+
+				    <item-details
 				     	*ngIf="!isTextForm(subform) && isOneLine(subform)"
 						[Form]="subform"
-						[Item]="subformItem(subform)">
+						[Item]="subformItem(subform)"
+						[ColumnsOptions]="subformsOptions[subform.key]?.columnsOptions">
 					</item-details>
-					</div>
-				</div>
 
-			</div>
+				</ion-item>
+
+			</ion-list>
 
 		</ion-label>
 

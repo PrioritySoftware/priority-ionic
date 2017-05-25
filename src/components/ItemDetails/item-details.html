@@ -13,8 +13,8 @@
 
 		<ion-label
 			class="{{'title ' + column.key}}"
-			*ngIf="getColumnOptionValue(column.key, 'isShowTitle')">
-			{{column.title}}
+			*ngIf="getColumnOptionValue(column.key, 'isShowTitle') || getColumnOptionValue(column.key, 'title')">
+			{{getColumnOptionValue(column.key, 'title') || column.title}}
 		</ion-label>
 
 		<ion-label

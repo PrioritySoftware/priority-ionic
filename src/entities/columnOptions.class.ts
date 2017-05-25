@@ -48,4 +48,5 @@ export interface ColumnOptions
      */
     icon?: string;
     subtype?: string;
+    title?: string;
 }

@@ -205,7 +205,7 @@ export class FormItem
 
     subformClicked(subform)
     {
-        let subformClick = this.getSubformOption(subform,'click');
+        let subformClick = this.subformsOptions[subform.key] && this.subformsOptions[subform.key].click;
         if(subformClick)
         {
             event.preventDefault();
@@ -213,9 +213,14 @@ export class FormItem
         }
     }
 
-    getSubformOption(subform,option)
+    subformCssClass(subform)
     {
-        return this.subformsOptions[subform.key] && this.subformsOptions[subform.key][option];
+        let cssClass = 'subform ' + subform.name;
+        if(!this.isTextForm(subform) && !this.isOneLine(subform))
+        {
+            cssClass += ' multiline '
+        }
+        return cssClass;
     }
 
     // **************** Buttons **************************

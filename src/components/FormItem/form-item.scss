@@ -130,64 +130,74 @@ form-item {
 			color: black;
 		}
 
-		.subform {
-			.subform-inner {
-				border-top: solid 1px lightgray;
-			}
+		.subforms-wrapper.list {
+			margin: 0;
+			.subform {
 
-			&:first-of-type {
-			 	margin-top: 10px;
-			}
-
-			&:last-of-type {
-				ion-item.item-block {
-					border-bottom: solid 1px lightgray;
+				.item-inner { 
+					padding: 8px 0;
+					border-top: solid 1px lightgray;
+						.input-wrapper > .label {
+							padding: 0;
+						}
 				}
-			} 
 
-			.subform-title {
+				&:first-of-type {
+					.item-inner { 
+						margin-top: 16px;
+					}
+				}
+
+				&.multiline:last-of-type {
+					.item-inner {
+						border-bottom: solid 1px lightgray;
+					}
+				}
+
+				.subform-title {
+					padding: 5px 0;
+					margin: 0;
+					display: inline-block;
+				}
+
+				ion-icon[name="ios-arrow-forward"] {
+					margin: 0;
+					margin-left: 16px;
+				    color: #7e7e7e;
+				    font-size: 24px;
+				    min-height: initial;
+
+				    [dir="rtl"] & {
+						transform: rotate(180deg);
+						margin-left: 0;
+						margin-right: 16px;
+					}
+				    
+				}
+
+				.rows-count {
+					color: #7e7e7e;
+				    border: 1px solid #7e7e7e;
+				    border-radius: 50%;
+				    width: 24px;
+				    height: 24px;
+				    font-size: 13px;
+				    text-align: center;
+				    margin: 0;
+				    vertical-align: middle;
+	    			line-height: 24px;
+	    			font-style: normal;
+	    			display: inline-block;
+				}
+			}
+
+			.text {
 				padding: 5px 0;
-				margin: 0;
-			}
-
-			ion-item.item-block {
-				padding: 0;
-				border-top: solid 1px lightgray;
-			}
-
-			ion-icon[name="ios-arrow-forward"] {
-				margin: 0;
-			    color: #7e7e7e;
-			    font-size: 24px;
-			    min-height: initial;
-
-			    [dir="rtl"] & {
-					transform: rotate(180deg);
+				p {
+					font-size: 12px;
+					margin: 0;
+					color: black;
 				}
-			    
-			}
-
-			.rows-count {
-				color: #7e7e7e;
-			    border: 1px solid #7e7e7e;
-			    border-radius: 50%;
-			    width: 24px;
-			    height: 24px;
-			    font-size: 13px;
-			    text-align: center;
-			    margin: 0 16px;
-			    vertical-align: middle;
-    			line-height: 24px;
-    			font-style: normal;
-			}
-		}
-
-		.text {
-			padding: 5px 0;
-			p {
-				font-size: 12px;
-				margin: 0;
-				color: black;
 			}
 		}
 	

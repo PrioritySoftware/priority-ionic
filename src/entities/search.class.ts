@@ -1,9 +1,10 @@
+import { SearchResult } from './searchResult.class';
 export interface Search
 {
     /**Search results. Each result is a 'searchResult.class'. */
-    SearchLine;
+    SearchLine: {[key:string] : SearchResult};
     /**Choose results. Each result is a 'searchResult.class'. */
-    ChooseLine;
-    title1;
-    title2;
+    ChooseLine: {[key:string] : SearchResult};
+    title1: string;
+    title2: string;
 }
