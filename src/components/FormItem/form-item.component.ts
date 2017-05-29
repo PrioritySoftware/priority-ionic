@@ -7,7 +7,6 @@ import { FormsOptions } from '../../entities/formOptions.class';
 import { ButtonOptions } from '../../entities/buttonOptions.class';
 import { ItemOptions } from '../../entities/itemOptions.class';
 
-
 @Component({
     selector: 'form-item',
     templateUrl: 'form-item.html',
@@ -29,7 +28,7 @@ import { ItemOptions } from '../../entities/itemOptions.class';
 
 export class FormItem
 {
-    itemSelect: Function;
+    itemClick: Function;
     subformNames: Array<string>;
     subformsOptions: FormsOptions;
     itemTitle: string;
@@ -69,7 +68,7 @@ export class FormItem
     @Input('Item') item;
     @Input() set ItemOptions(itemOptions: ItemOptions)
     {
-        this.itemSelect = itemOptions.itemSelect;
+        this.itemClick = itemOptions.click;
         this.subformNames = itemOptions.subforms;
         if(this.subformNames && this.subformNames.length)
         {
@@ -231,12 +230,12 @@ export class FormItem
         button.click(item);
     }
 
-    selectItem(event)
+    itemClicked(event)
     {
       if(event.defaultPrevented) return;
-      if(this.itemSelect !== undefined)
+      if(this.itemClick !== undefined)
       {
-          this.itemSelect(this.item, this.form);
+          this.itemClick(this.item, this.form);
       }
     }
 

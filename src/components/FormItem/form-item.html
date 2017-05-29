@@ -4,30 +4,29 @@
 	(clickOutside)="collapse($event)"
 	[attachOutsideOnClick]="collapseState == 'expanded'"
 	[exclude]="':not(.collapse-icon)'"
-	(click)="selectItem($event)"
 	[ngClass]="setItemClass(item)">
 
-	<ion-item>
+	<button ion-item (click)="itemClicked($event)" [ngClass]="{'clickable' : this.itemClick}">
 
-			<div *ngIf="itemTitle" class="item-title">
-				{{itemTitle}}
-			</div>
+		<ion-avatar item-start *ngIf="avatar">
+      		<img
+			  *ngIf="getUrl(avatar).length" 
+			  [src]="getUrl(avatar)"/>
+		</ion-avatar>
 
-			<ion-avatar item-start *ngIf="avatar">
-	      		<img
-				  *ngIf="getUrl(avatar).length" 
-				  [src]="getUrl(avatar)"/>
-			</ion-avatar>
+		<ion-thumbnail item-start *ngIf="thumbnail">
+      		<img
+			  *ngIf="getUrl(thumbnail).length"
+			  [src]="getUrl(thumbnail)"/>
+		</ion-thumbnail>
 
-			<ion-thumbnail item-start *ngIf="thumbnail">
-	      		<img
-				  *ngIf="getUrl(thumbnail).length"
-				  [src]="getUrl(thumbnail)"/>
-			</ion-thumbnail>
-
-			<ion-label>
+		<div item-content>
 
 			<div class="details-wrapper">
+
+				<div *ngIf="itemTitle" class="item-title">
+					{{itemTitle}}
+				</div>
 			
 				<item-details
 				    *ngIf="!isTextForm(form)"
@@ -42,15 +41,15 @@
 				   [Form]="form">	
 			    </text-form-display>
 
-				<div class="collapse-button" *ngIf="subformNames">
+				<button ion-button clear class="collapse-button" *ngIf="subformNames" (click)="toggleCollapse($event)">
 					<ion-spinner *ngIf="isLoadingSubforms"></ion-spinner>
 					<ion-icon
 						name="{{collapseState == 'expanded' ? 'ios-arrow-up' : 'ios-arrow-down' }}"
 						class="collapse-icon"
 						*ngIf="!isLoadingSubforms"
-						(click)="toggleCollapse($event)">
+						>
 					</ion-icon>
-				</div>
+				</button>
 
 			</div>
 
@@ -89,9 +88,9 @@
 
 			</ion-list>
 
-		</ion-label>
+		</div>
 
-	</ion-item>
+	</button>
 
 	<ion-item-options side="right" dir="ltr" *ngIf="rightButtons.length != 0">
 	  <button
