@@ -3,7 +3,7 @@ collections:
                 output: true
 
 theme: jekyll-theme-slate
-title: "Priority Developers"
+title: "Priority Developer Portal"
 permalinks: pretty
 markdown_ext:  markdown,mkdown,mkdn,mkd,md
 redcarpet:
