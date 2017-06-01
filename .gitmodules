@@ -1,0 +1,3 @@
+[submodule "docs/resources"]
+	path = docs/resources
+	url = https://github.com/PrioritySoftware/documentation-resources.git
