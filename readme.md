@@ -36,7 +36,7 @@ Thats it! you are now ready to go.
 
 ### Demo app
 
-The Confectionery app is a demo app built with the Priority Ionic library. It is the perfect starting point for learning and building your own app.
+The [Confectionery app](https://github.com/PrioritySoftware/priority-confectionery-app) is a demo app built with the Priority Ionic library. It is the perfect starting point for learning and building your own app.
 
 ### Contributing
 

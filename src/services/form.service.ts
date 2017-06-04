@@ -254,7 +254,7 @@ export class FormService
             form.rows = rows;
         }
     }
-    private clearLocalRows(form)
+    public clearLocalRows(form)
     {
         form.rows = {};
     }
@@ -380,7 +380,7 @@ export class FormService
                 result =>
                 {
 
-                    resolve();
+                    resolve(this.getFormRow(form,rowInd));
                 },
                 (reason: ServerResponse) =>
                 {
@@ -600,7 +600,7 @@ export class FormService
        Then ends subform.
        Then starts the next sub form if exists.
      */
-    getOneSubForm(parentForm: Form, subformNames: string[], index: number, subforms, resolve, reject)
+    getOneSubform(parentForm: Form, subformNames: string[], index: number, subforms, resolve, reject)
     {
         let onErrorOrWarning = (serverMsg: ServerResponse) =>
         {
@@ -625,7 +625,7 @@ export class FormService
                         subforms[subformName] = subform;
                         if (subformNames[nextIndex] != null)
                         {
-                            this.getOneSubForm(parentForm, subformNames, nextIndex, subforms, resolve, reject);
+                            this.getOneSubform(parentForm, subformNames, nextIndex, subforms, resolve, reject);
                         }
                         else
                         {
@@ -642,35 +642,17 @@ export class FormService
                 this.rejectionHandler(reason, reject);
             });
     }
-    /** Gets a form and initializes its subforms if it has any.
-     * If the wanted row is not a new one, subforms rows will be retrieved as well.  */
-    getSubForms(form: Form, subformNames: string[], rowInd): Promise<any>
+    /** Retrieve multiple subform rows (of the same parent form). */
+    getSubforms(form: Form, subformNames: string[]): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            //let subformNames = Object.keys(form.subforms);
-            if (subformNames.length == 0 || this.getIsNewRow(form, rowInd))
-            {
-                resolve();
-            }
-            else
-            {
-                this.getOneSubForm(form, subformNames, 0, {}, resolve, reject);
-            }
+            this.getOneSubform(form, subformNames, 0, {}, resolve, reject);
         });
     }
 
-    /** Clears subform rows of a specific item.
-      * Should be called when leaving the details page */
-    clearSubforms(subforms)
-    {
-        for (var subform in subforms)
-        {
-            this.clearLocalRows(subforms[subform]);
-        }
-    }
     /** Starts the wanted subform and sets the activeRow to the given index. */
-    editSubFormRow(parentForm: Form, formName, rowInd): Promise<any>
+    setActiveSubformRow(parentForm: Form, formName, rowInd): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
@@ -682,7 +664,7 @@ export class FormService
                         this.setActiveRow(subform, rowInd).then(
                             result =>
                             {
-                                resolve();
+                                resolve(subform);
                             },
                             (reason: ServerResponse) => { this.rejectionHandler(reason, reject); });
                     }
@@ -695,7 +677,7 @@ export class FormService
         });
     }
     /** Starts the wanted subform and creates a new row. */
-    addNewSubFormRow(parentForm: Form, subformName): Promise<any>
+    addSubformRow(parentForm: Form, subformName): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
@@ -725,7 +707,7 @@ export class FormService
      3. Deletes item
      4. Ends sub form.
      */
-    deleteSubFormListRow(parentForm: Form, subformName, rowInd): Promise<any>
+    deleteSubformListRow(parentForm: Form, subformName, rowInd): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
@@ -869,11 +851,11 @@ export class FormService
     //************ Text *********************/
     /** Saves text to a text form
       * Adds the text to the existing text with the date + signiture */
-    saveText(form: Form, text): Promise<any>
+    saveText(form: Form, text, addTextFlag = 1, signatureFlag = 1): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            form.saveText(text, 1, 1, 0).then(
+            form.saveText(text, addTextFlag, signatureFlag, 0).then(
                 (result) =>
                 {
                     resolve();
