@@ -1,4 +1,4 @@
-# Proirity Ionic
+# Priority Ionic
 
 Priority Ionic is the Priority development library for building mobile apps.
 

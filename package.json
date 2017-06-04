@@ -3,7 +3,7 @@
   "author": "Priority Software",
   "version": "0.0.1",
   "license": "ISC",
-  "homepage": "",
+  "repository": "https://github.com/PrioritySoftware/priority-ionic",
   "scripts": {
     "watch": "ngc -p src -w",
     "build": "rimraf dist && rimraf lib && gulp js:build  && ngc -p tsconfig.json"
