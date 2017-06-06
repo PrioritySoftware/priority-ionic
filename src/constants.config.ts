@@ -26,6 +26,8 @@ export class Constants
     public static sortBy: string = '';
     public static all: string = '';
     public static loadingData: string = '';
+    public static activationNotSupported: string = '';
+    public static procedureNotSupported: string = '';
 
     /**Buttons text */
     public static btnTitle: string = '';
@@ -78,7 +80,9 @@ export class Constants
         Constants.filterBy = "הצג ";
         Constants.sortBy = "מיין לפי";
         Constants.all = "הכל";
-        Constants.loadingData="טוען נתונים...";
+        Constants.loadingData = "טוען נתונים...";
+        Constants.activationNotSupported = "ההפעלה לא נתמכת עדיין.";
+        Constants.procedureNotSupported = "הפרוצדורה לא נתמכת עדיין.";
 
 
         Constants.btnTitle = "היכנס";
@@ -100,7 +104,7 @@ export class Constants
         Constants.files = "קבצים";
         Constants.photoGalery = "גלריית תמונות";
 
-        
+
         Constants.textPlaceholder = "הכנס טקסט";
         Constants.approveReadOnly = "קריאה בלבד";
         Constants.approveEditText = "עריכה";
@@ -136,7 +140,9 @@ export class Constants
         Constants.filterBy = "Filter ";
         Constants.sortBy = "Sort by";
         Constants.all = "All";
-        Constants.loadingData="Loading data...";
+        Constants.loadingData = "Loading data...";
+        Constants.activationNotSupported = "The activation is not supported yet.";
+        Constants.procedureNotSupported = "The procedure is not supported yet.";
 
         Constants.ok = "OK";
         Constants.cancel = "Cancel";
@@ -148,7 +154,7 @@ export class Constants
         Constants.saveAndCont = "Save and continue";
         Constants.cancelAndCont = "Continue without saving";
         Constants.addAttach = "Attach file";
-        Constants.openBtnText ="Open";
+        Constants.openBtnText = "Open";
         Constants.changeBtnText = "Change";
         Constants.camera = "Camera";
         Constants.files = "Files";

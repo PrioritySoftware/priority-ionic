@@ -1,10 +1,11 @@
 import { Column } from "./column.class";
+import { DirectActivation } from "./directActivation.class";
 export declare class Form
 {
 
- 	name: string;
+	name: string;
 
- 	columns: {[key:string]: Column};
+	columns: { [key: string]: Column };
 
 	ishtml: number;
 
@@ -16,7 +17,9 @@ export declare class Form
 
 	rows: Object;
 
-	subForms:{[key:string]: Form};
+	subForms: { [key: string]: Form };
+	
+	activations: { [key: string]: DirectActivation };
 
 	title: string;
 
@@ -362,7 +365,7 @@ export declare class Form
 	clearSearchFilter(onSuccess?, onError?)
 
 	uploadFile(file, onSuccess?, onError?)
-	uploadDataUrl(dataUrl: string,type: string, onSuccess?, onError?)
+	uploadDataUrl(dataUrl: string, type: string, onSuccess?, onError?)
 	getFileUrl(file): any
 	cancelFileUpload()
 	saveText(text: string, addFlag: number, signatureFlag: number, secondaryLangFlag: number, onSuccess?, onError?)
@@ -379,7 +382,7 @@ export declare class Form
 	 * 
 	 * @memberOf Form
 	 */
-	activateStart(ename:string, type:string, progressCallback, onSuccess?, onError?) 
+	activateStart(ename: string, type: string, progressCallback, onSuccess?, onError?)
 	/**
 	 * Should be called after a direct activation has finished. Used for refreshing a fomr’s data.
 	 * 
@@ -388,5 +391,5 @@ export declare class Form
 	 * 
 	 * @memberOf Form
 	 */
-	activateEnd(onSuccess?, onError?) 
+	activateEnd(onSuccess?, onError?)
 }

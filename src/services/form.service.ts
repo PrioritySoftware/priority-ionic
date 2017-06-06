@@ -67,7 +67,7 @@ export class FormService
         if (serverMsg.type == ServerResponseType.Error || serverMsg.type == ServerResponseType.APIError || serverMsg.code == ServerResponseCode.Stop)
         {
             isError = true;
-            options.title = Constants.errorTitle;
+            options.title = serverMsg.code == ServerResponseCode.Information ? Constants.defaultMsgTitle : Constants.errorTitle;
         }
         else
         {
@@ -126,7 +126,7 @@ export class FormService
 
     public getForm(formName: string, parentFrom: Form = null): Form
     {
-        if(parentFrom)
+        if (parentFrom)
         {
             return parentFrom.subForms[formName];
         }
@@ -141,10 +141,10 @@ export class FormService
         let localform;
         let forms;
         // assign localform and forms
-        if(parentFrom)
+        if (parentFrom)
         {
             localform = parentFrom.subForms[form.name];
-            if(localform && localform.rows == undefined)
+            if (localform && localform.rows == undefined)
             {
                 localform.rows = {};
             }
@@ -546,14 +546,14 @@ export class FormService
             {
                 onErrorOrWarning = onWarnings;
             }
-            let updateFormsData = (result) => {this.updateFormsData(result,parentForm)};
+            let updateFormsData = (result) => { this.updateFormsData(result, parentForm) };
             parentForm.startSubForm(subformName,
                 onErrorOrWarning,
                 updateFormsData,
                 (subform: Form) =>
                 {
-                    this.mergeForm(subform,parentForm);
-                    resolve(this.getForm(subform.name,parentForm));
+                    this.mergeForm(subform, parentForm);
+                    resolve(this.getForm(subform.name, parentForm));
                 },
                 (reason: ServerResponse) =>
                 {
@@ -740,14 +740,14 @@ export class FormService
                                 () =>
                                 {
                                     resolve();
-                                }, reason => {reject(reason);})
+                                }, reason => { reject(reason); })
                         },
                         reason =>
                         {
                             this.endForm(subform);
                             reject(reason);
                         });
-                },reason => {reject(reason);});
+                }, reason => { reject(reason); });
         });
     }
 
@@ -962,8 +962,10 @@ export class FormService
                 })
                 .catch(reason =>
                 {
-                    this.messageHandler.showErrorOrWarning(true, reason.text);
-                    form.activateEnd().then(() => this.rejectionHandler(reason, reject));
+                    if (reason)
+                        form.activateEnd().then(() => this.rejectionHandler(reason, reject));
+                    else
+                        this.messageHandler.showErrorOrWarning(true, Constants.activationNotSupported);
                 });
         });
     }

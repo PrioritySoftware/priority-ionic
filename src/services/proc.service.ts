@@ -11,7 +11,6 @@ import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { ProgressOptions } from "../entities/progressOptions.class";
 import { ProgressBarHandler } from "../popups/ProgressBar/progress-bar.handler";
-//import * as priority from 'priority-web-sdk';
 declare var procStart;
 
 @Injectable()
@@ -44,6 +43,7 @@ export class ProcService
                 })
                 .catch(reason => 
                 {
+                    reason=reason? reason.text : Constants.procedureNotSupported;
                     this.errorHandling(reason, reject);
                 });
         });
@@ -56,9 +56,9 @@ export class ProcService
      * 
      * @memberOf ProcService
      */
-    errorHandling(reason, reject)
+    errorHandling(reason:string, reject)
     {
-        this.messageHandler.showErrorOrWarning(true, reason.text);
+        this.messageHandler.showErrorOrWarning(true, reason);
         reject();
     }
 
@@ -102,17 +102,26 @@ export class ProcService
             {
                 case ProcStepType.InputFields:
                     {
-
+                        // Will be replaced with the corresponding step. 
+                        this.procCancel(data)
+                            .then(() => reject())
+                            .catch(reason => reject());
                     }
                     break;
                 case ProcStepType.InputOptions:
                     {
-
+                         // Will be replaced with the corresponding step. 
+                        this.procCancel(data)
+                            .then(() => reject())
+                            .catch(reason => reject());
                     }
                     break;
                 case ProcStepType.InputHelp:
                     {
-
+                         // Will be replaced with the corresponding step. 
+                        this.procCancel(data)
+                            .then(() => reject())
+                            .catch(reason => reject());
                     }
                     break;
                 case ProcStepType.Message:
@@ -124,6 +133,10 @@ export class ProcService
                     break;
                 case ProcStepType.ReportOptions:
                     {
+                         // Will be replaced with the corresponding step. 
+                        this.procCancel(data)
+                            .then(() => reject())
+                            .catch(reason => reject());
                     }
                     break;
                 case ProcStepType.DocumentOptions:
@@ -149,6 +162,24 @@ export class ProcService
             }
         });
     }
+
+    /**
+     * Cancels a running procedure.
+     * @param {any} data 
+     * @returns {Promise<any>} 
+     * 
+     * @memberof ProcService
+     */
+    procCancel(data): Promise<any>
+    {
+        return new Promise((resolve, reject) =>
+        {
+            data.proc.cancel()
+                .then(() => resolve())
+                .catch(reason => reject(reason));
+        });
+    }
+
     /**
      * Called when the procedure is executing a message step.
      * @param data 
@@ -199,9 +230,9 @@ export class ProcService
     }
     procDocOptionsStep(data)
     {
-         return new Promise((resolve, reject) =>
+        return new Promise((resolve, reject) =>
         {
-            data.proc.documentOptions(1,1,2)
+            data.proc.documentOptions(1, 1, 2)
                 .then(data => this.procSuccess(data))
                 .then(() => resolve())
                 .catch(reason => reject(reason));
