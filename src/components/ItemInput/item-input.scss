@@ -129,16 +129,18 @@ item-input {
 	.details-input {
 	  .toggle {
 	    position: absolute;
-	    top: 24px;
-	    padding: 0;
+	    top: 15px;
+   		// padding: 12px 2px;
 	    &.toggle-ios {
-	      top: 13px;
+	      top: 1px;
 	    }
 	    &[dir="rtl"] {
 	      left: 1px;
+	      padding-left: 0;
 	    }
 	    &[dir="ltr"] {
 	      right: 1px;
+	      padding-right: 0;
 	    }
 	  }
 	}

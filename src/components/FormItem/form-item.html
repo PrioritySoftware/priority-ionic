@@ -41,7 +41,7 @@
 				   [Form]="form">	
 			    </text-form-display>
 
-				<button ion-button clear class="collapse-button" *ngIf="subformNames" (click)="toggleCollapse($event)">
+				<button ion-button clear class="collapse-button" *ngIf="collapseState.length" (click)="toggleCollapse($event)">
 					<ion-spinner *ngIf="isLoadingSubforms"></ion-spinner>
 					<ion-icon
 						name="{{collapseState == 'expanded' ? 'ios-arrow-up' : 'ios-arrow-down' }}"
@@ -55,7 +55,7 @@
 
 			<ion-list class="subforms-wrapper" *ngIf="collapseState == 'expanded'" [@subformsInOut]="'in'">
 				
-				<ion-item *ngFor="let subform of subforms | objToIterable | Filter:hasRows"
+				<ion-item *ngFor="let subform of subforms | objToIterable | Filter:hasRows | Sort:sortSubforms"
 					class="{{subformCssClass(subform)}}"
 					(click)="subformClicked(subform)">
 
