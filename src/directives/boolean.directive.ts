@@ -25,7 +25,6 @@ export class BooleanDirective implements OnInit
       {
         let val = value ? 'Y' : 'N';
         this.model.viewToModelUpdate(val);
-        this.model.valueAccessor.writeValue(val);
       }
     }
   }

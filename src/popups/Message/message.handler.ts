@@ -1,17 +1,21 @@
-import { LoadingController, AlertController, ToastController, Loading, Alert, ViewController } from 'ionic-angular';
+import { LoadingController, AlertController, ToastController, Loading, Alert, ViewController, PopoverController } from 'ionic-angular';
 import { Constants } from '../../constants.config';
 import { Injectable } from '@angular/core';
 import { MessageOptions } from "../../entities/messageOptions.class";
 import { ButtonOptions } from "../../entities/buttonOptions.class";
-
+import { MenuPopup } from "../../popups/MenuPopup/menu-popup.handler";
 const transparentCssClass = "transparentBlock";
 @Injectable()
 export class MessageHandler
 {
     private alert: Alert;
     private loading: Loading;
+    private dnotAskMeAgain: boolean;
 
-    constructor(private loadingController: LoadingController, private alertController: AlertController, private toastController: ToastController)
+    constructor(private loadingController: LoadingController,
+        private alertController: AlertController,
+        private toastController: ToastController,
+        private popoverCtrl: PopoverController)
     {
         this.alert = null;
         this.loading = null;
@@ -162,6 +166,70 @@ export class MessageHandler
 
     }
 
+    /**Presents an alert with three buttons: 'save-and-continue', 'cancel-and-continue', 'cancel', and 'dnot-ask-me-again' checkbox.
+     * Calls 'onSaveAndContinue' when 'save-and-continue' is clicked. 
+     * Calls 'onUndoAndContinue' when 'cancel-and-continue' is clicked.
+     * User's choice of the 'dont-ask-me-again' checkbox is sent to the 'onSaveAndContinue' func. 
+     * Used in case there are changes that were not saved in the current view and the user wants to navigate to another view.
+     */
+    public showChangesNotSavedAnsAsk(event, onSaveAndContinue, onUndoAndContinue)
+    {
+        this.dnotAskMeAgain = false;
+        let alertPopover;
+        let dontAskMeBtn: ButtonOptions = {
+            text: Constants.neverAskAgain,
+            type: 'checkbox',
+            click: () =>
+            {
+                this.dnotAskMeAgain = !this.dnotAskMeAgain;
+            }
+        };
+        let saveAndCont: ButtonOptions = {
+            text: Constants.saveAndCont,
+            type: "button",
+            click: () =>
+            {
+                onSaveAndContinue(this.dnotAskMeAgain);
+                alertPopover.dismiss()
+            }
+        };
+        let undoAndCond: ButtonOptions = {
+            text: Constants.cancelAndCont,
+            type: "button",
+            disabled: () =>
+            {
+                return this.dnotAskMeAgain;
+            },
+            click: () =>
+            {
+                onUndoAndContinue();
+                alertPopover.dismiss()
+            }
+        };
+        let cancel: ButtonOptions = {
+            text: Constants.cancel,
+            type: "button",
+            disabled: () =>
+            {
+                return this.dnotAskMeAgain;
+            },
+            click: () => 
+            {
+                alertPopover.dismiss();
+            }
+        };
+
+        alertPopover = this.popoverCtrl.create(
+            MenuPopup,
+            {
+                message: Constants.changesNotSavedText,
+                items: [dontAskMeBtn, saveAndCont, undoAndCond, cancel],
+                nolines: true,
+                cssClass: Constants.dirByLang
+            });
+
+        alertPopover.present({ ev: event });
+    }
     /**Presents an alert with the given buttons. Each button is of 'ButtonOptions' type.*/
     public showMessage(message: string, buttons: ButtonOptions[], messageOptions?: MessageOptions)
     {

@@ -143,7 +143,7 @@ export class ItemInput {
     // Returns if the column is readOnly
     isReadOnly(column: Column)
     {
-        return column.readonly == 1;
+        return this.form.isquery == 1 || column.readonly == 1;
     }
 
     // Returns the column's value

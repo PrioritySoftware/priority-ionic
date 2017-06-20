@@ -13,8 +13,12 @@ export class MenuPopup
     dirByLang: string;
 
     title: string;
+    message: string;        
     cssClass: string;
     isButtons: boolean;
+    disableButton : boolean = false;
+    nolines : boolean;
+
     items: Array<ButtonOptions>; // items should be merged with buttons
 
     constructor(private navParams: NavParams)
@@ -25,9 +29,11 @@ export class MenuPopup
     ionViewDidLoad()
     {
         this.title = this.navParams.data.title;
+        this.message = this.navParams.data.message;
         this.items = this.navParams.data.items;
         this.cssClass = this.navParams.data.cssClass ? this.navParams.data.cssClass : "";
-        this.isButtons = this.navParams.data.type == "buttons" ? true : false;
+        this.nolines = this.navParams.data.nolines;//"noline-list" "buttons" "list"
+        // this.isButtons = this.navParams.data.type == "buttons" ? true : false;
     }
 
 

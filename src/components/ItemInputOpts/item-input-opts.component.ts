@@ -21,7 +21,17 @@ export class ItemInputOpts implements OnInit {
 
     @Input('Form') form : Form;
     @Input('Item') item;
-    @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
+    
+    columnsOptions : ColumnOptions = {};
+    @Input() set ColumnsOptions ( options : ColumnOptions)
+    {
+        for(let i in options)
+        {
+            this.columnsOptions[i] = Object.assign({}, options[i]);
+        }
+    }
+    
+    // @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
 
     @Output() columnClick = new EventEmitter<Column>();
 
@@ -70,7 +80,7 @@ export class ItemInputOpts implements OnInit {
 
     isReadOnly(column: Column)
     {
-        return column.readonly == 1;
+        return this.form.isquery == 1 || column.readonly == 1;
     }
 
     isBoolColumn(column: Column)
@@ -120,7 +130,7 @@ export class ItemInputOpts implements OnInit {
             return "mail";
         if (this.isSearch(column))
             return "ios-arrow-down";
-        if (this.isAttach(column))
+        if (this.isAttach(column) && (!this.isReadOnly(column) || this.item[column.key]))
             return "attach";
     }
 
@@ -227,7 +237,14 @@ export class ItemInputOpts implements OnInit {
 
     attachClicked = ($event, column: Column) =>
     {
-        if (this.item[column.key])
+        if (this.isReadOnly(column))
+        {
+            if (this.item[column.key])
+            {
+                this.openAttach(this.item[column.key]);
+            }
+        } 
+        else if (this.item[column.key])
         {
             let popover;
             let openAttach: ButtonOptions = {
