@@ -1,10 +1,10 @@
 <ion-list>
     <ion-item *ngFor="let column of form.columns | objToIterable | Filter:isShowColumn | Sort:sort"
-        class="details-input"
+        [ngClass]="'details-input' + ' ' + column.key"
         dir="{{dirByLang}}" >
 
         <ion-label stacked>
-            {{column.title}}
+            {{getColumnOptions(column)?.title || column.title}}
             <!--Validation error text-->
             <span class="error-label">{{validationMessages[column.key]}}</span>
         </ion-label>

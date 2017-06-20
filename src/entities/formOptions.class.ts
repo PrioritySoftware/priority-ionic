@@ -5,5 +5,6 @@ export interface FormOptions
 {
     title?: string;
     click?: Function;
-    columnsOptions?: ColumnsOptions
+    columnsOptions?: ColumnsOptions;
+    pos?: number;
 }

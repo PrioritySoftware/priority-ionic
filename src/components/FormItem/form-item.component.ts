@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormService } from '../../services/form.service';
 import { Form } from '../../entities/form.class';
 import { ColumnsOptions } from '../../entities/columnOptions.class';
-import { FormsOptions } from '../../entities/formOptions.class';
+import { FormsOptions, FormOptions } from '../../entities/formOptions.class';
 import { ButtonOptions } from '../../entities/buttonOptions.class';
 import { ItemOptions } from '../../entities/itemOptions.class';
 
@@ -29,7 +29,7 @@ import { ItemOptions } from '../../entities/itemOptions.class';
 export class FormItem
 {
     itemClick: Function;
-    subformNames: Array<string>;
+    //subformNames: Array<string> = [];
     subformsOptions: FormsOptions;
     itemTitle: string;
     itemClass: Function;
@@ -69,14 +69,18 @@ export class FormItem
     @Input() set ItemOptions(itemOptions: ItemOptions)
     {
         this.itemClick = itemOptions.click;
-        this.subformNames = itemOptions.subforms;
-        if(this.subformNames && this.subformNames.length)
+        //this.subformNames = itemOptions.subforms;
+        // if(this.subformNames && this.subformNames.length)
+        // {
+        //     this.collapseState = 'collapsed';
+        // }
+        this.subformsOptions = itemOptions.subforms ? itemOptions.subforms : {};
+        if(Object.keys(this.subformsOptions).length)
         {
             this.collapseState = 'collapsed';
         }
-        this.subformsOptions = itemOptions.subformsOptions ? itemOptions.subformsOptions : {};
-        this.itemTitle = itemOptions.itemTitle;
-        this.itemClass = itemOptions.itemClass;
+        this.itemTitle = itemOptions.title;
+        this.itemClass = itemOptions.cssClass;
         let buttons = itemOptions.slidingButtons;
         if (buttons !== undefined)
         {
@@ -134,7 +138,7 @@ export class FormItem
             this.formService.setActiveRow(this.form, this.item.key).then(
                 () =>
                 {
-                    this.formService.getSubForms(this.form, this.subformNames, this.item.key).then(
+                    this.formService.getSubforms(this.form, Object.keys(this.subformsOptions)).then(
                         (subforms) =>
                         {
                             this.subforms = subforms;
@@ -208,7 +212,7 @@ export class FormItem
         if(subformClick)
         {
             event.preventDefault();
-            subformClick();
+            subformClick(subform,this.item, this.form);
         }
     }
 
@@ -220,6 +224,21 @@ export class FormItem
             cssClass += ' multiline '
         }
         return cssClass;
+    }
+
+    sortSubforms = (subform1, subform2) =>
+    {
+        let subformOptions1: FormOptions = this.subformsOptions[subform1.key];
+        let subformOptions2: FormOptions = this.subformsOptions[subform2.key];
+        if (subformOptions1.pos > subformOptions2.pos)
+        {
+            return 1;
+        }
+        if (subformOptions2.pos > subformOptions1.pos)
+        {
+            return -1;
+        }
+        return 0;
     }
 
     // **************** Buttons **************************
