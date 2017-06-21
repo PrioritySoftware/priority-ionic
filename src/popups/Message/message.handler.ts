@@ -228,7 +228,7 @@ export class MessageHandler
                 cssClass: Constants.dirByLang
             });
 
-        alertPopover.present({ ev: event });
+        alertPopover.present();
     }
     /**Presents an alert with the given buttons. Each button is of 'ButtonOptions' type.*/
     public showMessage(message: string, buttons: ButtonOptions[], messageOptions?: MessageOptions)

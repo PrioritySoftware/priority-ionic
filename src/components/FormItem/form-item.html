@@ -96,7 +96,7 @@
 	  <button
 	  	ion-button
 	  	*ngFor="let button of rightButtons"
-	  	[style.background]="button.color"
+	  	color="{{button.color}}"
 	  	(click)="buttonClicked(slidingItem,button,item)">
 	    <ion-icon name="{{button.icon}}"></ion-icon>
 	    {{button.text}}
@@ -107,7 +107,7 @@
 	  <button
 	  	ion-button
 	  	*ngFor="let button of leftButtons"
-	  	[style.background]="button.color"
+	  	color="{{button.color}}"
 	  	(click)="buttonClicked(slidingItem,button,item)">
 	    <ion-icon name="{{button.icon}}"></ion-icon>
 	    {{button.text}}

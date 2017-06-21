@@ -18,7 +18,8 @@ export { SearchResult } from './entities/searchResult.class';
 export { ServerResponse } from './entities/srvResponse.class';
 export { ServerResponseCode } from './entities/srvResponseCode.class';
 export { ServerResponseType } from './entities/srvResponseType.class';
-export {DirectActivation} from'./entities/directActivation.class';
+export { DirectActivation } from './entities/directActivation.class';
+export { SearchAction } from './entities/searchAction.class';
 
 // **** Components ****
 

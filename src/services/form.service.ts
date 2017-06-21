@@ -9,6 +9,7 @@ import { QueryValue } from "../entities/queryValue.class";
 import { MessageOptions } from "../entities/messageOptions.class";
 import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
+import { SearchAction } from "../entities/searchAction.class";
 import { ProcService } from "./proc.service";
 //import * as priority from 'priority-web-sdk';
 /** formStart(formName,dname, onSuccess, onError,onShowMessge, onUpdateFields,autoRetrieveFirstRows) */
@@ -111,9 +112,9 @@ export class FormService
                         for (var key in newRow)
                         {
                             // skip loop if the property is from prototype
-                            if (!newRow.hasOwnProperty(key)) continue;
+                            if (!newRow.hasOwnProperty(key))
+                                continue;
                             var newValue = newRow[key];
-                            this.setIsRowChangesSaved(form, rowInd, false);
                             row[key] = newValue;
                         }
                     }
@@ -135,7 +136,7 @@ export class FormService
             return this.forms[formName];
         }
     }
-    /** Sets a form returned from formStart in the forms object by it's mame*/
+    /** Sets a form returned from formStart in the forms object by it's name*/
     private mergeForm(form: Form, parentFrom: Form = null)
     {
         let localform;
@@ -193,7 +194,7 @@ export class FormService
     {
         return new Promise((resolve, reject) =>
         {
-            this.startParentForm(formName, company).then(
+            this.startParentForm(formName, company, autoRetriveFirstRows).then(
                 form =>
                 {
                     this.setSearchFilter(form, filter).then(
@@ -380,7 +381,7 @@ export class FormService
                 result =>
                 {
 
-                    resolve(this.getFormRow(form,rowInd));
+                    resolve(this.getFormRow(form, rowInd));
                 },
                 (reason: ServerResponse) =>
                 {
@@ -390,7 +391,7 @@ export class FormService
     }
     /** Updates fields values after the current field lost focus, 
      * according to data returned from the server */
-    updateField(form: Form, newValue, columnName): Promise<any>
+    updateField(form: Form, rowInd: number, columnName: string, newValue): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
@@ -399,7 +400,7 @@ export class FormService
                 resolve();
                 return;
             }
-
+            this.setIsRowChangesSaved(form, rowInd, false);
             form.fieldUpdate(columnName, newValue).then(
                 result =>
                 {
@@ -513,12 +514,12 @@ export class FormService
         });
 
     }
-    /** Returns search results for the given value. */
-    search(form: Form, val): Promise<any>
+    /** Returns search results for the given value. Default action is SearchAction.TextChange = 4.*/
+    search(form: Form, val, action: number = SearchAction.TextChange): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            form.searchAction(4, val).then(
+            form.searchAction(action, val).then(
                 result =>
                 {
                     resolve(result.SearchLine);
@@ -647,7 +648,10 @@ export class FormService
     {
         return new Promise((resolve, reject) =>
         {
-            this.getOneSubform(form, subformNames, 0, {}, resolve, reject);
+            if (subformNames.length == 0)
+                resolve();
+            else
+                this.getOneSubform(form, subformNames, 0, {}, resolve, reject);
         });
     }
 
@@ -691,6 +695,7 @@ export class FormService
                         },
                         (reason: ServerResponse) =>
                         {
+                            this.undoRow(subform).then(()=>this.endForm(subform)).catch(() => { });
                             this.rejectionHandler(reason, reject);
                         });
                 },

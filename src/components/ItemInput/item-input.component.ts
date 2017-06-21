@@ -7,16 +7,17 @@ import { MessageHandler } from '../../popups/Message/message.handler';
 import { Constants } from '../../constants.config';
 
 @Component({
-  selector: 'item-input',
-  templateUrl: 'item-input.html',
-  styleUrls: ['./item-input.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'item-input',
+    templateUrl: 'item-input.html',
+    styleUrls: ['./item-input.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class ItemInput {
+export class ItemInput
+{
 
     @Input('Form') form: Form;
     @Input('Item') item;
-    @Input('ColumnsOptions') columnsOptions : ColumnsOptions;
+    @Input('ColumnsOptions') columnsOptions: ColumnsOptions;
 
     @Output() columnClick = new EventEmitter<Column>();
 
@@ -42,10 +43,10 @@ export class ItemInput {
     // public member used to check if changes were made to the item values (that need save or discard).
     isDirty = false;
 
-    constructor(private messageHandler: MessageHandler, private formService: FormService) {}
+    constructor(private messageHandler: MessageHandler, private formService: FormService) { }
 
     // The displayed columns are sorted by the 'pos' option in columnOptions
-    sort = (column1 : Column, column2: Column) =>
+    sort = (column1: Column, column2: Column) =>
     {
         let columnOptions1 = this.getColumnOptions(column1);
         let columnOptions2 = this.getColumnOptions(column2);
@@ -65,8 +66,8 @@ export class ItemInput {
     // Returns if the column should be displayed
     isShowColumn = (column: Column) =>
     {
-       let columnOptions = this.getColumnOptions(column);
-       return columnOptions && columnOptions.isShow;
+        let columnOptions = this.getColumnOptions(column);
+        return columnOptions && columnOptions.isShow;
     }
 
     // Returns if column is date or time type
@@ -105,8 +106,8 @@ export class ItemInput {
             {
                 this.messageHandler.showTransLoading();
             }, 500);
-            this.formService.updateField(this.form, value, columnName).then(
-                result =>
+            this.formService.updateField(this.form, this.item.key, columnName, value)
+                .then(result =>
                 {
                     this.isDirty = true;
                     clearTimeout(blockTimeout);
@@ -119,15 +120,20 @@ export class ItemInput {
                     this.item[columnName] = prevVal;
                     if (isUpdateAfterError)
                     {
-                        this.updateField(columnName, prevVal, prevVal, false);
+                        clearTimeout(blockTimeout);
+                        this.messageHandler.hideLoading();
+                        this.item[columnName] = prevVal;
+                        if (isUpdateAfterError)
+                        {
+                            this.updateField(columnName, prevVal, prevVal, false);
+                        }
                     }
-                }
-            );
+                });
         }
     }
 
     // Sets the validation message to be displayed in the validationMessages object
-    displayValidationMessage(message,column: Column)
+    displayValidationMessage(message, column: Column)
     {
         this.validationMessages[column.key] = message;
     }
@@ -161,13 +167,13 @@ export class ItemInput {
     }
 
     // Handles the icon click
-    iconClicked($event,column : Column)
+    iconClicked($event, column: Column)
     {
         let columnOptions = this.getColumnOptions(column);
         // if there is a 'click' option form that column, invoke it
         if (columnOptions && columnOptions.click)
         {
-            columnOptions.click($event,column,this.item);
+            columnOptions.click($event, column, this.item);
         }
         // otherwise, emit the columnClick event with the column clicked.
         else

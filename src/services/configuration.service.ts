@@ -16,18 +16,18 @@ export class ConfigurationService
 
     /* Initialization.*/
     config(config: Configuration)
+    {
+        this.configuration = config;
+        if (config.language == 1)
         {
-            this.configuration = config;
-            if (config.language == 1)
-            {
-                Constants.setRtlTranslations();
-                this.platform.setDir('rtl',false);
-            }
-            else
-            {
-                Constants.setLtrTranslations();
-                this.platform.setDir('ltr',false);
-            }
+            Constants.setRtlTranslations();
+            this.platform.setDir('rtl', false);
+        }
+        else
+        {
+            Constants.setLtrTranslations();
+            this.platform.setDir('ltr', false);
+        }
     }
 
     /** Login - must be after initialization(config). **/
@@ -37,12 +37,13 @@ export class ConfigurationService
         {
             this.configuration.username = username;
             this.configuration.password = password;
-            login(this.configuration,
+            login(this.configuration)
+                .then(
                 () =>
                 {
                     resolve();
-                },
-                (reason: ServerResponse) =>
+                })
+                .catch((reason: ServerResponse) =>
                 {
                     reject(reason.message);
                 });
