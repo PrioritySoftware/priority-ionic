@@ -4,19 +4,27 @@ Priority Ionic is the Priority development library for building mobile apps.
 
 Priority Ionic is built on top of [Angular](https://angular.io/), [Ionic](https://ionicframework.com/) and the [Priority Web SDK](https://prioritysoftware.github.io/api), all put together to create the best development library for Priority in mobile.
 
-Priority Ionic provides a set of powerfull services along with usefull components that make building Ionic apps integrating with Priority easier than ever.
+Priority Ionic provides a set of powerful services along with useful components that make building Ionic apps integrating with Priority easier than ever.
 
-Explore the [docs](https://prioritysoftware.github.io/priority-ionic) for further explenation on how to use Priority Ionic, its API and content.
+Explore the [docs](https://prioritysoftware.github.io/priority-ionic) for further explanation on how to use Priority Ionic, its API and content.
 
 ### Getting Started
 
-Install Priority Ionic package via npm:
+Install Priority Ionic package using npm:
 
 ```bash
 $ npm install priority-ionic --save
 ```
+
 <br/>
-Then add the `PriorityIonicModule` to your app's module imports:
+Include the priority-web-sdk script in your index.html file:
+
+```html
+<script src="https://cdn.priority-software.com/upgrades/var/api/head/priorityapp.nocache.js"></script>
+```
+
+<br/>
+Add the `PriorityIonicModule` to your app's module imports:
 
 ```js
 import { PriorityIonicModule } from 'priority-ionic';
@@ -32,7 +40,7 @@ import { PriorityIonicModule } from 'priority-ionic';
 export class AppModule {}
 ```
 
-Thats it! you are now ready to go.
+Thats it! You are ready to go.
 
 ### Demo app
 
@@ -40,7 +48,7 @@ The [Confectionery app](https://github.com/PrioritySoftware/priority-confectione
 
 ### Contributing
 
-You're more than wellcome contributing by [opening an issue](/issues/new) or submitting a pull request with your fixes or additions.
+You're more than welcome contributing by [opening an issue](/issues/new) or submitting a pull request with your fixes or additions.
 
 Setup:
 
