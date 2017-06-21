@@ -24,7 +24,6 @@ export interface ColumnOptions
      */
     concat?: string;
     pos?: number;
-    sortDirection?: number;
     
     /**
      * Function to call when the item representing the column is clicked.

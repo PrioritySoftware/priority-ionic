@@ -97,25 +97,20 @@ export class FormList {
         return false
     }
 
-    filterItems = (item,filter) =>
+    filterItems = (item,filters) =>
     {
-        if(filter === undefined || filter.columns === undefined)
+        if(filters === undefined || filters.length === 0)
         {
             return true;
         }
-        let filterColumns = filter.columns;
-        let filterType = filter.type === undefined ? 'includes' : filter.type;
-        if(Object.keys(filterColumns).length === 0)
+        for (var ind in filters)
         {
-            return true;
-        }
-        for (var column in filterColumns)
-        {
-            if(typeof filterColumns[column] === 'object')
+            let filter = filters[ind];
+            if(typeof filter.value === 'object')
             {
-                for (var i in filterColumns[column])
+                for (var i in filter.value)
                 {
-                    if(this.isShow(item[column],filterColumns[column][i],filterType))
+                    if(this.isShow(item[filter.column],filter.value[i],filter.type))
                     {
                         return true;
                     }
@@ -123,7 +118,7 @@ export class FormList {
             }
             else
             {
-                if(this.isShow(item[column],filterColumns[column],filterType))
+                if(this.isShow(item[filter.column],filter.value,filter.type))
                 {
                     return true;
                 }
@@ -132,21 +127,14 @@ export class FormList {
         return false;
     }
 
-    sortItems = (item1,item2,sortColumn) =>
+    sortItems = (item1,item2,sort) =>
     {
-        if(sortColumn === undefined)
+        if(sort === undefined || sort.column === undefined)
         {
             return 0;
         }
-        let sortDirection;
-        if(this.columnsOptions[sortColumn] && this.columnsOptions[sortColumn].sortDirection)
-        {
-            sortDirection = this.columnsOptions[sortColumn].sortDirection;
-        }
-        else
-        {
-            sortDirection = 1;
-        }
+        let sortDirection = sort.direction ? sort.direction : 1;
+        let sortColumn = sort.column;
         let val1 = item1[sortColumn];
         let val2 = item2[sortColumn];
         if(this.form.columns[sortColumn].type == 'number')

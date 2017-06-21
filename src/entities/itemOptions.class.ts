@@ -3,9 +3,8 @@ import { ButtonOptions } from './buttonOptions.class';
 export interface ItemOptions
 {
 	click?: Function;
-    subforms?: Array<string>;
-    subformsOptions?: FormsOptions;
-    itemTitle?: string;
-    itemClass?: Function;
+    subforms?: FormsOptions;
+    title?: string;
+    cssClass?: Function;
     slidingButtons?: Array<ButtonOptions>;
 }

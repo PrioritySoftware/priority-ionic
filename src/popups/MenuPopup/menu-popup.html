@@ -1,26 +1,23 @@
-<div id="menuPopUpList" class={{cssClass}}>
-  <ion-list-header  *ngIf= "title !== undefined"
-                    dir="{{dirByLang}}" >
-	   <ion-title>{{title}}</ion-title>
-  </ion-list-header>
-  <!-- show menu item as list -->
-  <ion-list *ngIf="items !== undefined"
-            dir="{{dirByLang}}">
-    <ion-item *ngFor="let item of items"
-              (click)="item.click()">
-      <ion-label>{{item.text}}</ion-label>
+<ion-content id="menuPopUpList" class={{cssClass}}>
+  <ion-label *ngIf="message" class="message">{{message}}</ion-label>
+  <!--show menu item as list -->
+  <ion-list dir="{{dirByLang}}" [attr.no-lines]="display=='nolines'">
+
+    <ion-item *ngFor="let item of items">
+
+      <button *ngIf="item.type!=='checkbox'" 
+              [disabled]="item.disabled && item.disabled()" 
+              [attr.ion-button]="item.type=='button'"
+               clear
+              (click)="item.click()">  
+                <ion-icon *ngIf="item.icon" name="{{item.icon}}" ></ion-icon>
+                {{item.text}}     
+      </button>
+
+      <!--checkbox-->
+      <ion-label *ngIf="item.type==='checkbox'" class="checkbox-label">{{item.text}}</ion-label>
+      <ion-checkbox *ngIf="item.type==='checkbox'" (click)="item.click()"></ion-checkbox>
+
     </ion-item>
   </ion-list>
-  <!-- show menu item as buttons + icon -->
-  <ion-buttons *ngIf="buttons !== undefined">
-     <button ion-button *ngFor="let button of buttons" 
-             (click)="button.click()" 
-             outline color="dark" dir="{{dirByLang}}">
-          <div>
-             <ion-icon name="{{button.icon}}" ></ion-icon>
-             <br>
-  		       <label>{{button.text}}</label>
-          </div>
-     </button>
-  </ion-buttons>
-</div>
+</ion-content>

@@ -39,6 +39,8 @@ export class ItemInput {
 
     dirByLang = Constants.dirByLang;
     validationMessages = {};
+    // public member used to check if changes were made to the item values (that need save or discard).
+    isDirty = false;
 
     constructor(private messageHandler: MessageHandler, private formService: FormService) {}
 
@@ -92,34 +94,36 @@ export class ItemInput {
     // This method handles the updatefield event.
     // It sends the update field to the formService
     // Shows a transparent loading if the update takes more than 500ms
-    // TODO: move this functionality outside of the package.
+    // TODO: move the loading functionality outside of the package.
     // If the update returned with an error,
     // It sets the previous value back in the item, and updates the formService with it.
     updateField(columnName, value, prevVal, isUpdateAfterError = true)
     {
-        if (columnName == null)
-            return;
-        let blockTimeout = setTimeout(() =>
+        if (columnName != null && prevVal != value)
         {
-            this.messageHandler.showTransLoading();
-        }, 500);
-        this.formService.updateField(this.form, value, columnName).then(
-            result =>
+            let blockTimeout = setTimeout(() =>
             {
-                clearTimeout(blockTimeout);
-                this.messageHandler.hideLoading();
-            },
-            error =>
-            {
-                clearTimeout(blockTimeout);
-                this.messageHandler.hideLoading();
-                this.item[columnName] = prevVal;
-                if (isUpdateAfterError)
+                this.messageHandler.showTransLoading();
+            }, 500);
+            this.formService.updateField(this.form, value, columnName).then(
+                result =>
                 {
-                    this.updateField(columnName, prevVal, prevVal, false);
+                    this.isDirty = true;
+                    clearTimeout(blockTimeout);
+                    this.messageHandler.hideLoading();
+                },
+                error =>
+                {
+                    clearTimeout(blockTimeout);
+                    this.messageHandler.hideLoading();
+                    this.item[columnName] = prevVal;
+                    if (isUpdateAfterError)
+                    {
+                        this.updateField(columnName, prevVal, prevVal, false);
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     // Sets the validation message to be displayed in the validationMessages object
@@ -139,7 +143,7 @@ export class ItemInput {
     // Returns if the column is readOnly
     isReadOnly(column: Column)
     {
-        return column.readonly == 1;
+        return this.form.isquery == 1 || column.readonly == 1;
     }
 
     // Returns the column's value
@@ -163,7 +167,7 @@ export class ItemInput {
         // if there is a 'click' option form that column, invoke it
         if (columnOptions && columnOptions.click)
         {
-            columnOptions.click($event,column);
+            columnOptions.click($event,column,this.item);
         }
         // otherwise, emit the columnClick event with the column clicked.
         else

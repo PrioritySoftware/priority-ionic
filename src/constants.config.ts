@@ -9,6 +9,7 @@ export class Constants
     public static warningTitle: string = '';
     public static errorTitle: string = '';
     public static changesSavedText: string = '';
+    public static askSaveText: string = '';
     public static changesNotSavedText: string = '';
     public static cannotGoToSubForm: string = '';
     public static saveBeforeAttach: string = '';
@@ -33,12 +34,15 @@ export class Constants
     public static btnTitle: string = '';
     public static ok: string = '';
     public static cancel: string = '';
+    public static yes: string = '';
+    public static no: string = '';
     public static defaultMsgTitle: string = '';
     public static editBtnText: string = '';
     public static deleteBtnText: string = '';
     public static addNewBtnText: string = '';
     public static saveBtnText: string = '';
     public static saveAndCont: string = '';
+    public static neverAskAgain: string = '';
     public static cancelAndCont: string = '';
     public static addAttach: string = '';
     public static openBtnText: string = '';
@@ -66,7 +70,8 @@ export class Constants
         Constants.warningTitle = "אזהרה";
         Constants.errorTitle = "שגיאה";
         Constants.changesSavedText = "הנתונים נשמרו בהצלחה!";
-        Constants.changesNotSavedText = "ישם שינויים שלא נשמרו. להמשיך?";
+        Constants.changesNotSavedText = "ישנם שינויים שלא נשמרו. להמשיך?";
+        Constants.askSaveText = "לשמור שינויים?";
         Constants.cannotGoToSubForm = "לא ניתן לבצע את הפעולה.אנא הכנס נתונים תחילה.";
         Constants.saveBeforeAttach = "ישנם שינויים שלא נשמרו. אנא שמור את הדיווח לפני צרוף נספחים.";
         Constants.loadData = "טוען נתונים...";
@@ -88,12 +93,15 @@ export class Constants
         Constants.btnTitle = "היכנס";
         Constants.ok = "אישור";
         Constants.cancel = "ביטול";
+        Constants.yes = "כן";
+        Constants.no = "לא";
         Constants.defaultMsgTitle = "הודעה";
         Constants.editBtnText = "ערוך";
         Constants.deleteBtnText = "מחק";
         Constants.addNewBtnText = "חדש";
         Constants.saveBtnText = "שמור";
         Constants.saveAndCont = "שמור והמשך";
+        Constants.neverAskAgain = "אל תשאל שוב";
         Constants.cancelAndCont = "המשך ללא שמירה";
         Constants.addAttach = "נספח חדש";
         Constants.loadingFile = "מעלה את הקובץ...";
@@ -125,6 +133,7 @@ export class Constants
         Constants.errorTitle = "Error";
         Constants.changesSavedText = "Your changes were successfully saved!";
         Constants.changesNotSavedText = "Some changes were not saved. Continue?";
+        Constants.askSaveText = "Save Changes?";
         Constants.cannotGoToSubForm = "The operation could not be executed. Please enter data first.";
         Constants.saveBeforeAttach = "Some changes were not saved. Please save the report before adding an attachment.";
         Constants.loadData = "Loading data...";
@@ -146,12 +155,15 @@ export class Constants
 
         Constants.ok = "OK";
         Constants.cancel = "Cancel";
+        Constants.yes = "Yes";
+        Constants.no = "No";
         Constants.defaultMsgTitle = "Message";
         Constants.editBtnText = "Edit";
         Constants.deleteBtnText = "Delete";
         Constants.addNewBtnText = "Add new";
         Constants.saveBtnText = "Save";
         Constants.saveAndCont = "Save and continue";
+        Constants.neverAskAgain = "Never ask again";
         Constants.cancelAndCont = "Continue without saving";
         Constants.addAttach = "Attach file";
         Constants.openBtnText = "Open";

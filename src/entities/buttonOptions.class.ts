@@ -5,4 +5,6 @@ export interface ButtonOptions
     icon?: string;
     color?: string;
     side?: string;
+    disabled?: Function;
+    type?: string;
 }

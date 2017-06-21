@@ -26,6 +26,9 @@
     right: 0px;
     // color: color($colors,gray);
     color: #5f5f5f;
+    &.disabled {
+      color: rgba(82, 87, 88, 0.67);
+    }
   }
 
   &[dir="rtl"] {

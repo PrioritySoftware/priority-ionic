@@ -4,10 +4,9 @@ import * as moment from "moment";
 
 @Component({
     selector: 'date-time',
-    template: `<div class="datetime" dir={{dirByLang}}>
-                   <ion-label [ngClass]="{disabled : getIsReadOnly()}"
-                   >{{formatedValue}}</ion-label>
-                   <ion-icon name="{{getIconName()}}"></ion-icon>
+    template: `<div class="datetime" dir={{dirByLang}} [ngClass]="{disabled : getIsReadOnly()}">
+                   <ion-label>{{formatedValue}}</ion-label>
+                   <ion-icon *ngIf="!getIsReadOnly()" name="{{getIconName()}}"></ion-icon>
                    <input
                         [value]="strValue"
                         type="{{getDateType()}}"
@@ -24,6 +23,7 @@ export class DateTimeField
     strValue;
     dirByLang = Constants.dirByLang;
 
+    @Input('form') form;
     @Input('column') column;
     @Input() set value(value)
     {
@@ -113,7 +113,7 @@ export class DateTimeField
     }
 
     getIsReadOnly()
-    {
-        return this.column.readonly == 1;
+    { 
+        return this.column.readonly == 1 || (this.form && this.form.isquery == 1);
     }
 }

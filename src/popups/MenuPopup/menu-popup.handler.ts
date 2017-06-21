@@ -13,23 +13,27 @@ export class MenuPopup
     dirByLang: string;
 
     title: string;
+    message: string;        
     cssClass: string;
-    buttons: Array<ButtonOptions>;
+    isButtons: boolean;
+    disableButton : boolean = false;
+    nolines : boolean;
+
     items: Array<ButtonOptions>; // items should be merged with buttons
 
     constructor(private navParams: NavParams)
     {
         this.dirByLang = Constants.dirByLang;
-        this.cssClass = "";
     }
 
     ionViewDidLoad()
     {
-        this.buttons = this.navParams.data.buttons;
         this.title = this.navParams.data.title;
+        this.message = this.navParams.data.message;
         this.items = this.navParams.data.items;
-        if (this.navParams.data.cssClass != null)
-            this.cssClass = this.navParams.data.cssClass;
+        this.cssClass = this.navParams.data.cssClass ? this.navParams.data.cssClass : "";
+        this.nolines = this.navParams.data.nolines;//"noline-list" "buttons" "list"
+        // this.isButtons = this.navParams.data.type == "buttons" ? true : false;
     }
 
 
