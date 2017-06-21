@@ -2,4 +2,4 @@ examples
 node_modules
 src
 docs
-/compiled
+dist
