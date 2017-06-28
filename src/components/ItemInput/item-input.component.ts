@@ -120,13 +120,7 @@ export class ItemInput
                     this.item[columnName] = prevVal;
                     if (isUpdateAfterError)
                     {
-                        clearTimeout(blockTimeout);
-                        this.messageHandler.hideLoading();
-                        this.item[columnName] = prevVal;
-                        if (isUpdateAfterError)
-                        {
-                            this.updateField(columnName, prevVal, prevVal, false);
-                        }
+                        this.updateField(columnName, prevVal, '', false);
                     }
                 });
         }

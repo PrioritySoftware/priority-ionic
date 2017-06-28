@@ -9,7 +9,6 @@ export class Constants
     public static warningTitle: string = '';
     public static errorTitle: string = '';
     public static changesSavedText: string = '';
-    public static askSaveText: string = '';
     public static changesNotSavedText: string = '';
     public static cannotGoToSubForm: string = '';
     public static saveBeforeAttach: string = '';
@@ -34,8 +33,6 @@ export class Constants
     public static btnTitle: string = '';
     public static ok: string = '';
     public static cancel: string = '';
-    public static yes: string = '';
-    public static no: string = '';
     public static defaultMsgTitle: string = '';
     public static editBtnText: string = '';
     public static deleteBtnText: string = '';
@@ -71,7 +68,6 @@ export class Constants
         Constants.errorTitle = "שגיאה";
         Constants.changesSavedText = "הנתונים נשמרו בהצלחה!";
         Constants.changesNotSavedText = "ישנם שינויים שלא נשמרו. להמשיך?";
-        Constants.askSaveText = "לשמור שינויים?";
         Constants.cannotGoToSubForm = "לא ניתן לבצע את הפעולה.אנא הכנס נתונים תחילה.";
         Constants.saveBeforeAttach = "ישנם שינויים שלא נשמרו. אנא שמור את הדיווח לפני צרוף נספחים.";
         Constants.loadData = "טוען נתונים...";
@@ -93,8 +89,6 @@ export class Constants
         Constants.btnTitle = "היכנס";
         Constants.ok = "אישור";
         Constants.cancel = "ביטול";
-        Constants.yes = "כן";
-        Constants.no = "לא";
         Constants.defaultMsgTitle = "הודעה";
         Constants.editBtnText = "ערוך";
         Constants.deleteBtnText = "מחק";
@@ -133,7 +127,6 @@ export class Constants
         Constants.errorTitle = "Error";
         Constants.changesSavedText = "Your changes were successfully saved!";
         Constants.changesNotSavedText = "Some changes were not saved. Continue?";
-        Constants.askSaveText = "Save Changes?";
         Constants.cannotGoToSubForm = "The operation could not be executed. Please enter data first.";
         Constants.saveBeforeAttach = "Some changes were not saved. Please save the report before adding an attachment.";
         Constants.loadData = "Loading data...";
@@ -155,8 +148,6 @@ export class Constants
 
         Constants.ok = "OK";
         Constants.cancel = "Cancel";
-        Constants.yes = "Yes";
-        Constants.no = "No";
         Constants.defaultMsgTitle = "Message";
         Constants.editBtnText = "Edit";
         Constants.deleteBtnText = "Delete";
@@ -170,7 +161,7 @@ export class Constants
         Constants.changeBtnText = "Change";
         Constants.camera = "Camera";
         Constants.files = "Files";
-        Constants.photoGalery = "Photo Galery";
+        Constants.photoGalery = "Photo Gallery";
 
         Constants.textPlaceholder = "Enter text";
         Constants.approveReadOnly = "Read only";
