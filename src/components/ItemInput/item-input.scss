@@ -143,8 +143,10 @@ item-input {
 	  border-top: none;
 	}
 
-	// .details-input {
-	  // .toggle {
+	 .details-input {
+	   .toggle {
+			 padding-right: 2px;
+			 padding-left: 2px;
 	  //   position: absolute;
 	  //   top: 24px;
 	  //   padding: 0;
@@ -157,6 +159,6 @@ item-input {
 	  //   &[dir="ltr"] {
 	  //     right: 1px;
 	  //   }
-	  // }
-	// }
+	   }
+	 }
 }
