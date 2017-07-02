@@ -41,9 +41,7 @@ export class UpdateFieldDirective
                 this.updateField(this.model.viewModel);
             }
         }
-        else {
-            this.updateField(this.model.value);
-        }
+        
     }
 
 
