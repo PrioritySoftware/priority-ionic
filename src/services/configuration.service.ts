@@ -5,6 +5,7 @@ import { Configuration } from "../entities/configuration.class";
 import { ServerResponse } from "../entities/srvResponse.class";
 // import * as priority from 'priority-web-sdk';
 declare var login;
+declare var changePassword;
 
 @Injectable()
 export class ConfigurationService
@@ -45,8 +46,27 @@ export class ConfigurationService
                 })
                 .catch((reason: ServerResponse) =>
                 {
-                    reject(reason.message);
+                    reject(reason);
                 });
+        });
+    }
+
+    /** changePassword  **/
+    changePassword(newPwd : string, confirmNewPwd : string, oldPwd : string) : Promise<any>
+    {
+        return new  Promise((resolve, reject) =>
+        {
+            changePassword(newPwd, confirmNewPwd, oldPwd)
+                .then(
+                    (res : string)=>
+                    {
+                        resolve(res);
+                    })
+                    .catch((reason : ServerResponse) =>
+                    {
+                        reject(reason);
+                    });
+            
         });
     }
 
