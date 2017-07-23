@@ -6,6 +6,7 @@ import { FormService } from './services/form.service';
 import { ProcService } from './services/proc.service';
 import { ConfigurationService } from './services/configuration.service';
 import { PermissionsService } from './services/permissions.service';
+import {PriorityService} from './services/priority.service';
 
 import { ObjToIterable } from "./pipes/objToIterable.pipe";
 import { FilterPipe } from "./pipes/filter.pipe";
@@ -31,6 +32,8 @@ import { ValidationDirective } from './directives/validation.directive';
 import { UpdateFieldDirective } from './directives/updateField.directive';
 import { InnerHTML } from "./directives/innerHTML.directive";
 import { ClickOutsideDirective } from "./directives/clickOutside.directive";
+
+import * as priority from 'priority-web-sdk';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,9 @@ import { ClickOutsideDirective } from "./directives/clickOutside.directive";
     ObjToIterable,
     FilterPipe,
     SortPipe,
-    ProgressBarHandler
+    ProgressBarHandler,
+    {provide:'priority-web-sdk', useValue:priority},
+    PriorityService
   ],
   entryComponents: [
     FileUploader,

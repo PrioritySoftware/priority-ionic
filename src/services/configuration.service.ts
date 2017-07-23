@@ -3,16 +3,15 @@ import { Platform } from 'ionic-angular';
 import { Constants } from "../constants.config";
 import { Configuration } from "../entities/configuration.class";
 import { ServerResponse } from "../entities/srvResponse.class";
-// import * as priority from 'priority-web-sdk';
-declare var login;
-declare var changePassword;
+import { LoginResult } from "../entities/loginResult.class";
+import { PriorityService } from "../services/priority.service";
 
 @Injectable()
 export class ConfigurationService
 {
     configuration: Configuration;
 
-    constructor(private platform: Platform) { }
+    constructor(private platform: Platform, private priorityService:PriorityService) { }
 
 
     /* Initialization.*/
@@ -32,17 +31,17 @@ export class ConfigurationService
     }
 
     /** Login - must be after initialization(config). **/
-    logIn(username: string, password: string): Promise<any>
+    logIn(username: string, password: string): Promise<LoginResult>
     {
         return new Promise((resolve, reject) =>
         {
             this.configuration.username = username;
             this.configuration.password = password;
-            login(this.configuration)
+            this.priorityService.priority.login(this.configuration)
                 .then(
-                () =>
+                (result: LoginResult) =>
                 {
-                    resolve();
+                    resolve(result);
                 })
                 .catch((reason: ServerResponse) =>
                 {
@@ -56,7 +55,7 @@ export class ConfigurationService
     {
         return new  Promise((resolve, reject) =>
         {
-            changePassword(newPwd, confirmNewPwd, oldPwd)
+            this.priorityService.priority.changePassword(newPwd, confirmNewPwd, oldPwd)
                 .then(
                     (res : string)=>
                     {
