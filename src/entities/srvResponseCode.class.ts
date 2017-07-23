@@ -47,4 +47,10 @@ export class ServerResponseCode
 
      /** The error is an information error which means it doesn't stop the ongoing process.  */
     public static Information: string = "information";
+
+    /** The error when calling a function that is not supported in the Priority version  */
+    public static NotSupport : string = "notSupportedInThisPriorityVersion";
+
+    /**  The error occurs when logging in with an expired password   */
+    public static LoginExpired : string = "loginExpired";
 }

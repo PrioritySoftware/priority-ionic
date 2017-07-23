@@ -31,18 +31,12 @@
 }
 
 #menuPopUpList {
+    width: 210px;
+    margin-left: -5px;
     ion-list
     {
         padding: 0;
         margin: 0;
-        ion-item
-        {
-            // ion-label
-            // {
-            //     margin: 0 30px;
-            // }
-           
-        }
     }
 
     .message {

@@ -235,6 +235,7 @@ export class ItemInputOpts implements OnInit {
 
     //******************************* Attachments *****************************************
 
+    popover = null;
     attachClicked = ($event, column: Column) =>
     {
         if (this.isReadOnly(column))
@@ -246,12 +247,11 @@ export class ItemInputOpts implements OnInit {
         } 
         else if (this.item[column.key])
         {
-            let popover;
             let openAttach: ButtonOptions = {
                 text: Constants.openBtnText,
                 click: () =>
                 {
-                    popover.dismiss();
+                    this.popover.dismiss();
                     this.openAttach(this.item[column.key]);
                 }
             }
@@ -259,14 +259,18 @@ export class ItemInputOpts implements OnInit {
                 text: Constants.changeBtnText,
                 click: () =>
                 {
-                    popover.dismiss();
+                    this.popover.dismiss();
                     this.fileUpload($event,column);
                 }
             }
-            popover = this.popoverCtrl.create(MenuPopup, {
+            this.popover = this.popoverCtrl.create(MenuPopup, {
                 items: [openAttach, changeAttach],
             });
-            popover.present({ ev: $event });
+            this.popover.present({ ev: $event });
+            this.popover.onDidDismiss(()=>
+            {
+                this.popover = null;    
+            });
         }
         else
         {
@@ -296,6 +300,20 @@ export class ItemInputOpts implements OnInit {
     openAttach(url)
     {
         window.open(encodeURI(this.formService.getFileUrl(this.form, url)), "_blank");
+    }
+
+    dismissAttachClicked()
+    {
+        if(this.fileUploader && this.fileUploader.dismissActions())
+        {
+            return true;
+        }
+        if (this.popover)
+        {
+            this.popover.dismiss();
+            return true;
+        }
+        return false;
     }
 
 }

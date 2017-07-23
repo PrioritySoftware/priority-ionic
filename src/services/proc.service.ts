@@ -10,6 +10,7 @@ import { MessageOptions } from "../entities/messageOptions.class";
 import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { ProgressOptions } from "../entities/progressOptions.class";
+import { ProfileConfig } from "../entities/profileConfig.class";
 import { ProgressBarHandler } from "../popups/ProgressBar/progress-bar.handler";
 import { PriorityService } from "../services/priority.service";
 
@@ -24,15 +25,15 @@ export class ProcService
     * 
     * @param {string} name 
     * @param {string} type 
-    * @param {string} dname 
+    * @param {ProfileConfig} profileConfig 
     * 
     * @memberOf ProcService
     */
-    startProcedure(name: string, type: string, dname: string): Promise<any>
+    startProcedure(name: string, type: string, profileConfig: ProfileConfig): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            this.priorityService.priority.procStart(name, type, this.procProgress, dname)
+            this.priorityService.priority.procStart(name, type, this.procProgress, profileConfig)
                 .then(data =>
                 {
                     return this.procSuccess(data);

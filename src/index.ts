@@ -20,6 +20,11 @@ export { ServerResponseCode } from './entities/srvResponseCode.class';
 export { ServerResponseType } from './entities/srvResponseType.class';
 export { DirectActivation } from './entities/directActivation.class';
 export { SearchAction } from './entities/searchAction.class';
+export { ProfileConfig } from './entities/profileConfig.class';
+export { Company } from './entities/company.class';
+export { Color } from './entities/color.class';
+export { EnvProfile } from './entities/envProfile.class';
+export { Message } from './entities/message.class';
 
 // **** Components ****
 
@@ -42,6 +47,7 @@ export { ConfigurationService } from './services/configuration.service';
 export { FormService } from './services/form.service';
 export { ProcService } from './services/proc.service';
 export { PermissionsService } from './services/permissions.service';
+export { MessagesService } from './services/messages.service';
 export { PriorityService } from './services/priority.service';
 
 // **** Directives ****

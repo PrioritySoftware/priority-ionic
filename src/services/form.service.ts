@@ -11,6 +11,7 @@ import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { SearchAction } from "../entities/searchAction.class";
 import { ProcService } from "./proc.service";
+import { ProfileConfig } from "../entities/profileConfig.class";
 import { PriorityService } from "../services/priority.service";
 
 @Injectable()
@@ -46,6 +47,10 @@ export class FormService
     /** Global error and warning handler passed to api with formStart.*/
     errorAndWarningMsgHandler = (serverMsg: ServerResponse) =>
     {
+        if(serverMsg.code === ServerResponseCode.FailedPreviousRequest)
+        {
+            return;
+        }
         let isError;
         let options: MessageOptions = {};
         if (serverMsg.fatal)
@@ -170,11 +175,11 @@ export class FormService
     }
 
     /** Starts parent form. */
-    startParentForm(formName: string, company: string, autoRetriveFirstRows?: number): Promise<any>
+    startParentForm(formName: string, profileConfig : ProfileConfig, autoRetriveFirstRows?: number): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            this.priorityService.priority.formStart(formName, this.errorAndWarningMsgHandler, this.updateFormsData, company, autoRetriveFirstRows).then(
+            this.priorityService.priority.formStart(formName, this.errorAndWarningMsgHandler, this.updateFormsData, profileConfig, autoRetriveFirstRows).then(
                 (form: Form) =>
                 {
                     this.mergeForm(form);
@@ -188,11 +193,11 @@ export class FormService
         });
     }
     /** Starts parent form and retrieves its rows according to the given filter if there is one. */
-    startFormAndGetRows(formName: string, company: string, filter: Filter = null, autoRetriveFirstRows?: number): Promise<any>
+    startFormAndGetRows(formName: string, profileConfig, filter: Filter = null, autoRetriveFirstRows?: number): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            this.startParentForm(formName, company, autoRetriveFirstRows).then(
+            this.startParentForm(formName, profileConfig, autoRetriveFirstRows).then(
                 form =>
                 {
                     this.setSearchFilter(form, filter).then(
@@ -785,6 +790,26 @@ export class FormService
             }
             else
             {
+                if(isNaN(Number(search)))
+                {
+                    let searchColumns = [];
+                    for(let i in columnNames)
+                    {
+                        if(form.columns[columnNames[i]].type !== "number")
+                        {
+                            searchColumns.push(columnNames[i]);
+                        }
+                    }
+                    if(searchColumns.length)
+                    {
+                        columnNames = searchColumns;
+                    }
+                    else
+                    {
+                        reject();
+                    }
+                    
+                }
                 let filter = this.buildSearchFilter(form, columnNames, search);
                 if (filter == null)
                 {
