@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MessageHandler } from "../popups/Message/message.handler";
 import { Constants } from '../constants.config';
@@ -11,12 +11,12 @@ import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { ProgressOptions } from "../entities/progressOptions.class";
 import { ProgressBarHandler } from "../popups/ProgressBar/progress-bar.handler";
-declare var procStart;
+import { PriorityService } from "../services/priority.service";
 
 @Injectable()
 export class ProcService
 {
-    constructor(private messageHandler: MessageHandler, private progressBarHandler: ProgressBarHandler)
+    constructor(private messageHandler: MessageHandler, private progressBarHandler: ProgressBarHandler, private priorityService:PriorityService)
     {
     }
     /**
@@ -32,7 +32,7 @@ export class ProcService
     {
         return new Promise((resolve, reject) =>
         {
-            procStart(name, type, this.procProgress, dname)
+            this.priorityService.priority.procStart(name, type, this.procProgress, dname)
                 .then(data =>
                 {
                     return this.procSuccess(data);
@@ -43,7 +43,7 @@ export class ProcService
                 })
                 .catch(reason => 
                 {
-                    reason=reason? reason.text : Constants.procedureNotSupported;
+                    reason = reason ? reason.text : Constants.procedureNotSupported;
                     this.errorHandling(reason, reject);
                 });
         });
@@ -56,7 +56,7 @@ export class ProcService
      * 
      * @memberOf ProcService
      */
-    errorHandling(reason:string, reject)
+    errorHandling(reason: string, reject)
     {
         this.messageHandler.showErrorOrWarning(true, reason);
         reject();
@@ -110,7 +110,7 @@ export class ProcService
                     break;
                 case ProcStepType.InputOptions:
                     {
-                         // Will be replaced with the corresponding step. 
+                        // Will be replaced with the corresponding step. 
                         this.procCancel(data)
                             .then(() => reject())
                             .catch(reason => reject());
@@ -118,7 +118,7 @@ export class ProcService
                     break;
                 case ProcStepType.InputHelp:
                     {
-                         // Will be replaced with the corresponding step. 
+                        // Will be replaced with the corresponding step. 
                         this.procCancel(data)
                             .then(() => reject())
                             .catch(reason => reject());
@@ -133,7 +133,7 @@ export class ProcService
                     break;
                 case ProcStepType.ReportOptions:
                     {
-                         // Will be replaced with the corresponding step. 
+                        // Will be replaced with the corresponding step. 
                         this.procCancel(data)
                             .then(() => reject())
                             .catch(reason => reject());

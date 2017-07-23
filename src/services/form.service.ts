@@ -11,9 +11,7 @@ import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
 import { SearchAction } from "../entities/searchAction.class";
 import { ProcService } from "./proc.service";
-//import * as priority from 'priority-web-sdk';
-/** formStart(formName,dname, onSuccess, onError,onShowMessge, onUpdateFields,autoRetrieveFirstRows) */
-declare var formStart;
+import { PriorityService } from "../services/priority.service";
 
 @Injectable()
 export class FormService
@@ -21,7 +19,7 @@ export class FormService
     private forms: { [key: string]: Form };
     onFatalError;
 
-    constructor(private messageHandler: MessageHandler, private procService: ProcService)
+    constructor(private messageHandler: MessageHandler, private procService: ProcService,private priorityService:PriorityService)
     {
         this.forms = {};
     }
@@ -176,7 +174,7 @@ export class FormService
     {
         return new Promise((resolve, reject) =>
         {
-            formStart(formName, this.errorAndWarningMsgHandler, this.updateFormsData, company, autoRetriveFirstRows).then(
+            this.priorityService.priority.formStart(formName, this.errorAndWarningMsgHandler, this.updateFormsData, company, autoRetriveFirstRows).then(
                 (form: Form) =>
                 {
                     this.mergeForm(form);

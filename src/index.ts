@@ -42,6 +42,7 @@ export { ConfigurationService } from './services/configuration.service';
 export { FormService } from './services/form.service';
 export { ProcService } from './services/proc.service';
 export { PermissionsService } from './services/permissions.service';
+export { PriorityService } from './services/priority.service';
 
 // **** Directives ****
 
