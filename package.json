@@ -1,7 +1,7 @@
 {
   "name": "priority-ionic",
   "author": "Priority Software",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "ISC",
   "repository": "https://github.com/PrioritySoftware/priority-ionic",
   "scripts": {
@@ -34,7 +34,7 @@
     "ionicons": "3.0.0",
     "moment": "2.18.1",
     "numeral": "2.0.6",
-    "priority-web-sdk": "1.5.13",
+    "priority-web-sdk": "1.7.3",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
     "typescript": "2.3.4",
