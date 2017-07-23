@@ -3,13 +3,15 @@ import { Platform } from 'ionic-angular';
 import { Constants } from "../constants.config";
 import { Configuration } from "../entities/configuration.class";
 import { ServerResponse } from "../entities/srvResponse.class";
-import { LoginResult } from "../entities/loginResult.class";
+import { ProfileConfig } from "../entities/profileConfig.class";
+import { LoginFunctions } from "../entities/loginFunctions.class";
 import { PriorityService } from "../services/priority.service";
 
 @Injectable()
 export class ConfigurationService
 {
     configuration: Configuration;
+    priorityVersion : number[];
 
     constructor(private platform: Platform, private priorityService:PriorityService) { }
 
@@ -30,8 +32,13 @@ export class ConfigurationService
         }
     }
 
+    setProfileConfiguration(profileConfig : ProfileConfig)
+    {
+        this.configuration.profileConfig = profileConfig;
+    }
+
     /** Login - must be after initialization(config). **/
-    logIn(username: string, password: string): Promise<LoginResult>
+    logIn(username: string, password: string): Promise<LoginFunctions>
     {
         return new Promise((resolve, reject) =>
         {
@@ -39,9 +46,10 @@ export class ConfigurationService
             this.configuration.password = password;
             this.priorityService.priority.login(this.configuration)
                 .then(
-                (result: LoginResult) =>
+                (loginFunctions : LoginFunctions) =>
                 {
-                    resolve(result);
+                    this.configuration.loginFunctions = loginFunctions;
+                    resolve();
                 })
                 .catch((reason: ServerResponse) =>
                 {
@@ -66,6 +74,56 @@ export class ConfigurationService
                         reject(reason);
                     });
             
+        });
+    }
+
+    getCompanies() : Promise<any>
+    {
+        return new Promise((resolve,reject)=>
+        {
+            if(!this.configuration.loginFunctions)
+            {
+                /**  No user login yet */
+                reject();
+                return;
+            }
+            this.configuration.loginFunctions.companies()
+                .then(
+                    (res)=>
+                    {
+                        resolve(res.Company);
+                    }
+                )
+                .catch(
+                    (reason : ServerResponse)=>
+                    {
+                        reject(reason);
+                    }
+                );
+        });
+    }
+
+    getEntMessages(ename: string, type: string, from: number, to: number ) : Promise<any>
+    {
+        return new Promise((resolve,reject)=>
+        {
+            if(!this.configuration.loginFunctions)
+            {
+                /**  No user login yet */
+                reject();
+                return;
+            }
+            this.configuration.loginFunctions.entMessages(ename, type, from, to).then(
+                (res)=>
+                {
+                    resolve(res.entMessages);
+                }
+            ).catch(
+                (reason : ServerResponse)=>
+                {
+                    reject(reason);
+                }
+            );
         });
     }
 

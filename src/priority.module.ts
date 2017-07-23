@@ -4,6 +4,7 @@ import { BrowserAnimationsModule }  from '@angular/platform-browser/animations';
 import { IonicModule } from 'ionic-angular';
 import { FormService } from './services/form.service';
 import { ProcService } from './services/proc.service';
+import { MessagesService } from './services/messages.service';
 import { ConfigurationService } from './services/configuration.service';
 import { PermissionsService } from './services/permissions.service';
 import {PriorityService} from './services/priority.service';
@@ -87,6 +88,7 @@ import * as priority from 'priority-web-sdk';
     ConfigurationService,
     FormService,
     ProcService,
+    MessagesService,
     MessageHandler,
     PermissionsService,
     ObjToIterable,

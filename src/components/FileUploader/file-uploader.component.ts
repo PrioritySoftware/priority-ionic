@@ -19,6 +19,7 @@ export class FileUploader
     uploadingFile: string;
     fileChosen: Function;
     photoTaken: Function;
+    private actions = null;
 
     @Input('Form') form : Form;
 
@@ -185,7 +186,7 @@ export class FileUploader
             let filesButton = {
                 handler: () =>
                 {
-                    actions.dismiss();
+                    this.actions.dismiss();
                     setTimeout(() =>
                     {
                         this.fileInput.nativeElement.click();
@@ -197,7 +198,7 @@ export class FileUploader
             let cameraButton = {
                 handler: () =>
                 {
-                    actions.dismiss();
+                    this.actions.dismiss();
                     this.openCamera(this.camera.PictureSourceType.CAMERA)
                 },
                 text: Constants.camera,
@@ -206,18 +207,22 @@ export class FileUploader
             let galeryButton = {
                 handler: () =>
                 {
-                    actions.dismiss();
+                    this.actions.dismiss();
                     this.openCamera(this.camera.PictureSourceType.PHOTOLIBRARY)
                 },
                 text: Constants.photoGalery,
                 icon: "images"
             };
-            let actions = this.actionSheetCtrl.create(
+            this.actions = this.actionSheetCtrl.create(
                 {
                     cssClass: Constants.dirByLang,
                     buttons: [filesButton, cameraButton, galeryButton]
                 });
-            actions.present();
+            this.actions.present();
+            this.actions.onDidDismiss(()=>
+            {
+                this.actions = null;    
+            });
         }
         else
         {
@@ -229,11 +234,22 @@ export class FileUploader
 
     }
 
+    //check and close if have action sheet to select the file source
+    dismissActions() :boolean
+    {
+        if(this.actions)
+        {
+            this.actions.dismiss();
+            return true;
+        }
+        return false;
+    }
+
     /** Cancels the upload in progress */
     cancelUpload = () =>
     {
         this.formService.cancelUpload(this.form);
-    }
+    }   
 
 
 }

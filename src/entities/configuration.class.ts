@@ -1,3 +1,6 @@
+import { ProfileConfig } from "./profileConfig.class";
+import { LoginFunctions } from "./loginFunctions.class";
+
 export interface Configuration
 {
 	/** The server url */
@@ -6,8 +9,8 @@ export interface Configuration
     tabulaini: string;
     /** app language */
     language: number;
-    /** app company */
-    company: string;
+    /** app profile */
+    profileConfig: ProfileConfig;
     /** app name - from json */
     appname: string;
     /** login username value */
@@ -16,4 +19,6 @@ export interface Configuration
     password?: string;
     /** device uuid */
     devicename: string;
+    /** functions the received in execution login **/
+    loginFunctions?: LoginFunctions;
 }
