@@ -17,13 +17,6 @@ $ npm install priority-ionic --save
 ```
 
 <br/>
-Include the priority-web-sdk script in your index.html file:
-
-```html
-<script src="https://cdn.priority-software.com/upgrades/var/api/head/priorityapp.nocache.js"></script>
-```
-
-<br/>
 Add the `PriorityIonicModule` to your app's module imports:
 
 ```js
