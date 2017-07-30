@@ -1,38 +1,26 @@
-#menuPopUpList button
-{
-    // display: inline-block;
-    // padding: 15% 0;
-    // border-radius: 2px;
-    // min-width: 40%;
-    // margin: 10% 3%;
-    background-color: transparent;
-    &[ion-button=true]
-    {
-        color:#48c0ee;
-        font-size: 15px;
-    }
-}
-
-#menuPopUpList ion-list-header
-{
-    border-bottom: none;
-    text-align: center;
-    //background-color: color($colors,primary);
-    color: white;
-}
-
-#menuPopUpList button p
-{
-  margin: 0 10%;
-}
-
-.popover-md .popover-content {
-    width: auto;
-}
-
 #menuPopUpList {
-    width: 210px;
-    margin-left: -5px;
+    button {
+        background-color: transparent;
+        &[ion-button=true]
+        {
+            color:#48c0ee;
+            font-size: 15px;
+            line-height: 16px;
+            -webkit-padding-start: 0;
+        }
+
+        p {
+            margin: 0 10%;
+        }
+    }
+
+    ion-list-header
+    {
+        border-bottom: none;
+        text-align: center;
+        color: white;
+    }
+
     ion-list
     {
         padding: 0;
@@ -50,12 +38,11 @@
     .item-checkbox {
         font-size: 13px;
     }
-    
-    
+
     [dir="rtl"] {
         ion-checkbox {
-            margin-left: 10px;
-        }
+            margin-left: -8px;
+        } 
     }
 
     [dir="ltr"] {
@@ -63,15 +50,8 @@
             margin-right: 10px;
         }
     }
+}
 
-
-    
-    
-
-    // .checkbox-label {
-    //     font-size: 13px;
-    //     [dir="rtl"] {
-    //         margin-left: 12px;
-    //     }
-    // }
+.popover-md .popover-content {
+    width: auto;
 }
