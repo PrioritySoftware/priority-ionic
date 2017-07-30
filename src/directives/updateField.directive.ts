@@ -23,15 +23,18 @@ export class UpdateFieldDirective
     }
 
 
-    @HostListener('focus') onfocus()
+    @HostListener('ionFocus') onfocus()
     {
        //save the current value before changes
-       this.prevVal = this.model.value;
+       this.prevVal = this.model['viewModel'];
     }
-
-    @HostListener('change') onchange()
+    
+    @HostListener('ionBlur') onBlur()
     {
-        this.updateField(this.model.value);
+        if(this.prevVal !== this.model['viewModel'])
+        {
+           this.updateField(this.model['viewModel']); 
+        }
     }
 
     @HostListener('ionChange') onionchange()
