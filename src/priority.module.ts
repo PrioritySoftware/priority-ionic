@@ -34,8 +34,6 @@ import { UpdateFieldDirective } from './directives/updateField.directive';
 import { InnerHTML } from "./directives/innerHTML.directive";
 import { ClickOutsideDirective } from "./directives/clickOutside.directive";
 
-import * as priority from 'priority-web-sdk';
-
 @NgModule({
   declarations: [
     DateTimeField,
@@ -95,7 +93,6 @@ import * as priority from 'priority-web-sdk';
     FilterPipe,
     SortPipe,
     ProgressBarHandler,
-    {provide:'priority-web-sdk', useValue:priority},
     PriorityService
   ],
   entryComponents: [
