@@ -1,7 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import * as Priority from 'priority-web-sdk';
+
 
 @Injectable()
 export class PriorityService
 {
-    constructor( @Inject('priority-web-sdk') public priority: any){}
+    priority;
+    constructor( ){
+        this.priority=Priority;
+    }
 }
