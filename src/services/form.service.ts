@@ -9,6 +9,7 @@ import { QueryValue } from "../entities/queryValue.class";
 import { MessageOptions } from "../entities/messageOptions.class";
 import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
+import { Search } from "../entities/search.class";
 import { SearchAction } from "../entities/searchAction.class";
 import { ProcService } from "./proc.service";
 import { ProfileConfig } from "../entities/profileConfig.class";
@@ -506,7 +507,7 @@ export class FormService
         return new Promise((resolve, reject) =>
         {
             form.choose(colName, fieldVal).then(
-                (result) =>
+                (result:Search) =>
                 {
                     resolve(result);
                 },
@@ -517,15 +518,15 @@ export class FormService
         });
 
     }
-    /** Returns search results for the given value. Default action is SearchAction.TextChange = 4.*/
-    search(form: Form, val, action: number = SearchAction.TextChange): Promise<any>
+    /** Returns search result for the given value. Default action is SearchAction.TextChange = 4.*/
+    search(form: Form, val, action: number = SearchAction.TextChange): Promise<Search>
     {
         return new Promise((resolve, reject) =>
         {
             form.searchAction(action, val).then(
                 result =>
                 {
-                    resolve(result.SearchLine);
+                    resolve(result);
                 },
                 (reason: ServerResponse) =>
                 {
