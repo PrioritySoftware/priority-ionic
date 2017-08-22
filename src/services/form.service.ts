@@ -9,6 +9,7 @@ import { QueryValue } from "../entities/queryValue.class";
 import { MessageOptions } from "../entities/messageOptions.class";
 import { ServerResponseType } from "../entities/srvResponseType.class";
 import { ServerResponseCode } from "../entities/srvResponseCode.class";
+import { Search } from "../entities/search.class";
 import { SearchAction } from "../entities/searchAction.class";
 import { ProcService } from "./proc.service";
 import { ProfileConfig } from "../entities/profileConfig.class";
@@ -20,7 +21,7 @@ export class FormService
     private forms: { [key: string]: Form };
     onFatalError;
 
-    constructor(private messageHandler: MessageHandler, private procService: ProcService,private priorityService:PriorityService)
+    constructor(private messageHandler: MessageHandler, private procService: ProcService, private priorityService: PriorityService)
     {
         this.forms = {};
     }
@@ -47,7 +48,7 @@ export class FormService
     /** Global error and warning handler passed to api with formStart.*/
     errorAndWarningMsgHandler = (serverMsg: ServerResponse) =>
     {
-        if(serverMsg.code === ServerResponseCode.FailedPreviousRequest)
+        if (serverMsg.code === ServerResponseCode.FailedPreviousRequest)
         {
             return;
         }
@@ -175,11 +176,13 @@ export class FormService
     }
 
     /** Starts parent form. */
-    startParentForm(formName: string, profileConfig : ProfileConfig, autoRetriveFirstRows?: number): Promise<any>
+    startParentForm(formName: string, profileConfig: ProfileConfig, autoRetriveFirstRows?: number, errorAndWarningHandler = null, updateFormsDataHandler = null): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            this.priorityService.priority.formStart(formName, this.errorAndWarningMsgHandler, this.updateFormsData, profileConfig, autoRetriveFirstRows).then(
+            errorAndWarningHandler = errorAndWarningHandler ? errorAndWarningHandler : this.errorAndWarningMsgHandler;
+            updateFormsDataHandler = updateFormsDataHandler ? updateFormsDataHandler : this.updateFormsData;
+            this.priorityService.priority.formStart(formName, errorAndWarningHandler, updateFormsDataHandler, profileConfig, autoRetriveFirstRows).then(
                 (form: Form) =>
                 {
                     this.mergeForm(form);
@@ -506,7 +509,7 @@ export class FormService
         return new Promise((resolve, reject) =>
         {
             form.choose(colName, fieldVal).then(
-                (result) =>
+                (result: Search) =>
                 {
                     resolve(result);
                 },
@@ -517,15 +520,15 @@ export class FormService
         });
 
     }
-    /** Returns search results for the given value. Default action is SearchAction.TextChange = 4.*/
-    search(form: Form, val, action: number = SearchAction.TextChange): Promise<any>
+    /** Returns search result for the given value. Default action is SearchAction.TextChange = 4.*/
+    search(form: Form, val, action: number = SearchAction.TextChange): Promise<Search>
     {
         return new Promise((resolve, reject) =>
         {
             form.searchAction(action, val).then(
                 result =>
                 {
-                    resolve(result.SearchLine);
+                    resolve(result);
                 },
                 (reason: ServerResponse) =>
                 {
@@ -537,23 +540,17 @@ export class FormService
     // ************ SubForms *************
 
     /**Starts 'subformName' subForm. */
-    startSubform(parentForm: Form, subformName: string, onWarnings = null): Promise<any>
+    startSubform(parentForm: Form, subformName: string, errorAndWarningHandler = null, updateFormsDataHandler = null): Promise<any>
     {
         return new Promise((resolve, reject) =>
         {
-            let onErrorOrWarning;
-            if (onWarnings == null)
-            {
-                onErrorOrWarning = this.errorAndWarningMsgHandler;
-            }
-            else
-            {
-                onErrorOrWarning = onWarnings;
-            }
             let updateFormsData = (result) => { this.updateFormsData(result, parentForm) };
+            errorAndWarningHandler = errorAndWarningHandler ? errorAndWarningHandler : this.errorAndWarningMsgHandler;
+            updateFormsDataHandler = updateFormsDataHandler ? updateFormsDataHandler : updateFormsData;
+        
             parentForm.startSubForm(subformName,
-                onErrorOrWarning,
-                updateFormsData,
+                errorAndWarningHandler,
+                updateFormsDataHandler,
                 (subform: Form) =>
                 {
                     this.mergeForm(subform, parentForm);
@@ -698,7 +695,7 @@ export class FormService
                         },
                         (reason: ServerResponse) =>
                         {
-                            this.undoRow(subform).then(()=>this.endForm(subform)).catch(() => { });
+                            this.undoRow(subform).then(() => this.endForm(subform)).catch(() => { });
                             this.rejectionHandler(reason, reject);
                         });
                 },
@@ -790,17 +787,17 @@ export class FormService
             }
             else
             {
-                if(isNaN(Number(search)))
+                if (isNaN(Number(search)))
                 {
                     let searchColumns = [];
-                    for(let i in columnNames)
+                    for (let i in columnNames)
                     {
-                        if(form.columns[columnNames[i]].type !== "number")
+                        if (form.columns[columnNames[i]].type !== "number")
                         {
                             searchColumns.push(columnNames[i]);
                         }
                     }
-                    if(searchColumns.length)
+                    if (searchColumns.length)
                     {
                         columnNames = searchColumns;
                     }
@@ -808,7 +805,7 @@ export class FormService
                     {
                         reject();
                     }
-                    
+
                 }
                 let filter = this.buildSearchFilter(form, columnNames, search);
                 if (filter == null)
