@@ -557,7 +557,6 @@ export class FormService
             let updateFormsData = (result) => { this.updateFormsData(result, parentForm) };
             errorAndWarningHandler = errorAndWarningHandler ? errorAndWarningHandler : this.errorAndWarningMsgHandler;
             updateFormsDataHandler = updateFormsDataHandler ? updateFormsDataHandler : updateFormsData;
-
             parentForm.startSubForm(subformName,
                 errorAndWarningHandler,
                 updateFormsDataHandler,
