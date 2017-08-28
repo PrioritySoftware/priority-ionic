@@ -406,6 +406,16 @@ export class FormService
                 resolve();
                 return;
             }
+            if (!rowInd)
+            {
+                reject({
+
+                    form: form,
+                    message: "No rowIndex.",
+                    fatal: true
+                });
+                return;
+            }
             this.setIsRowChangesSaved(form, rowInd, false);
             form.fieldUpdate(columnName, newValue).then(
                 result =>
@@ -547,7 +557,7 @@ export class FormService
             let updateFormsData = (result) => { this.updateFormsData(result, parentForm) };
             errorAndWarningHandler = errorAndWarningHandler ? errorAndWarningHandler : this.errorAndWarningMsgHandler;
             updateFormsDataHandler = updateFormsDataHandler ? updateFormsDataHandler : updateFormsData;
-        
+
             parentForm.startSubForm(subformName,
                 errorAndWarningHandler,
                 updateFormsDataHandler,

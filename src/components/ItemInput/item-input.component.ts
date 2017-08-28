@@ -17,6 +17,7 @@ export class ItemInput
 
     @Input('Form') form: Form;
     @Input('Item') item;
+    @Input('ItemIndex') rowIndex: number;
     @Input('ColumnsOptions') columnsOptions: ColumnsOptions;
 
     @Output() columnClick = new EventEmitter<Column>();
@@ -106,7 +107,21 @@ export class ItemInput
             {
                 this.messageHandler.showTransLoading();
             }, 500);
-            this.formService.updateField(this.form, this.item.key, columnName, value)
+            if (!this.rowIndex)
+            {
+                if (!this.item.key)
+                {
+                    clearTimeout(blockTimeout);
+                    this.messageHandler.hideLoading();
+                    this.item[columnName] = prevVal;
+                    return;
+                }
+                else
+                {
+                    this.rowIndex = this.item.key;
+                }
+            }
+            this.formService.updateField(this.form, this.rowIndex, columnName, value)
                 .then(result =>
                 {
                     this.isDirty = true;
