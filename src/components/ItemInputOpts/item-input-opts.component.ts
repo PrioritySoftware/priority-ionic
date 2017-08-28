@@ -21,6 +21,7 @@ export class ItemInputOpts implements OnInit {
 
     @Input('Form') form : Form;
     @Input('Item') item;
+    @Input('ItemIndex') itemIndex;
     
     columnsOptions : ColumnOptions = {};
     @Input() set ColumnsOptions ( options : ColumnOptions)
