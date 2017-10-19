@@ -16,8 +16,8 @@ const Mask: string = '999:99';
 export class ValidationDirective implements OnInit
 {
   constructor(private renderer: Renderer,
-              private elementRef: ElementRef,
-              private model: NgControl) { }
+    private elementRef: ElementRef,
+    private model: NgControl) { }
 
   @Input('validation') column;
   @Output() validationMessage = new EventEmitter<String>();
@@ -35,6 +35,10 @@ export class ValidationDirective implements OnInit
     // and limit user decimal input to column's deciaml
     if (value !== null && value !== undefined)
     {
+      let inputElem = this.elementRef.nativeElement.querySelector('input');
+      let caretPos = inputElem.selectionStart;
+      let numOfCommas = (value.match(/,/g) || []).length;
+
       let val = value.replace(/[^0-9.]/g, '');
       val = val.substring(0, this.column.maxLength);
 
@@ -46,9 +50,21 @@ export class ValidationDirective implements OnInit
       }
 
       this.model.valueAccessor.writeValue(val);
-      this.renderer.setElementProperty(this.elementRef.nativeElement.querySelector('input'), 'value', val);
-
+      this.renderer.setElementProperty(inputElem, 'value', val);
       this.model.viewToModelUpdate(val);
+
+      //fix for the caret bug - caret was moving backwards one place when a comma has been added.
+      let newNumOfCommas = (val.match(/,/g) || []).length;
+      if (newNumOfCommas != numOfCommas)
+      {
+        setTimeout(() =>
+        {
+          let pos = newNumOfCommas > numOfCommas ? caretPos+1 : caretPos - 1;
+          inputElem.setSelectionRange(pos, pos);
+        }, 0);
+      }
+
+
     }
   }
 
