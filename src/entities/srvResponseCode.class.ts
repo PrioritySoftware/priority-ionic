@@ -45,9 +45,6 @@ export class ServerResponseCode
     /** The current API request was stoped.  */
     public static Stop: string = "stop";
 
-     /** The error is an information error which means it doesn't stop the ongoing process.  */
-    public static Information: string = "information";
-
     /** The error when calling a function that is not supported in the Priority version  */
     public static NotSupport : string = "notSupportedInThisPriorityVersion";
 

@@ -125,8 +125,7 @@ export class MessageHandler
                 text: approveText,
                 click: () =>
                 {
-                    if (!isError)
-                        onApprove();
+                    onApprove();
                 }
             };
 

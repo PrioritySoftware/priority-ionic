@@ -189,12 +189,16 @@ export class ProcService
     {
         return new Promise((resolve, reject) =>
         {
+            let isError = data.messageType != ServerResponseType.Warning;
             let onApprove = () =>
             {
-                data.proc.message(1)
-                    .then(data => this.procSuccess(data))
-                    .then(() => resolve())
-                    .catch(reason => reject(reason));
+                if (!isError)
+                {
+                    data.proc.message(1)
+                        .then(data => this.procSuccess(data))
+                        .then(() => resolve())
+                        .catch(reason => reject(reason));
+                }
             };
             let onCancel = () =>
             {
@@ -203,7 +207,7 @@ export class ProcService
                     .then(() => resolve())
                     .catch(reason => reject(reason));
             };
-            let isError = data.messageType != ServerResponseType.Warning;
+
             this.messageHandler.showErrorOrWarning(isError, data.message, onApprove, onCancel);
         });
     }

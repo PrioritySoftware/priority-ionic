@@ -115,6 +115,14 @@ export declare class Form
 	warningConfirm(ok)
 
 	/**
+	 * Approve an information message.
+	 * @param {WarningSuccessCallback} onSuccess - called on success.
+	 * @param {WarningErrorCallback} onError - called on error.
+	 * @instance
+	 */
+	infoMsgConfirm();
+
+	/**
 	 * @callback SaveRowSuccessCallback
 	 * @param {ResultObj} result - result object.
 	 */

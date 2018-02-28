@@ -46,6 +46,11 @@ export class FormService
         form.warningConfirm(1);
     }
     /** Global error and warning handler passed to api with formStart.*/
+    infoMsgConfirm = (form: Form) =>
+    {
+        form.infoMsgConfirm();
+    }
+    /** Global error and warning handler passed to api with formStart. */
     errorAndWarningMsgHandler = (serverMsg: ServerResponse) =>
     {
         if (serverMsg.code === ServerResponseCode.FailedPreviousRequest)
@@ -68,22 +73,30 @@ export class FormService
             options.buttonsText.push(Constants.approveEditText);
         }
 
-        // Sets is'Error' and message title.
+        // Sets 'isError' and message title.
         if (serverMsg.type == ServerResponseType.Error || serverMsg.type == ServerResponseType.APIError || serverMsg.code == ServerResponseCode.Stop)
         {
             isError = true;
-            options.title = serverMsg.code == ServerResponseCode.Information ? Constants.defaultMsgTitle : Constants.errorTitle;
+            options.title = Constants.errorTitle;
         }
-        else
+        else if (serverMsg.type == ServerResponseType.Warning)
         {
             isError = false;
             options.title = Constants.warningTitle;
+        }
+        else
+        {
+            isError = true;
+            options.title = Constants.defaultMsgTitle;
         }
 
         this.messageHandler.showErrorOrWarning(isError, serverMsg.message,
             () =>
             {
-                this.approveWarn(serverMsg.form);
+                if (serverMsg.type === ServerResponseType.Information)
+                    this.infoMsgConfirm(serverMsg.form);
+                else if (!isError)
+                    this.approveWarn(serverMsg.form);
             },
             () =>
             {
@@ -91,7 +104,6 @@ export class FormService
             },
             options);
     }
-
     /** Global callback for all forms,rows,fileds updates returned from api - passed to api with formStart*/
     updateFormsData = (result, parentForm: Form) =>
     {
